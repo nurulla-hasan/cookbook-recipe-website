@@ -2,14 +2,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Facebook, Twitter, Instagram, Linkedin, Phone, Mail, MapPin, Apple, Smartphone } from "lucide-react"
-import Logo from '../../assets/Logo.png';
+import Logo from '../../../assets/Logo.png';
 
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-[#C1D7AB] to-[#E6F9D3]/50 text-foreground">
       {/* Newsletter Section */}
       <div className="px-4 py-8 md:px-8 lg:px-16">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto container">
           <div className="flex flex-col items-center justify-center space-y-4 text-center md:flex-row md:justify-between md:space-x-4 md:space-y-0">
             <h3 className="text-xl font-medium text-foreground md:text-4xl font-caladea">Subscribe to our Newsletter</h3>
             <div className="flex w-full max-w-md space-x-2">
@@ -28,7 +28,7 @@ const Footer = () => {
 
       {/* Main Footer Content */}
       <div className="px-4 py-12 md:px-8 lg:px-16">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto container">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {/* Brand & Social */}
             <div className="space-y-4 flex flex-col">
