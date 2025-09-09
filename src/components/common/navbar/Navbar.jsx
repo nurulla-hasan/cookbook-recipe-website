@@ -80,7 +80,7 @@ const Navbar = () => {
                         </Link>
 
                         {/* Desktop Navigation */}
-                        <div className="hidden md:flex items-center space-x-8">
+                        <div className="hidden lg:flex items-center space-x-8">
                             {navigationItems.map((item) => (
                                 <Link
                                     key={item.name}
@@ -98,7 +98,7 @@ const Navbar = () => {
                         {/* Theme Toggle */}
                         <Toggle size="sm"
                             variant="ghost"
-                            className="group rounded-full hidden lg:flex"
+                            className="group rounded-full hidden md:flex"
                             pressed={theme === "dark"}
                             onPressedChange={() =>
                                 setTheme(theme === "dark" ? "light" : "dark")

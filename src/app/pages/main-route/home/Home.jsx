@@ -1,10 +1,11 @@
+import PageLayout from "@/app/layout/PageLayout";
 
 
 const Home = () => {
     return (
-        <div>
+        <PageLayout>
             this is home
-        </div>
+        </PageLayout>
     );
 };
 

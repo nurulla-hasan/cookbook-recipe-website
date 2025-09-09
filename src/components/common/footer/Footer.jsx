@@ -11,8 +11,10 @@ const Footer = () => {
       <div className="px-4 py-8 md:px-8 lg:px-16">
         <div className="mx-auto container">
           <div className="flex flex-col items-center justify-center space-y-4 text-center md:flex-row md:justify-between md:space-x-4 md:space-y-0">
-            <h3 className="text-xl font-medium text-foreground md:text-4xl font-caladea">Subscribe to our Newsletter</h3>
-            <div className="flex w-full max-w-md space-x-2">
+            <div className="flex flex-1 w-full max-w-md">
+              <h3 className="text-xl md:text-2xl lg:text-4xl font-medium text-foreground font-caladea">Subscribe to our Newsletter</h3>
+            </div>
+            <div className="flex flex-1 w-full max-w-md space-x-2">
               <Input
                 type="email"
                 placeholder="Your email"
@@ -27,12 +29,12 @@ const Footer = () => {
       <Separator />
 
       {/* Main Footer Content */}
-      <div className="px-4 py-12 md:px-8 lg:px-16">
+      <div className="px-4 py-12 md:px-8 lg:px-16 xl:px-0">
         <div className="mx-auto container">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {/* Brand & Social */}
             <div className="space-y-4 flex flex-col">
-                <img src={Logo} alt="" className="h-16 w-16 rounded-full object-contain"/>
+              <img src={Logo} alt="" className="h-16 w-16 rounded-full object-contain" />
               <p className="text-sm text-foreground">Find Us On</p>
               <div className="flex space-x-3">
                 <Button
@@ -40,28 +42,28 @@ const Footer = () => {
                   size="icon"
                   className="rounded-full border-primary bg-inherit text-primary"
                 >
-                  <Facebook/>
+                  <Facebook />
                 </Button>
                 <Button
                   variant="outline"
                   size="icon"
                   className="rounded-full border-primary bg-inherit text-primary"
                 >
-                  <Twitter/>
+                  <Twitter />
                 </Button>
                 <Button
                   variant="outline"
                   size="icon"
                   className="rounded-full border-primary bg-inherit text-primary"
                 >
-                  <Instagram/>
+                  <Instagram />
                 </Button>
                 <Button
                   variant="outline"
                   size="icon"
                   className="rounded-full border-primary bg-inherit text-primary"
-                  >
-                  <Linkedin/>
+                >
+                  <Linkedin />
                 </Button>
               </div>
             </div>
@@ -124,7 +126,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <Separator/>
+      <Separator />
 
       {/* App Download Section */}
       <div className="px-4 py-8 md:px-8 lg:px-16">
@@ -151,7 +153,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <Separator/>
+      <Separator />
 
       {/* Copyright */}
       <div className="px-4 py-6 md:px-8 lg:px-16">
