@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import AuthLayout from "../layout/AuthLayout";
 import { lazy } from "react";
-import { withErrorAndSuspense } from "@/components/tools/withErrorAndSuspense";
+import { withErrorAndSuspense } from "@/tools/withErrorAndSuspense";
 const Home = lazy(() => import("../pages/main-route/home/Home"));
 const Recipes = lazy(() => import("../pages/main-route/recipes/Recipes"));
 const RecipeDetails = lazy(() => import("../pages/main-route/recipes/recipe-details/RecipeDetails"));

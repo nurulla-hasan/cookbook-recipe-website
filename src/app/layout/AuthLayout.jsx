@@ -1,4 +1,4 @@
-import { withErrorAndSuspense } from "@/components/tools/withErrorAndSuspense";
+import { withErrorAndSuspense } from "@/tools/withErrorAndSuspense";
 import { Outlet } from "react-router-dom";
 
 const AuthLayout = () => {
