@@ -1,11 +1,14 @@
 import PageLayout from "@/app/layout/PageLayout";
+import HeroCarousel from "@/components/common/hero/HeroCarousel";
 
 
 const Home = () => {
     return (
-        <PageLayout>
-            this is home
-        </PageLayout>
+        <>
+            <HeroCarousel />
+            <PageLayout>
+            </PageLayout>
+        </>
     );
 };
 
