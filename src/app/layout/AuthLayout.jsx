@@ -1,9 +1,14 @@
-import { withErrorAndSuspense } from "@/tools/withErrorAndSuspense";
 import { Outlet } from "react-router-dom";
+import { Suspense } from "react";
+import { ErrorBoundary } from "@/tools/ErrorBoundary";
 
 const AuthLayout = () => {
     return (
-        withErrorAndSuspense(Outlet, <div>Loading...</div>)
+        <ErrorBoundary>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Outlet />
+            </Suspense>
+        </ErrorBoundary>
     );
 };
 
