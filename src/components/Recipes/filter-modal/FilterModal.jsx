@@ -8,8 +8,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
-import { Star } from 'lucide-react';
 import FilterDropdown from '../filter-dropdown/FilterDropdown';
+import { StarRating } from '@/tools/StarRating';
 
 const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
   // State for filters
@@ -135,15 +135,11 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
               <label className="font-medium">Rating</label>
               <span className="text-sm">All</span>
             </div>
-            <div className="flex gap-1">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star
-                  key={star}
-                  className={`w-6 h-6 cursor-pointer ${star <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-primary'}`}
-                  onClick={() => setRating(star)}
-                />
-              ))}
-            </div>
+            <StarRating
+              rating={rating}
+              onRate={setRating}
+              className="w-full"
+            />
           </div>
         </div>
 

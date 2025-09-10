@@ -6,57 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Search, SlidersHorizontal } from "lucide-react";
 import RecipeCard from "@/components/Recipes/recipe-card/RecipeCard";
 import FilterModal from "@/components/Recipes/filter-modal/FilterModal";
-
-const mockRecipes = [
-    {
-        id: 1,
-        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1780&auto=format&fit=crop',
-        category: 'Lunches',
-        title: 'Five-Spice Sweet Potato & Broccoli Stew',
-        duration: '40 min',
-        rating: 4.8,
-    },
-    {
-        id: 2,
-        image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1470&auto=format&fit=crop',
-        category: 'Desserts',
-        title: 'Pudding',
-        duration: '40 min',
-        rating: 4.8,
-    },
-    {
-        id: 3,
-        image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1374&auto=format&fit=crop',
-        category: 'Breakfast',
-        title: 'Tropical Protein Smoothie',
-        duration: '40 min',
-        rating: 4.8,
-    },
-    {
-        id: 4,
-        image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=2070&auto=format&fit=crop',
-        category: 'Salads',
-        title: 'Egg & Vegetable Salad',
-        duration: '40 min',
-        rating: 4.8,
-    },
-    {
-        id: 5,
-        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1780&auto=format&fit=crop',
-        category: 'Lunches',
-        title: 'Spicy Chicken Stir-fry',
-        duration: '35 min',
-        rating: 4.5,
-    },
-    {
-        id: 6,
-        image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1470&auto=format&fit=crop',
-        category: 'Desserts',
-        title: 'Chocolate Mousse',
-        duration: '20 min',
-        rating: 4.9,
-    },
-];
+import {mockRecipes} from "@/lib/data";
 
 const Recipes = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -89,7 +39,7 @@ const Recipes = () => {
                 title="Recipes"
                 breadcrumbs={breadcrumbs}
             />
-            <PageLayout>
+            <PageLayout paddingSize="compact">
                 {/* Title and Search/Filter */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                     <div>

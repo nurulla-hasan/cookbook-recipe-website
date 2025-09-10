@@ -7,10 +7,11 @@ export const StarRating = ({
   totalStars = 5,
   onRate,
   size = 18,
+  gap = 1,
   className,
 }) => {
   return (
-    <div className={cn("flex items-center gap-1", className)}>
+    <div className={cn(`flex items-center gap-${gap}`, className)}>
       {[...Array(totalStars)].map((_, index) => {
         const starValue = index + 1;
         const isActive = starValue <= rating;

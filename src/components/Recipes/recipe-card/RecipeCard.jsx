@@ -38,7 +38,11 @@ const RecipeCard = ({ recipe }) => {
                             variant="ghost" 
                             size="icon" 
                             className="rounded-full bg-primary/20"
-                            onClick={() => setIsLiked(!isLiked)}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setIsLiked(!isLiked)
+                            }}
                         >
                             <Heart 
                                 className={`${isLiked ? 'fill-red-500 text-red-500' : 'text-white'}`} 

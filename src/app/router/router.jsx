@@ -16,7 +16,7 @@ const Register = lazy(() => import("../pages/auth-route/register/Register"));
 const ForgetPassword = lazy(() => import("../pages/auth-route/forgot-password/ForgetPassword"));
 const VerifyOtp = lazy(() => import("../pages/auth-route/verify-otp/VerifyOtp"));
 const ResetPassword = lazy(() => import("../pages/auth-route/reset-password/ResetPassword"));
-
+const Category = lazy(() => import("../pages/main-route/category/Category"));
 const router = createBrowserRouter([
     {
         path: "/",
@@ -29,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "recipes",
                 element: withErrorAndSuspense(Recipes, <div>Loading...</div>),
+            },
+            {
+                path: "category/:slug",
+                element: withErrorAndSuspense(Category, <div>Loading...</div>),
             },
             {
                 path: "recipes/recipe-details/:id",
