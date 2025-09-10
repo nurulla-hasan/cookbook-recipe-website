@@ -1,9 +1,13 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { StarRating } from "@/lib/utils";
 import { ArrowDown, Plus } from "lucide-react";
+import ReviewModal from "../modal/ReviewModal";
+import { StarRating } from "@/tools/StarRating";
+import { useState } from "react";
 
 const Reviews = ({ recipe }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
         <div className="space-y-8">
             <div>
@@ -50,12 +54,18 @@ const Reviews = ({ recipe }) => {
             </div>
 
             <Button
+                onClick={() => setIsOpen(true)}
                 variant="outline"
                 className="w-full py-6"
             >
                 <Plus />
                 Add Review
             </Button>
+
+            <ReviewModal
+                isOpen={isOpen}
+                onClose={setIsOpen}
+            />
         </div>
     );
 };
