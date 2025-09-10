@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { Heart, Home, Book, Calendar, ShoppingCart, Star, Info, Moon, Sun, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Toggle } from "@/components/ui/toggle"
-import { Link } from "react-router-dom"
+import { NavLink, Link } from "react-router-dom"
 import Logo from '../../../assets/Logo.png';
 import { useTheme } from "@/theme/theme-provider"
 import MobileMenu from "./MobileMenu"
@@ -82,13 +82,17 @@ const Navbar = () => {
                         {/* Desktop Navigation */}
                         <div className="hidden lg:flex items-center space-x-8">
                             {navigationItems.map((item) => (
-                                <Link
+                                <NavLink
                                     key={item.name}
                                     to={item.href}
-                                    className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                                    className={({ isActive }) =>
+                                        `text-sm font-medium transition-colors hover:text-foreground ${
+                                            isActive ? 'text-foreground' : 'text-muted-foreground'
+                                        }`
+                                    }
                                 >
                                     {item.name}
-                                </Link>
+                                </NavLink>
                             ))}
                         </div>
                     </div>

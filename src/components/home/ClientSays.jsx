@@ -86,7 +86,7 @@ const ClientSays = () => {
                         {testimonials.map((testimonial) => (
                             <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/3">
                                 <div className="p-4 h-full">
-                                    <Card className="h-full flex flex-col justify-between p-8 rounded-2xl border-gray-200 shadow-sm">
+                                    <Card className="h-full flex flex-col justify-between p-8 rounded-2xl shadow-sm">
                                         <div>
                                             {renderStars(testimonial.rating)}
                                             <p className="mt-5 text-muted-foreground text-sm">{testimonial.text}</p>

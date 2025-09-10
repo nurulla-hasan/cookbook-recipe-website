@@ -6,7 +6,7 @@ import Logo from '../../../assets/Logo.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-[#C1D7AB] to-[#E6F9D3]/50 dark:bg-gradient-to-b dark:from-[#1E1E1E] dark:to-[#333333] text-foreground">
+    <footer className="bg-gradient-to-b from-secondary to-secondary/50 text-foreground">
       {/* Newsletter Section */}
       <div className="px-4 py-8 md:px-8 lg:px-16">
         <div className="mx-auto container">

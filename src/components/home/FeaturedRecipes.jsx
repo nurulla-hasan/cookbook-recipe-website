@@ -56,7 +56,7 @@ const FeaturedRecipes = () => {
 
     return (
         <PageLayout>
-            <div className="flex flex-col sm:flex-row justify-between md:items-center gap-2 mb-8">
+            <div className="flex flex-row justify-between items-center gap-2 mb-8">
                 <Title title="Featured Recipes" />
                 <div className="flex gap-2">
                     <Button variant="outline" size="icon" onClick={() => api?.scrollPrev()}>
