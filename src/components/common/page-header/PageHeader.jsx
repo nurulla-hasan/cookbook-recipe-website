@@ -15,7 +15,7 @@ import {
  */
 const PageHeader = ({ title, breadcrumbs }) => {
   return (
-    <section className="bg-secondary py-12">
+    <section className="bg-secondary py-6 md:py-12">
       <div className="container mx-auto text-center">
         <h1 className="text-4xl font-medium text-foreground/80 mb-4">{title}</h1>
         

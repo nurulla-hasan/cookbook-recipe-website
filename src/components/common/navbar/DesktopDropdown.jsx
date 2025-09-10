@@ -13,7 +13,7 @@ const DesktopDropdown = ({isLoading, isLoggedIn, admin, getInitials, handleLogou
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <div className="flex items-center space-x-2 cursor-pointer">
-                            <Avatar className="h-10 w-10">
+                            <Avatar className="h-10 w-10 border">
                                 <AvatarImage src={admin?.profile_image} alt={admin?.name || "User avatar"} />
                                 <AvatarFallback>{getInitials(admin?.name)}</AvatarFallback>
                             </Avatar>
