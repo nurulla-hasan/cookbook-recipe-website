@@ -10,7 +10,7 @@ const GetApp = () => {
                     {/* Title */}
                     <div className="flex items-center gap-3">
                         <Smartphone className="w-8 h-8 text-primary" />
-                        <h2 className="text-2xl font-medium text-foreground/80">Get Started Today</h2>
+                        <h2 className="text-2xl font-medium ">Get Started Today</h2>
                     </div>
 
                     {/* Subtitle */}

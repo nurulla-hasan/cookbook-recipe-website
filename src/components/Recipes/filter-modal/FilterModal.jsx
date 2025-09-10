@@ -152,7 +152,7 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
           <Button onClick={handleApply} className="w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-md">
             SHOW RECIPES
           </Button>
-          <Button onClick={handleClear} variant="outline" className="w-full border-primary text-foreground/80 hover:bg-primary/10 py-2 rounded-md">
+          <Button onClick={handleClear} variant="outline" className="w-full border-primary  hover:bg-primary/10 py-2 rounded-md">
             Clear All Filters
           </Button>
         </div>

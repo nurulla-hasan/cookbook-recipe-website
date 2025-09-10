@@ -18,7 +18,7 @@ const FeatureSection = ({ icon, title, description, features, image, imagePositi
           <div className={`order-2 ${textOrderClass}`}>
             <div className="flex items-center gap-3 mb-4">
               {icon && React.cloneElement(icon, { className: 'w-7 h-7 text-primary' })}
-              <h2 className="text-3xl font-bold text-foreground/80">{title}</h2>
+              <h2 className="text-3xl font-bold ">{title}</h2>
             </div>
             <p className="text-muted-foreground mb-6 text-lg">{description}</p>
             <ul className="space-y-3 ml-3">

@@ -31,7 +31,7 @@ const router = createBrowserRouter([
                 element: withErrorAndSuspense(Recipes, <div>Loading...</div>),
             },
             {
-                path: "recipes/:id",
+                path: "recipes/recipe-details/:id",
                 element: withErrorAndSuspense(RecipeDetails, <div>Loading...</div>),
             },
             {

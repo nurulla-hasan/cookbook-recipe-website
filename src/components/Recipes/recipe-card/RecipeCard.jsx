@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Heart, Clock, Star, ShoppingCart, ChefHat } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const RecipeCard = ({ recipe }) => {
     const [isLiked, setIsLiked] = useState(false);
 
     return (
-        <div className="h-full group transition-all duration-300 hover:-translate-y-1">
-            <Card className="h-full flex flex-col md:flex-row overflow-hidden border-0 shadow-sm transition-all duration-300 bg-secondary">
+        <Link 
+            to={`/recipes/recipe-details/${recipe.id}`}
+            className="h-full group transition-all duration-300 hover:-translate-y-1 block"
+        >
+            <Card className="h-full flex flex-col md:flex-row overflow-hidden border-0 shadow-sm transition-all duration-300 bg-secondary hover:shadow-md">
                 {/* Image with Overlay - Left Side */}
                 <div className="w-full md:w-40 h-40 relative flex-shrink-0 overflow-hidden group">
                     <img
@@ -42,7 +46,7 @@ const RecipeCard = ({ recipe }) => {
                         </Button>
                     </div>
 
-                    <h3 className="font-semibold text-foreground/80 dark:text-white mb-2 line-clamp-2">
+                    <h3 className="font-semibold  dark:text-white mb-2 line-clamp-2">
                         {recipe.title}
                     </h3>
 
@@ -61,6 +65,11 @@ const RecipeCard = ({ recipe }) => {
                         <Button 
                             className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
                             size="sm"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                // Add to cart logic here
+                            }}
                         >
                             <ShoppingCart className="w-4 h-4" />
                             Add to Cart
@@ -68,7 +77,7 @@ const RecipeCard = ({ recipe }) => {
                     </div>
                 </div>
             </Card>
-        </div>
+        </Link>
     );
 };
 

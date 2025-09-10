@@ -93,7 +93,7 @@ const Recipes = () => {
                 {/* Title and Search/Filter */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                     <div>
-                        <h2 className="text-2xl font-bold text-foreground/80">All Recipes</h2>
+                        <h2 className="text-2xl font-bold ">All Recipes</h2>
                         <p className="text-muted-foreground">Discover and explore delicious recipes</p>
                     </div>
                     <div className="w-full md:w-auto flex items-center gap-3">
@@ -102,18 +102,16 @@ const Recipes = () => {
                             <Input
                                 type="text"
                                 placeholder="Search recipes..."
-                                className="w-full pl-9 pr-4 h-9 text-sm bg-background"
+                                className="w-full pl-9 pr-4 text-sm bg-background"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
                         <Button
                             variant="outline"
-                            size="sm"
-                            className="h-9 px-3"
                             onClick={() => setIsFilterModalOpen(true)}
                         >
-                            <SlidersHorizontal className="w-4 h-4 mr-2" />
+                            <SlidersHorizontal />
                             Filters
                         </Button>
                     </div>

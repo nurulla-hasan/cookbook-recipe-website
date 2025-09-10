@@ -17,7 +17,7 @@ const PageHeader = ({ title, breadcrumbs }) => {
   return (
     <section className="bg-secondary py-6 md:py-12">
       <div className="container mx-auto text-center">
-        <h1 className="text-4xl font-medium text-foreground/80 mb-4">{title}</h1>
+        <h1 className="text-4xl font-medium  mb-4">{title}</h1>
         
         <Breadcrumb>
           <BreadcrumbList className="justify-center">
@@ -29,7 +29,7 @@ const PageHeader = ({ title, breadcrumbs }) => {
                       <Link to={crumb.href}>{crumb.name}</Link>
                     </BreadcrumbLink>
                   ) : (
-                    <BreadcrumbPage className="text-foreground/80">{crumb.name}</BreadcrumbPage>
+                    <BreadcrumbPage className="">{crumb.name}</BreadcrumbPage>
                   )}
                 </BreadcrumbItem>
                 {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}

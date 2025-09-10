@@ -97,7 +97,7 @@ const ClientSays = () => {
                                                 <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
                                             </Avatar>
                                             <div>
-                                                <p className="font-medium text-foreground/80 text-lg">{testimonial.name}</p>
+                                                <p className="font-medium  text-lg">{testimonial.name}</p>
                                                 <p className="text-xs text-muted-foreground font-medium">{testimonial.role}</p>
                                             </div>
                                         </div>
