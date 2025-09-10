@@ -1,6 +1,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import Reviews from "../reviews/Reviews";
+import Score from "../satiety-score/Score";
 
 const DetailsTabs = ({ recipe }) => {
     return (
@@ -14,7 +15,7 @@ const DetailsTabs = ({ recipe }) => {
                 <TabsContent value="description" className="mt-6">
                     {/* Ingredients */}
                     <div className="mb-8">
-                        <h3 className="text-2xl font-semibold  mb-4">Ingredients</h3>
+                        <h3 className="text-xl font-semibold mb-4">Ingredients</h3>
                         <ul className="space-y-3  list-disc list-inside">
                             {recipe.ingredients.map((ingredient, index) => (
                                 <li key={index}>{ingredient}</li>
@@ -24,7 +25,7 @@ const DetailsTabs = ({ recipe }) => {
 
                     {/* Instructions */}
                     <div>
-                        <h3 className="text-2xl font-semibold  mb-4">Instructions</h3>
+                        <h3 className="text-xl font-semibold  mb-4">Instructions</h3>
                         <ol className="space-y-4 ">
                             {recipe.instructions.map((step, index) => (
                                 <li key={index} className="flex items-start gap-3">
@@ -38,10 +39,10 @@ const DetailsTabs = ({ recipe }) => {
                     </div>
                 </TabsContent>
                 <TabsContent value="reviews" className="mt-6">
-                    <p className="text-muted-foreground">Reviews content goes here.</p>
+                    <Reviews recipe={recipe} />
                 </TabsContent>
                 <TabsContent value="satiety-score" className="mt-6">
-                    <p className="text-muted-foreground">Satiety Score content goes here.</p>
+                    <Score recipe={recipe} />
                 </TabsContent>
             </Tabs>
         </>

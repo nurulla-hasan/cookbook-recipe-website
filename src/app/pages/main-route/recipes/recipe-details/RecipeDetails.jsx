@@ -51,7 +51,33 @@ const mockRecipe = {
         flavor: 'Sweet',
         weightLossMuscleGain: 'Weight Loss',
         wholeFoodType: 'Plant Based',
-    }
+    },
+    reviewsData: [
+        {
+            id: 1,
+            user: 'Dianne Russell',
+            avatar: 'https://avatar.iran.liara.run/public/boy',
+            date: '05 January, 2025',
+            rating: 5,
+            comment: 'I bought the Messi Argentina home jersey and was blown away by the fabric quality. The fit is true to size and super comfortable — feels just like the official kit. Definitely worth the price!',
+        },
+        {
+            id: 2,
+            user: 'Darlene Robertson',
+            avatar: 'https://avatar.iran.liara.run/public/girl',
+            date: '03 January, 2025',
+            rating: 4,
+            comment: 'The material is excellent and the print looks sharp. Only reason I\'m giving 4 stars is because the medium was a bit looser than expected — The fit is true to size and super comfortable and good. I might size down next time.',
+        },
+        {
+            id: 3,
+            user: 'Darrell Steward',
+            avatar: 'https://avatar.iran.liara.run/public/boy',
+            date: '01 January, 2025',
+            rating: 4,
+            comment: 'I bought the Messi Argentina home jersey and was blown away by the fabric quality. The fit is true to size and super comfortable.',
+        },
+    ]
 };
 
 const RecipeDetails = () => {
@@ -72,11 +98,11 @@ const RecipeDetails = () => {
     const breadcrumbs = [
         { name: 'Home', href: '/' },
         { name: 'Recipes', href: '/recipes' },
-        { name: recipe.title, href: `/recipes/${recipe.id}` },
+        { name: recipe.title },
     ];
     return (
         <>
-            <PageLayout>
+            <PageLayout paddingSize="compact">
                 <CustomBreadcrumb links={breadcrumbs} />
                 <>
                     {/* Top Image */}
@@ -92,12 +118,12 @@ const RecipeDetails = () => {
                                     <h1 className="text-xl md:text-2xl font-semibold ">{recipe.title}</h1>
                                     <div className="flex items-center gap-4 mt-2 text-muted-foreground">
                                         <div className="flex items-center gap-1">
-                                            <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                                            <Star className="text-yellow-400 fill-yellow-400" />
                                             <span className="font-semibold">{recipe.rating}</span>
                                             <span className="text-sm">({recipe.reviews})</span>
                                         </div>
-                                        <div className="flex items-center gap-1">
-                                            <Clock className="w-5 h-5" />
+                                        <div className="flex items-center gap-1 text-xs">
+                                            <Clock size={16}/>
                                             <span>{recipe.duration}</span>
                                         </div>
                                     </div>
