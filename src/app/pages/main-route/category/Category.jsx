@@ -1,7 +1,7 @@
 import PageLayout from '@/app/layout/PageLayout';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import { useParams } from 'react-router-dom';
-import { mockRecipes } from '@/lib/data';
+import { mockRecipes } from '@/lib/mockData';
 import { useState } from 'react';
 import RecipeCard from '@/components/Recipes/recipe-card/RecipeCard';
 

@@ -17,7 +17,7 @@ const PageHeader = ({ title, breadcrumbs }) => {
   return (
     <section className="bg-secondary py-6 md:py-12">
       <div className="container mx-auto text-center">
-        <h1 className="text-2xl md:text-4xl font-medium mb-4">{title}</h1>
+        <h1 className="text-2xl md:text-3xl font-semibold mb-4">{title}</h1>
         <Breadcrumb>
           <BreadcrumbList className="justify-center">
             {breadcrumbs.map((crumb, index) => (

@@ -7,78 +7,7 @@ import NutritionalInfo from '@/components/recipe-details/nutritional-info/Nutrit
 import DetailsTabs from '@/components/recipe-details/details-tabs/DetailsTabs';
 import { Separator } from '@/components/ui/separator';
 import CustomBreadcrumb from '@/components/common/custom-breadcrumb/CustomBreadcrumb';
-
-// Mock data - in a real app, you would fetch this from an API
-const mockRecipe = {
-    id: 1,
-    title: 'Potato Salad with Cilantro Dressing',
-    images: [
-        'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=2070&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1780&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1470&auto=format&fit=crop',
-    ],
-    category: 'Salad',
-    rating: 4.8,
-    reviews: 56,
-    duration: '25 min',
-    ingredients: [
-        '200g spaghetti (or pasta of choice)',
-        '2 tbsp olive oil',
-        '3 cloves garlic (minced)',
-        '250g mushrooms (sliced, any variety)',
-        '150ml heavy cream (or coconut cream for vegan)',
-        '50g grated Parmesan cheese (optional, vegan substitute available)',
-        '1 tsp dried oregano',
-        'Salt & black pepper to taste',
-        'Fresh parsley (chopped, for garnish)ore clients.',
-    ],
-    instructions: [
-        '1. Cook pasta: Bring a pot of salted water to a boil. Add spaghetti and cook until al dente (about 8-10 min). Drain, reserving ½ cup of pasta water.',
-        '2. Sauté garlic & mushrooms: Heat olive oil in a large pan over medium heat. Add minced garlic and sauté until fragrant (30 sec). Add sliced mushrooms, cook until golden brown (5-6 min).',
-        '3. Make the sauce: Lower heat, stir in heavy cream. Add oregano, salt, and black pepper. Simmer for 3-4 min until slightly thickened.',
-    ],
-    nutritionalInfo: {
-        calories: '45',
-        fat: '50g',
-        protein: '25g',
-        carbs: '15g',
-        fiber: '5g',
-        sodium: '50g',
-    },
-    otherInfo: {
-        oils: 'Oil Free',
-        servingTemperature: 'Cold',
-        flavor: 'Sweet',
-        weightLossMuscleGain: 'Weight Loss',
-        wholeFoodType: 'Plant Based',
-    },
-    reviewsData: [
-        {
-            id: 1,
-            user: 'Dianne Russell',
-            avatar: 'https://avatar.iran.liara.run/public/boy',
-            date: '05 January, 2025',
-            rating: 5,
-            comment: 'I bought the Messi Argentina home jersey and was blown away by the fabric quality. The fit is true to size and super comfortable — feels just like the official kit. Definitely worth the price!',
-        },
-        {
-            id: 2,
-            user: 'Darlene Robertson',
-            avatar: 'https://avatar.iran.liara.run/public/girl',
-            date: '03 January, 2025',
-            rating: 4,
-            comment: 'The material is excellent and the print looks sharp. Only reason I\'m giving 4 stars is because the medium was a bit looser than expected — The fit is true to size and super comfortable and good. I might size down next time.',
-        },
-        {
-            id: 3,
-            user: 'Darrell Steward',
-            avatar: 'https://avatar.iran.liara.run/public/boy',
-            date: '01 January, 2025',
-            rating: 4,
-            comment: 'I bought the Messi Argentina home jersey and was blown away by the fabric quality. The fit is true to size and super comfortable.',
-        },
-    ]
-};
+import { mockRecipe } from '@/lib/mockData';
 
 const RecipeDetails = () => {
     const { id } = useParams();
@@ -86,8 +15,6 @@ const RecipeDetails = () => {
     const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
-        // In a real app, you would fetch the recipe by ID from an API
-        // For now, we'll use the mock data
         setRecipe(mockRecipe);
     }, [id]);
 

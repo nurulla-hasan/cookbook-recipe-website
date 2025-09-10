@@ -1,30 +1,9 @@
 import PageLayout from '@/app/layout/PageLayout';
-import { Slice, UtensilsCrossed, Cake, Wine, Leaf } from 'lucide-react';
 import Title from '../ui/Title';
 import { Link } from 'react-router-dom';
+import { categories } from '@/lib/mockData';
 
-const categories = [
-    {
-        name: 'Breakfast',
-        icon: <Slice className="w-12 h-12" />
-    },
-    {
-        name: 'Lunches',
-        icon: <UtensilsCrossed className="w-12 h-12" />
-    },
-    {
-        name: 'Desserts',
-        icon: <Cake className="w-12 h-12" />
-    },
-    {
-        name: 'Appetizer',
-        icon: <Wine className="w-12 h-12" />
-    },
-    {
-        name: 'Salads',
-        icon: <Leaf className="w-12 h-12" />
-    },
-];
+
 
 const TopCategories = () => {
     return (

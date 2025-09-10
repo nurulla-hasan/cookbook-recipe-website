@@ -145,10 +145,10 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
 
         {/* Action Buttons */}
         <div className="flex flex-col gap-3 mt-6">
-          <Button onClick={handleApply} className="w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-md">
+          <Button onClick={handleApply} className="w-full bg-primary">
             SHOW RECIPES
           </Button>
-          <Button onClick={handleClear} variant="outline" className="w-full border-primary  hover:bg-primary/10 py-2 rounded-md">
+          <Button onClick={handleClear} variant="outline" className="w-full hover:bg-primary/10">
             Clear All Filters
           </Button>
         </div>

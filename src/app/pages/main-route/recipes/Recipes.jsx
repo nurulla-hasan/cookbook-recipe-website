@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Search, SlidersHorizontal } from "lucide-react";
 import RecipeCard from "@/components/Recipes/recipe-card/RecipeCard";
 import FilterModal from "@/components/Recipes/filter-modal/FilterModal";
-import {mockRecipes} from "@/lib/data";
+import {mockRecipes} from "@/lib/mockData";
 
 const Recipes = () => {
     const [searchQuery, setSearchQuery] = useState('');
