@@ -56,12 +56,12 @@ const HeroCarousel = () => {
           <div className="hidden xl:block">
             <img src={frame} className="w-50 h-50" alt={staticContent.title} />
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-8xl font-caladea font-extrabold">
+          <h1 className="text-center md:text-start text-4xl md:text-5xl lg:text-6xl xl:text-8xl font-caladea font-extrabold">
             The Koumanis Diet Meal Planner
           </h1>
-          <p className="mt-6 max-w-md text-lg text-white/90">Your Personalized Nutrition & Fitness Companion—Now on iPhone & Android</p>
-          <div className="mt-8">
-            <Button className="py-6 px-8">Start Learning</Button>
+          <p className="mt-6 mx-auto md:mx-0 max-w-sm md:max-w-md text-center md:text-start text-sm md:text-lg text-white/90">Your Personalized Nutrition & Fitness Companion—Now on iPhone & Android</p>
+          <div className="flex justify-center md:justify-start mt-8 w-full">
+            <Button className="md:py-6 md:px-8">Start Learning</Button>
           </div>
         </div>
 

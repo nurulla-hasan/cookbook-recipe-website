@@ -7,8 +7,10 @@ import { ThemeProvider } from './theme/theme-provider'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <div className="max-w-[1920px] mx-auto">
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </div>
   </StrictMode>,
 )
