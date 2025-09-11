@@ -34,34 +34,34 @@ const Footer = () => {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {/* Brand & Social */}
             <div className="space-y-4 flex flex-col">
-              <img src={Logo} alt="" className="h-16 w-16 rounded-full object-contain" />
+              <img src={Logo} alt="" className="h-16 w-16 rounded-full object-contain dark:brightness-150" />
               <p className="text-sm text-foreground">Find Us On</p>
               <div className="flex space-x-3">
                 <Button
                   variant="outline"
                   size="icon"
-                  className="rounded-full border-primary bg-inherit text-primary"
+                  className="rounded-full border-muted-foreground bg-inherit"
                 >
                   <Facebook />
                 </Button>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="rounded-full border-primary bg-inherit text-primary"
+                  className="rounded-full border-muted-foreground bg-inherit"
                 >
                   <Twitter />
                 </Button>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="rounded-full border-primary bg-inherit text-primary"
+                  className="rounded-full border-muted-foreground bg-inherit"
                 >
                   <Instagram />
                 </Button>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="rounded-full border-primary bg-inherit text-primary"
+                  className="rounded-full border-muted-foreground bg-inherit"
                 >
                   <Linkedin />
                 </Button>

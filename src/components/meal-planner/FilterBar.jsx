@@ -1,3 +1,12 @@
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -5,33 +14,32 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, MoreHorizontal, Trash2, RotateCcw, Eraser, Printer, Download, Save } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { MoreHorizontal, RotateCcw, Eraser, Printer, Download, Save } from "lucide-react";
 
-const FilterDropdown = ({ title, items }) => (
-    <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-            <Button
-                variant="ghost"
-                className="flex items-center gap-2"
-            >
-                {title} <ChevronDown />
-            </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
+const SelectFilter = ({ title, items, value, onValueChange }) => (
+    <Select value={value} onValueChange={onValueChange}>
+        <SelectTrigger className="flex items-center gap-2">
+            <SelectValue placeholder={title} />
+        </SelectTrigger>
+        <SelectContent>
             <ScrollArea className="h-48">
                 {items.map((item) => (
-                    <DropdownMenuItem key={item}>{item}</DropdownMenuItem>
+                    <SelectItem key={item} value={item}>
+                        {item}
+                    </SelectItem>
                 ))}
             </ScrollArea>
-        </DropdownMenuContent>
-    </DropdownMenu>
+        </SelectContent>
+    </Select>
 );
 
 const FilterBar = ({ weeklyPlans, simpleStarterPlans, preparations, menuOptions }) => {
+    // Simplified custom plans for Select component
     const customPlans = [
+        "My Custom Mean Plan",
         "Day 1",
         "Next week",
+        "Whole Harvest Meals",
     ];
 
     const iconMap = {
@@ -42,47 +50,42 @@ const FilterBar = ({ weeklyPlans, simpleStarterPlans, preparations, menuOptions 
         "Save as Custom Plan": <Save className="mr-2 h-4 w-4" />,
     };
 
+    const [selectedWeeklyPlan, setSelectedWeeklyPlan] = useState(undefined);
+    const [selectedCustomPlan, setSelectedCustomPlan] = useState(undefined);
+    const [selectedSimpleStarterPlan, setSelectedSimpleStarterPlan] = useState(undefined);
+    const [selectedPreparation, setSelectedPreparation] = useState(undefined);
+
     return (
-        <div className="flex items-center justify-center gap-3 overflow-x-auto whitespace-nowrap">
-            <FilterDropdown
-                title="Weekly"
-                items={weeklyPlans}
-            />
+        <div className="flex items-center justify-center gap-6">
+                <SelectFilter
+                    title="Weekly"
+                    items={weeklyPlans}
+                    value={selectedWeeklyPlan}
+                    onValueChange={setSelectedWeeklyPlan}
+                />
+                <SelectFilter
+                    title="Custom"
+                    items={customPlans}
+                    value={selectedCustomPlan}
+                    onValueChange={setSelectedCustomPlan}
+                />
+                <SelectFilter
+                    title="Featured"
+                    items={simpleStarterPlans}
+                    value={selectedSimpleStarterPlan}
+                    onValueChange={setSelectedSimpleStarterPlan}
+                />
+                <SelectFilter
+                    title="Preparation"
+                    items={preparations}
+                    value={selectedPreparation}
+                    onValueChange={setSelectedPreparation}
+                />
+
+            {/* Right-side menu */} 
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button
-                        variant="ghost"
-                        className="flex items-center gap-2"
-                    >
-                        Custom <ChevronDown />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <ScrollArea className="h-48">
-                        {customPlans.map((plan) => (
-                            <DropdownMenuItem key={plan} className="flex justify-between items-center">
-                                {plan} <Trash2 />
-                            </DropdownMenuItem>
-                        ))}
-                        <DropdownMenuItem>
-                            + CREATE CUSTOM PLAN
-                        </DropdownMenuItem>
-                    </ScrollArea>
-                </DropdownMenuContent>
-            </DropdownMenu>
-
-            <FilterDropdown
-                title="Simple Starter Plan"
-                items={simpleStarterPlans}
-            />
-            <FilterDropdown
-                title="Preparation"
-                items={preparations}
-            />
-
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button className="rounded-full" variant="outline" size="icon">
+                    <Button variant="outline" size="icon">
                         <MoreHorizontal />
                     </Button>
                 </DropdownMenuTrigger>

@@ -75,7 +75,7 @@ const Navbar = () => {
                     <div className="flex items-center space-x-8">
                         <Link to="/" className="flex items-center space-x-2">
                             <div className="h-12 w-12">
-                                <img src={Logo} alt="Logo" className="h-full w-full rounded-full object-contain" />
+                                <img src={Logo} alt="Logo" className="h-full w-full rounded-full object-contain dark:brightness-150" />
                             </div>
                         </Link>
 

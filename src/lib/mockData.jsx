@@ -146,3 +146,39 @@ export const mockRecipe = {
         },
     ]
 };
+
+export const groceryRecipes = [
+    {
+        image: "/src/assets/featured/featured (1).png",
+        title: "Desserts",
+        subtitle: "Five-Spice Sweet Pineapples",
+        ingredients: [
+            "1 scoop pea Protein Powder",
+            "1 cup unsweetened coconut water",
+            "1 cup frozen mango",
+            "1/2 cup frozen pine apple",
+        ],
+    },
+    {
+        image: "/src/assets/featured/featured (2).png",
+        title: "Lunches",
+        subtitle: "Spicy Fry",
+        ingredients: [
+            "1 scoop pea Protein Powder",
+            "1 cup unsweetened coconut water",
+            "1 cup frozen mango",
+            "1/2 cup frozen pine apple",
+        ],
+    },
+    {
+        image: "/src/assets/featured/featured (3).png",
+        title: "Appetizer",
+        subtitle: "Cucumber & Salmon Stew",
+        ingredients: [
+            "1 scoop pea Protein Powder",
+            "1 cup unsweetened coconut water",
+            "1 cup frozen mango",
+            "1/2 cup frozen pine apple",
+        ],
+    },
+];
