@@ -8,6 +8,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 const RecipeCard = ({ recipe, favoritePage = false, recipiePage = false, myRecipePage = false }) => {
     const [isLiked, setIsLiked] = useState(false);
 
+    const handleEditRecipe = (id) => {
+        console.log(id);
+    }
+
     return (
         <Link
             to={`/recipes/recipe-details/${recipe.id}`}
@@ -55,6 +59,8 @@ const RecipeCard = ({ recipe, favoritePage = false, recipiePage = false, myRecip
                                     onClick={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();
+                                        // Edit recipe logic here
+                                        handleEditRecipe(recipe.id)
                                     }}
                                     variant="outline">
                                     <SquarePen />

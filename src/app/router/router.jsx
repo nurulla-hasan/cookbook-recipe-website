@@ -4,7 +4,8 @@ import { withErrorAndSuspense } from "@/tools/withErrorAndSuspense";
 import MainLayout from "../layout/MainLayout";
 import AuthLayout from "../layout/AuthLayout";
 import Profilelayout from "../layout/Profilelayout";
-import AddRecipe from "../pages/profile-route/my-recipe/add-recipe/AddRecipe";
+import AddRecipe from "../pages/profile-route/add-recipe/AddRecipe";
+import EditRecipe from "../pages/profile-route/my-recipe/edit-recipe/EditRecipe";
 const Favorite = lazy(() => import("../pages/profile-route/my-favorite/MyFavorite"));
 const MyRecipe = lazy(() => import("../pages/profile-route/my-recipe/MyRecipe"));
 const MyAccount = lazy(() => import("../pages/profile-route/my-account/MyAccount"));
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
                     {
                         path: "add-recipe",
                         element: withErrorAndSuspense(AddRecipe, <div>Loading...</div>),
+                    },
+                    {
+                        path: "edit-recipe/:id",
+                        element: withErrorAndSuspense(EditRecipe, <div>Loading...</div>),
                     },
                 ]
             },
