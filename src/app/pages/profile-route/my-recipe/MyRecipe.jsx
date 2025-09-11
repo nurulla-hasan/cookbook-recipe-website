@@ -1,9 +1,16 @@
-
+import RecipeCard from "@/components/Recipes/recipe-card/RecipeCard";
+import { mockRecipes } from "@/lib/mockData";
+import { useState } from "react";
 const MyRecipe = () => {
+    const [recipes] = useState(mockRecipes);
     return (
-        <div>
-            <h1>My Recipe</h1>
-        </div>
+        <>
+            <div className="grid gap-6 grid-cols-1">
+                {recipes.slice(0, 4).map((recipe) => (
+                    <RecipeCard key={recipe.id} recipe={recipe} myRecipePage={true} />
+                ))}
+            </div>
+        </>
     );
 };
 

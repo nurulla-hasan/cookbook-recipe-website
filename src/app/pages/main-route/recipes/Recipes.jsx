@@ -13,7 +13,6 @@ const Recipes = () => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [appliedFilters, setAppliedFilters] = useState({});
     const [recipes] = useState(mockRecipes);
-
     console.log('Applied Filters:', appliedFilters);
 
     const breadcrumbs = [

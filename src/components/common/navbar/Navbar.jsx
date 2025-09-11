@@ -119,10 +119,12 @@ const Navbar = () => {
                             />
                         </Toggle>
                         {/* Heart Icon */}
-                        <Button variant="ghost" size="icon" className="hidden rounded-full md:flex">
-                            <Heart className="h-5 w-5" />
-                            <span className="sr-only">Favorites</span>
-                        </Button>
+                        <Link to="/profile/my-favourite">
+                            <Button variant="ghost" size="icon" className="hidden rounded-full md:flex">
+                                <Heart className="h-5 w-5" />
+                                <span className="sr-only">Favorites</span>
+                            </Button>
+                        </Link>
 
                         {/* Desktop User Profile (md and up) */}
                         <div className="hidden md:flex items-center space-x-2">

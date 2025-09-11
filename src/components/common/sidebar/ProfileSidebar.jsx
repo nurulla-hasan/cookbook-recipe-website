@@ -1,16 +1,17 @@
 import { NavLink } from 'react-router-dom';
-import { User, Heart, Book, ChevronRight } from 'lucide-react';
+import { User, Heart, Book, ChevronRight, Plus } from 'lucide-react';
 
 const sidebarNavLinks = [
     { to: '/profile', icon: <User size={16} />, label: 'My Account', end: true },
     { to: '/profile/my-favourite', icon: <Heart size={16} />, label: 'My Favourite' },
-    { to: '/profile/my-recipe', icon: <Book size={16} />, label: 'My Recipe' },
+    { to: '/profile/my-recipes', icon: <Book size={16} />, label: 'My Recipe' },
+    { to: '/profile/add-recipe', icon: <Plus size={16} />, label: 'Add Recipe' },
 ];
 
 
 const ProfileSidebar = () => {
     return (
-        <div className="rounded-lg h-full border p-6 bg-background">
+        <div className="rounded-lg h-full border max-h-[calc(100vh-280px)] p-6 bg-background">
             <h2 className="text-xl font-bold mb-6 text-foreground">Account & Orders</h2>
 
             <nav className="space-y-1">

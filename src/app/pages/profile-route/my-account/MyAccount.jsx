@@ -19,10 +19,10 @@ const MyAccount = () => {
     });
 
     return (
-        <div className="container mx-auto py-8 px-4">
-            <div className="flex flex-col md:flex-row gap-8">
+        <div className="lg:py-8">
+            <div className="flex flex-col lg:flex-row gap-8">
                 {/* Left Sidebar */}
-                <div className="w-full md:w-64 space-y-4">
+                <div className="w-full lg:w-64 space-y-4">
                     <Card className="shadow-none bg-transparent border">
                         <CardContent className="p-6">
                             <div className="flex flex-col items-center space-y-4">
@@ -45,9 +45,9 @@ const MyAccount = () => {
                         value={activeTab} 
                         onValueChange={setActiveTab}
                         className="w-full"
-                        orientation="vertical"
+                        orientation="horizontal"
                     >
-                        <TabsList className="flex flex-col items-start h-auto p-0 bg-transparent">
+                        <TabsList className="flex items-center h-auto bg-transparent border p-0.5">
                             <TabsTrigger 
                                 value="account" 
                                 className="w-full justify-start data-[state=active]:bg-accent data-[state=active]:shadow-none"

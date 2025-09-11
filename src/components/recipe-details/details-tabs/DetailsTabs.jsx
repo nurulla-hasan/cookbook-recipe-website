@@ -16,7 +16,7 @@ const DetailsTabs = ({ recipe }) => {
                     {/* Ingredients */}
                     <div className="mb-8">
                         <h3 className="text-xl font-semibold mb-4">Ingredients</h3>
-                        <ul className="space-y-3  list-disc list-inside">
+                        <ul className="space-y-3 ml-2 list-disc list-inside">
                             {recipe.ingredients.map((ingredient, index) => (
                                 <li key={index}>{ingredient}</li>
                             ))}

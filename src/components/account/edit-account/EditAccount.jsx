@@ -31,7 +31,6 @@ const EditAccount = ({ formData, setFormData }) => {
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="name">Name</Label>
                             <Input
@@ -55,8 +54,6 @@ const EditAccount = ({ formData, setFormData }) => {
                                 <Lock size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                             </div>
                         </div>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="phone">Phone Number</Label>
                             <Input
@@ -97,7 +94,6 @@ const EditAccount = ({ formData, setFormData }) => {
                                 </PopoverContent>
                             </Popover>
                         </div>
-                    </div>
                 </div>
                 <div className="flex justify-end">
                     <Button>Save Changes</Button>

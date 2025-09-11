@@ -4,7 +4,8 @@ import { withErrorAndSuspense } from "@/tools/withErrorAndSuspense";
 import MainLayout from "../layout/MainLayout";
 import AuthLayout from "../layout/AuthLayout";
 import Profilelayout from "../layout/Profilelayout";
-const Favorite = lazy(() => import("../pages/profile-route/favorite/Favorite"));
+import AddRecipe from "../pages/profile-route/my-recipe/add-recipe/AddRecipe";
+const Favorite = lazy(() => import("../pages/profile-route/my-favorite/MyFavorite"));
 const MyRecipe = lazy(() => import("../pages/profile-route/my-recipe/MyRecipe"));
 const MyAccount = lazy(() => import("../pages/profile-route/my-account/MyAccount"));
 const Home = lazy(() => import("../pages/main-route/home/Home"));
@@ -62,23 +63,27 @@ const router = createBrowserRouter([
                 path: "contact",
                 element: withErrorAndSuspense(Contact, <div>Loading...</div>),
             },
-        ]
-    },
-    {
-        path: "profile",
-        element: withErrorAndSuspense(Profilelayout, <div>Loading...</div>),
-        children: [
             {
-                index: true,
-                element: withErrorAndSuspense(MyAccount, <div>Loading...</div>),
-            },
-            {
-                path: "my-favourite",
-                element: withErrorAndSuspense(Favorite, <div>Loading...</div>),
-            },
-            {
-                path: "my-recipe",
-                element: withErrorAndSuspense(MyRecipe, <div>Loading...</div>),
+                path: "profile",
+                element: withErrorAndSuspense(Profilelayout, <div>Loading...</div>),
+                children: [
+                    {
+                        index: true,
+                        element: withErrorAndSuspense(MyAccount, <div>Loading...</div>),
+                    },
+                    {
+                        path: "my-favourite",
+                        element: withErrorAndSuspense(Favorite, <div>Loading...</div>),
+                    },
+                    {
+                        path: "my-recipes",
+                        element: withErrorAndSuspense(MyRecipe, <div>Loading...</div>),
+                    },
+                    {
+                        path: "add-recipe",
+                        element: withErrorAndSuspense(AddRecipe, <div>Loading...</div>),
+                    },
+                ]
             },
         ]
     },
