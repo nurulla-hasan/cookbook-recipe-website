@@ -40,7 +40,7 @@ const AddRecipe = () => {
     newInfo[index][field] = value;
     setNutritionalInfo(newInfo);
   };
-  
+
   const addNutritionalField = () => {
     setNutritionalInfo([...nutritionalInfo, { name: "", unit: "", percentage: "" }]);
   }
@@ -76,7 +76,7 @@ const AddRecipe = () => {
             <Label className="font-medium">Photos</Label>
             <div className="flex items-center gap-4">
               <div className="w-24 h-24 border-2 border-dashed rounded-lg flex items-center justify-center">
-                <Button variant="ghost" size="icon"><PlusCircle className="w-6 h-6" /></Button>
+                <Button variant="outline" size="icon"><PlusCircle className="w-6 h-6" /></Button>
               </div>
               {/* Placeholder for uploaded images */}
             </div>
@@ -100,7 +100,7 @@ const AddRecipe = () => {
                   }}
                   placeholder="e.g., 2 cups of flour"
                 />
-                <Button variant="ghost" size="icon" onClick={() => handleRemoveField(index, setIngredients, ingredients)}>
+                <Button variant="outline" size="icon" onClick={() => handleRemoveField(index, setIngredients, ingredients)}>
                   <Trash2 className="w-5 h-5 text-destructive" />
                 </Button>
               </div>
@@ -123,7 +123,7 @@ const AddRecipe = () => {
                   }}
                   placeholder={`Step ${index + 1}`}
                 />
-                <Button variant="ghost" size="icon" onClick={() => handleRemoveField(index, setInstructions, instructions)}>
+                <Button variant="outline" size="icon" onClick={() => handleRemoveField(index, setInstructions, instructions)}>
                   <Trash2 className="w-5 h-5 text-destructive" />
                 </Button>
               </div>
@@ -136,20 +136,25 @@ const AddRecipe = () => {
           <div className="space-y-2">
             <Label className="font-medium">Nutritional Information</Label>
             <div className="space-y-2">
-              <div className="grid grid-cols-4 gap-2 font-semibold">
-                  <div>Name</div>
-                  <div>Unit/gm</div>
-                  <div>Percentage%</div>
-                  <div>Action</div>
-              </div>
               {nutritionalInfo.map((info, index) => (
-                <div key={index} className="grid grid-cols-4 gap-2 items-center">
-                  <Input placeholder="e.g., Calories" value={info.name} onChange={(e) => handleNutritionalChange(index, 'name', e.target.value)} />
-                  <Input placeholder="e.g., 200" value={info.unit} onChange={(e) => handleNutritionalChange(index, 'unit', e.target.value)} />
-                  <Input placeholder="e.g., 30%" value={info.percentage} onChange={(e) => handleNutritionalChange(index, 'percentage', e.target.value)} />
-                  <Button variant="ghost" size="icon" onClick={() => handleRemoveField(index, setNutritionalInfo, nutritionalInfo)}>
+                <div key={index} className="flex justify-between gap-2 items-end *:grid *:gap-2">
+                  <div className="w-full">
+                    <Label htmlFor="name" className="font-medium">Name</Label>
+                    <Input placeholder="e.g., Calories" value={info.name} onChange={(e) => handleNutritionalChange(index, 'name', e.target.value)} />
+                  </div>
+                  <div className="w-full">
+                    <Label htmlFor="unit" className="font-medium">Unit/gm</Label>
+                    <Input placeholder="e.g., 200" value={info.unit} onChange={(e) => handleNutritionalChange(index, 'unit', e.target.value)} />
+                  </div>
+                  <div className="w-full">
+                    <Label htmlFor="percentage" className="font-medium">Percentage%</Label>
+                    <Input placeholder="e.g., 30%" value={info.percentage} onChange={(e) => handleNutritionalChange(index, 'percentage', e.target.value)} />
+                  </div>
+                  <div>
+                    <Button variant="outline" size="icon" onClick={() => handleRemoveField(index, setNutritionalInfo, nutritionalInfo)}>
                       <Trash2 className="w-5 h-5 text-destructive" />
-                  </Button>
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -193,110 +198,110 @@ const AddRecipe = () => {
           <div className="space-y-2">
             <Label className="font-medium">Oils</Label>
             <RadioGroup value={oils} onValueChange={setOils} className="flex gap-4">
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="oil-free" id="oil-free" />
-                    <Label htmlFor="oil-free">Oil Free</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="with-oil" id="with-oil" />
-                    <Label htmlFor="with-oil">With Oil</Label>
-                </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="oil-free" id="oil-free" />
+                <Label htmlFor="oil-free">Oil Free</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="with-oil" id="with-oil" />
+                <Label htmlFor="with-oil">With Oil</Label>
+              </div>
             </RadioGroup>
           </div>
 
           <div className="space-y-2">
             <Label className="font-medium">Serving Temperature</Label>
             <RadioGroup value={servingTemperature} onValueChange={setServingTemperature} className="flex gap-4">
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="cold" id="cold" />
-                    <Label htmlFor="cold">Cold</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="hot" id="hot" />
-                    <Label htmlFor="hot">Hot</Label>
-                </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="cold" id="cold" />
+                <Label htmlFor="cold">Cold</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="hot" id="hot" />
+                <Label htmlFor="hot">Hot</Label>
+              </div>
             </RadioGroup>
           </div>
 
           <div className="space-y-2">
             <Label className="font-medium">Flavor</Label>
             <RadioGroup value={flavor} onValueChange={setFlavor} className="flex gap-4">
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="sweet" id="sweet" />
-                    <Label htmlFor="sweet">Sweet</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="savory" id="savory" />
-                    <Label htmlFor="savory">Savory</Label>
-                </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="sweet" id="sweet" />
+                <Label htmlFor="sweet">Sweet</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="savory" id="savory" />
+                <Label htmlFor="savory">Savory</Label>
+              </div>
             </RadioGroup>
           </div>
 
           <div className="space-y-2">
             <Label className="font-medium">Weight Loss vs. Muscle Gain</Label>
             <RadioGroup value={weightLossVsMuscleGain} onValueChange={setWeightLossVsMuscleGain} className="flex gap-4">
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="weight-loss" id="weight-loss" />
-                    <Label htmlFor="weight-loss">Weight Loss</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="muscle-gain" id="muscle-gain" />
-                    <Label htmlFor="muscle-gain">Muscle Gain</Label>
-                </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="weight-loss" id="weight-loss" />
+                <Label htmlFor="weight-loss">Weight Loss</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="muscle-gain" id="muscle-gain" />
+                <Label htmlFor="muscle-gain">Muscle Gain</Label>
+              </div>
             </RadioGroup>
           </div>
 
           <div className="space-y-2">
             <Label className="font-medium">Whole Food Type</Label>
             <RadioGroup value={wholeFoodType} onValueChange={setWholeFoodType} className="flex gap-4">
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="plant-based" id="plant-based" />
-                    <Label htmlFor="plant-based">Plant Based</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="whole-food" id="whole-food" />
-                    <Label htmlFor="whole-food">Whole Food</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="paleo" id="paleo" />
-                    <Label htmlFor="paleo">Paleo</Label>
-                </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="plant-based" id="plant-based" />
+                <Label htmlFor="plant-based">Plant Based</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="whole-food" id="whole-food" />
+                <Label htmlFor="whole-food">Whole Food</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="paleo" id="paleo" />
+                <Label htmlFor="paleo">Paleo</Label>
+              </div>
             </RadioGroup>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                  <Label htmlFor="serving-size" className="font-medium">Serving Size</Label>
-                  <Select onValueChange={setServingSize} value={servingSize}>
-                    <SelectTrigger id="serving-size" className="w-full">
-                      <SelectValue placeholder="Enter your serving size" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">1</SelectItem>
-                      <SelectItem value="2">2</SelectItem>
-                      <SelectItem value="3">3</SelectItem>
-                      <SelectItem value="4">4</SelectItem>
-                      <SelectItem value="5">5</SelectItem>
-                      <SelectItem value="6">6</SelectItem>
-                    </SelectContent>
-                  </Select>
-              </div>
-              <div className="space-y-2">
-                  <Label htmlFor="prep-time" className="font-medium">Prep Time</Label>
-                  <Select onValueChange={setPrepTime} value={prepTime}>
-                    <SelectTrigger id="prep-time" className="w-full">
-                      <SelectValue placeholder="Select your prepper time" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="15-mins">15 mins</SelectItem>
-                      <SelectItem value="30-mins">30 mins</SelectItem>
-                      <SelectItem value="45-mins">45 mins</SelectItem>
-                      <SelectItem value="1-hour">1 hour</SelectItem>
-                      <SelectItem value="1.5-hours">1.5 hours</SelectItem>
-                      <SelectItem value="2-hours">2 hours</SelectItem>
-                    </SelectContent>
-                  </Select>
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="serving-size" className="font-medium">Serving Size</Label>
+              <Select onValueChange={setServingSize} value={servingSize}>
+                <SelectTrigger id="serving-size" className="w-full">
+                  <SelectValue placeholder="Enter your serving size" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1</SelectItem>
+                  <SelectItem value="2">2</SelectItem>
+                  <SelectItem value="3">3</SelectItem>
+                  <SelectItem value="4">4</SelectItem>
+                  <SelectItem value="5">5</SelectItem>
+                  <SelectItem value="6">6</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="prep-time" className="font-medium">Prep Time</Label>
+              <Select onValueChange={setPrepTime} value={prepTime}>
+                <SelectTrigger id="prep-time" className="w-full">
+                  <SelectValue placeholder="Select your prepper time" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="15-mins">15 mins</SelectItem>
+                  <SelectItem value="30-mins">30 mins</SelectItem>
+                  <SelectItem value="45-mins">45 mins</SelectItem>
+                  <SelectItem value="1-hour">1 hour</SelectItem>
+                  <SelectItem value="1.5-hours">1.5 hours</SelectItem>
+                  <SelectItem value="2-hours">2 hours</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           <div className="space-y-2">

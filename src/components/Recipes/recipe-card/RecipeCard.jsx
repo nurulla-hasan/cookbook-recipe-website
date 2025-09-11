@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Heart, Clock, Star, ShoppingCart, ChefHat, Menu, Trash2, SquarePen, Trash } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const RecipeCard = ({ recipe, favoritePage = false, recipiePage = false, myRecipePage = false }) => {
     const [isLiked, setIsLiked] = useState(false);
+    const navigate = useNavigate();
 
     const handleEditRecipe = (id) => {
-        console.log(id);
+        navigate(`/profile/edit-recipe/${id}`);
     }
 
     return (
