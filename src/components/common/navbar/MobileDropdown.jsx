@@ -15,7 +15,7 @@ const MobileDropdown = ({isLoading, isLoggedIn, admin, getInitials, handleLogout
                     {isLoading ? (
                         <Skeleton className="h-10 w-10 rounded-full" />
                     ) : isLoggedIn ? (
-                        <Avatar className="h-10 w-10">
+                        <Avatar className="h-10 w-10 border">
                             <AvatarImage src={admin?.profile_image} alt={admin?.name || "User avatar"} />
                             <AvatarFallback>{getInitials(admin?.name)}</AvatarFallback>
                         </Avatar>
@@ -46,13 +46,19 @@ const MobileDropdown = ({isLoading, isLoggedIn, admin, getInitials, handleLogout
                                 <DropdownMenuItem asChild>
                                     <Link to="/profile" className="w-full flex items-center">
                                         <User size={16} className="opacity-60 mr-2" aria-hidden="true" />
-                                        <span>Profile</span>
+                                        <span>Account</span>
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
-                                    <Link to="/favorites" className="w-full flex items-center">
+                                    <Link to="/profile/my-favourite" className="w-full flex items-center">
                                         <Heart size={16} className="opacity-60 mr-2" aria-hidden="true" />
-                                        <span>Favorites</span>
+                                        <span>Favourite</span>
+                                    </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem asChild>
+                                    <Link to="/profile/my-recipe" className="w-full flex items-center">
+                                        <Heart size={16} className="opacity-60 mr-2" aria-hidden="true" />
+                                        <span>Recipe</span>
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>

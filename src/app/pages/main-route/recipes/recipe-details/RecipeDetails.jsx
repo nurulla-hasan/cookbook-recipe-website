@@ -33,7 +33,7 @@ const RecipeDetails = () => {
                 <CustomBreadcrumb links={breadcrumbs} />
                 <>
                     {/* Top Image */}
-                    <div className="w-full h-64 md:h-96 bg-cover bg-center rounded-lg" style={{ backgroundImage: `url(${recipe.images[0]})` }} />
+                    <div className="w-full h-64 md:h-[500px] bg-cover bg-center rounded-lg" style={{ backgroundImage: `url(${recipe.images[0]})` }} />
 
                     {/* Main Content Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">

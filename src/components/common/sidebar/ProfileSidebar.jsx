@@ -2,9 +2,9 @@ import { NavLink } from 'react-router-dom';
 import { User, Heart, Book, ChevronRight } from 'lucide-react';
 
 const sidebarNavLinks = [
-    { to: '/profile', icon: <User className="w-5 h-5" />, label: 'My Account', end: true },
-    { to: '/profile/my-favourite', icon: <Heart className="w-5 h-5" />, label: 'My Favourite' },
-    { to: '/profile/my-recipe', icon: <Book className="w-5 h-5" />, label: 'My Recipe' },
+    { to: '/profile', icon: <User size={16} />, label: 'My Account', end: true },
+    { to: '/profile/my-favourite', icon: <Heart size={16} />, label: 'My Favourite' },
+    { to: '/profile/my-recipe', icon: <Book size={16} />, label: 'My Recipe' },
 ];
 
 
@@ -26,11 +26,11 @@ const ProfileSidebar = () => {
                             }`
                         }
                     >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
                             {link.icon}
                             <span>{link.label}</span>
                         </div>
-                        <ChevronRight />
+                        <ChevronRight size={16} />
                     </NavLink>
                 ))}
             </nav>

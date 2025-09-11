@@ -1,8 +1,20 @@
+import PageLayout from "@/app/layout/PageLayout";
+import PageHeader from "@/components/common/page-header/PageHeader";
+
 const Grocery = () => {
+    const breadcrumbs = [
+        { name: 'Home', href: '/' },
+        { name: 'Grocery' },
+    ];
     return (
-        <div>
-            this is grocery page
-        </div>
+        <>
+            <PageHeader
+                breadcrumbs={breadcrumbs}
+                title="Grocery"
+            />
+            <PageLayout>
+            </PageLayout>
+        </>
     );
 };
 
