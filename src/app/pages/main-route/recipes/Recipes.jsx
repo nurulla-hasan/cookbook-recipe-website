@@ -69,7 +69,7 @@ const Recipes = () => {
                 {/* Recipe List */}
                 <div className="grid gap-6 grid-cols-1">
                     {recipes.map((recipe) => (
-                        <RecipeCard key={recipe.id} recipe={recipe} />
+                        <RecipeCard key={recipe.id} recipe={recipe} recipePage={true} />
                     ))}
                 </div>
             </PageLayout>

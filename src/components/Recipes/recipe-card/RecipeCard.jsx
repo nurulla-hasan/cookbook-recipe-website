@@ -5,7 +5,7 @@ import { Heart, Clock, Star, ShoppingCart, ChefHat, Menu, Trash2, SquarePen, Tra
 import { Link, useNavigate } from 'react-router-dom';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
-const RecipeCard = ({ recipe, favoritePage = false, recipiePage = false, myRecipePage = false }) => {
+const RecipeCard = ({ recipe, favoritePage = false, recipePage = false, myRecipePage = false }) => {
     const [isLiked, setIsLiked] = useState(false);
     const navigate = useNavigate();
 
@@ -94,7 +94,7 @@ const RecipeCard = ({ recipe, favoritePage = false, recipiePage = false, myRecip
                             </div>
                         </div>
 
-                        {recipiePage && <Button
+                        {recipePage && <Button
                             className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
                             size="sm"
                             onClick={(e) => {
