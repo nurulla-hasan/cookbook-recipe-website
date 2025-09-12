@@ -5,6 +5,7 @@ import MainLayout from "../layout/MainLayout";
 import AuthLayout from "../layout/AuthLayout";
 import Profilelayout from "../layout/Profilelayout";
 
+const Cart = lazy(() => import("../pages/main-route/cart/Cart"));
 const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
 const EditRecipe = lazy(() => import("../pages/profile-route/my-recipe/edit-recipe/EditRecipe"));
 const Faq = lazy(() => import("../pages/main-route/legal-pages/faq/Faq"));
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
             {
                 path: "featured",
                 element: withErrorAndSuspense(Featured, <div>Loading...</div>),
+            },
+            {
+                path: "cart",
+                element: withErrorAndSuspense(Cart, <div>Loading...</div>),
             },
             {
                 path: "about",
