@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Clock, Star, ShoppingCart, Heart } from 'lucide-react';
@@ -11,6 +11,9 @@ import { mockRecipe } from '@/lib/mockData';
 
 const RecipeDetails = () => {
     const { id } = useParams();
+    const location = useLocation();
+    const { from, fromPath } = location.state || { from: 'Recipes', fromPath: '/recipes' };
+
     const [recipe, setRecipe] = useState(null);
     const [isLiked, setIsLiked] = useState(false);
 
@@ -24,7 +27,7 @@ const RecipeDetails = () => {
 
     const breadcrumbs = [
         { name: 'Home', href: '/' },
-        { name: 'Recipes', href: '/recipes' },
+        { name: from, href: fromPath },
         { name: recipe.title },
     ];
     return (
@@ -50,7 +53,7 @@ const RecipeDetails = () => {
                                             <span className="text-sm">({recipe.reviews})</span>
                                         </div>
                                         <div className="flex items-center gap-1 text-xs">
-                                            <Clock size={16}/>
+                                            <Clock size={16} />
                                             <span>{recipe.duration}</span>
                                         </div>
                                     </div>

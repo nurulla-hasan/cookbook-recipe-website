@@ -4,6 +4,13 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -36,8 +43,24 @@ const Register = () => {
     });
 
     const onSubmit = (data) => {
-        console.log(data);
+        const formattedData = {
+            ...data,
+            dob: format(data.dob, "yyyy-MM-dd"),
+        };
+        console.log(formattedData);
     };
+
+    const handleCalendarChange = (
+        _value,
+        _e
+    ) => {
+        const _event = {
+            target: {
+                value: String(_value),
+            },
+        }
+        _e(_event)
+    }
 
     return (
         <div className="w-full max-w-sm md:max-w-lg">
@@ -112,10 +135,51 @@ const Register = () => {
                                                         mode="single"
                                                         selected={field.value}
                                                         onSelect={field.onChange}
-                                                        disabled={(date) =>
-                                                            date > new Date() || date < new Date("1900-01-01")
-                                                        }
-                                                        initialFocus
+                                                        className="rounded-md border p-2"
+                                                        classNames={{
+                                                            month_caption: "mx-0",
+                                                        }}
+                                                        captionLayout="dropdown"
+                                                        defaultMonth={field.value || new Date()}
+                                                        fromYear={1900}
+                                                        toYear={new Date().getFullYear()}
+                                                        hideNavigation
+                                                        components={{
+                                                            DropdownNav: (props) => {
+                                                                return (
+                                                                    <div className="flex w-full items-center gap-2">
+                                                                        {props.children}
+                                                                    </div>
+                                                                )
+                                                            },
+                                                            Dropdown: (props) => {
+                                                                return (
+                                                                    <Select
+                                                                        value={String(props.value)}
+                                                                        onValueChange={(value) => {
+                                                                            if (props.onChange) {
+                                                                                handleCalendarChange(value, props.onChange)
+                                                                            }
+                                                                        }}
+                                                                    >
+                                                                        <SelectTrigger className="h-8 w-fit font-medium first:grow">
+                                                                            <SelectValue />
+                                                                        </SelectTrigger>
+                                                                        <SelectContent className="max-h-[min(26rem,var(--radix-select-content-available-height))]">
+                                                                            {props.options?.map((option) => (
+                                                                                <SelectItem
+                                                                                    key={option.value}
+                                                                                    value={String(option.value)}
+                                                                                    disabled={option.disabled}
+                                                                                >
+                                                                                    {option.label}
+                                                                                </SelectItem>
+                                                                            ))}
+                                                                        </SelectContent>
+                                                                    </Select>
+                                                                )
+                                                            },
+                                                        }}
                                                     />
                                                 </PopoverContent>
                                             </Popover>

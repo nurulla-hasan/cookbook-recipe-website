@@ -56,7 +56,7 @@ const MobileDropdown = ({isLoading, isLoggedIn, admin, getInitials, handleLogout
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem asChild>
-                                    <Link to="/profile/my-recipe" className="w-full flex items-center">
+                                    <Link to="/profile/my-recipes" className="w-full flex items-center">
                                         <Heart size={16} className="opacity-60 mr-2" aria-hidden="true" />
                                         <span>Recipe</span>
                                     </Link>

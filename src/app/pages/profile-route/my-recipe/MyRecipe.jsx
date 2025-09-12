@@ -7,7 +7,7 @@ const MyRecipe = () => {
         <>
             <div className="grid gap-6 grid-cols-1">
                 {recipes.slice(0, 4).map((recipe) => (
-                    <RecipeCard key={recipe.id} recipe={recipe} myRecipePage={true} />
+                    <RecipeCard key={recipe.id} recipe={recipe} from="My Recipe" fromPath="/profile/my-recipes" isMyRecipe={true} />
                 ))}
             </div>
         </>

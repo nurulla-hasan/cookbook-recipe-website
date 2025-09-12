@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { Heart, Clock, Star, ShoppingCart, ChefHat, Menu, Trash2, SquarePen, Trash } from 'lucide-react';
+import { Heart, Clock, Star, ShoppingCart, ChefHat, Trash2, SquarePen } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
-const RecipeCard = ({ recipe, favoritePage = false, recipePage = false, myRecipePage = false, categoryPage = false }) => {
+const RecipeCard = ({ recipe, from = 'Recipes', fromPath = '/recipes', showCartButton = false, isMyRecipe = false }) => {
     const [isLiked, setIsLiked] = useState(false);
     const navigate = useNavigate();
 
@@ -16,6 +15,7 @@ const RecipeCard = ({ recipe, favoritePage = false, recipePage = false, myRecipe
     return (
         <Link
             to={`/recipes/recipe-details/${recipe.id}`}
+            state={{ from, fromPath }}
             className="h-full group transition-all duration-300 hover:-translate-y-1 block"
         >
             <Card className="h-full flex flex-col md:flex-row overflow-hidden border-0 shadow-sm transition-all duration-300 bg-secondary hover:shadow-md">
@@ -40,7 +40,7 @@ const RecipeCard = ({ recipe, favoritePage = false, recipePage = false, myRecipe
                         <span className="inline-block text-xs font-medium px-3 py-1 rounded-full bg-primary/30 text-foreground">
                             {recipe.category}
                         </span>
-                        {!myRecipePage && <Button
+                        {!isMyRecipe && <Button
                             variant="ghost"
                             size="icon"
                             className="rounded-full bg-primary/20"
@@ -54,7 +54,7 @@ const RecipeCard = ({ recipe, favoritePage = false, recipePage = false, myRecipe
                                 className={`${isLiked ? 'fill-red-500 text-red-500' : 'text-white'}`}
                             />
                         </Button>}
-                        {myRecipePage && (
+                        {isMyRecipe && (
                             <div className='grid grid-cols-2 gap-2'>
                                 <Button
                                     onClick={(e) => {
@@ -94,7 +94,7 @@ const RecipeCard = ({ recipe, favoritePage = false, recipePage = false, myRecipe
                             </div>
                         </div>
 
-                        {(recipePage || categoryPage) && <Button
+                        {showCartButton && <Button
                             className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
                             size="sm"
                             onClick={(e) => {
@@ -106,30 +106,6 @@ const RecipeCard = ({ recipe, favoritePage = false, recipePage = false, myRecipe
                             <ShoppingCart />
                             Add to Cart
                         </Button>}
-
-                        {favoritePage &&
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="icon">
-                                        <Menu />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem>
-                                        <Button onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
-                                            <Trash />
-                                            Remove
-                                        </Button>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        <Button onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
-                                            <ShoppingCart />
-                                            Add to Cart
-                                        </Button>
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        }
                     </div>
                 </div>
             </Card>

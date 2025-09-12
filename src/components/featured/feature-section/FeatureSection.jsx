@@ -7,7 +7,7 @@ const FeatureSection = ({ icon, title, description, features, image, imagePositi
 
   return (
     <div className="py-12 md:py-16">
-      <div className="container mx-auto px-4 xl:px-0">
+      <div className="container max-w-7xl mx-auto px-4 xl:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Image Section */}
           <div className={`order-1 ${imageOrderClass}`}>
