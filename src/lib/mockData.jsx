@@ -182,3 +182,40 @@ export const groceryRecipes = [
         ],
     },
 ];
+
+export const mockFAQs = [
+    {
+        question: "How do I register for an account?",
+        answer: "Click the Sign Up button, fill in your name, date of birth, and choose whether you need an invoice. Once registered, you can log in and start exploring courses.",
+    },
+    {
+        question: "What payment methods do you accept?",
+        answer: "We accept multiple payment methods including credit cards, PayPal, and Apple Pay.",
+    },
+    {
+        question: "How can I track my order?",
+        answer: "Click the Sign Up button, fill in your name, date of birth, and choose whether you need an invoice. Once registered, you can log in and start exploring courses.",
+    },
+    {
+        question: "How do I reset my password?",
+        answer: "Click the Sign Up button, fill in your name, date of birth, and choose whether you need an invoice. Once registered, you can log in and start exploring courses.",
+    },
+    {
+        question: "How do I reset my password?",
+        answer: "Click the Sign Up button, fill in your name, date of birth, and choose whether you need an invoice. Once registered, you can log in and start exploring courses.",
+    },
+    {
+        question: "How do I reset my password?",
+        answer: "Click the Sign Up button, fill in your name, date of birth, and choose whether you need an invoice. Once registered, you can log in and start exploring courses.",
+    },
+    {
+        question: "How do I reset my password?",
+        answer: "Click the Sign Up button, fill in your name, date of birth, and choose whether you need an invoice. Once registered, you can log in and start exploring courses.",
+    }
+]
+
+export const contactInfo = {
+    address: "123 Main St, Anytown, USA",
+    email: "contact@example.com",
+    phone: "123-456-7890",
+}

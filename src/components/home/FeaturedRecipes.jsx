@@ -84,7 +84,7 @@ const FeaturedRecipes = () => {
                                 </CardHeader>
                                 <CardContent className="px-4">
                                     <p className="text-sm text-muted-foreground mb-1">{recipe.category}</p>
-                                    <h3 className="text-lg font-semibold mt-1 text-primary dark:text-foreground">{recipe.title}</h3>
+                                    <h3 title={recipe.title} className="text-lg font-semibold mt-1 text-primary dark:text-foreground line-clamp-1">{recipe.title}</h3>
                                 </CardContent>
                                 <CardFooter className="p-4 pt-0 flex justify-between items-center text-muted-foreground">
                                     <div className="flex items-center gap-2 text-sm">

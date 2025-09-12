@@ -49,8 +49,8 @@ const HeroCarousel = () => {
   const staticContent = slides[0];
 
   return (
-    <section className="overflow-hidden bg-gradient-to-t from-[#E5FFE4] to-[#0A3507]">
-      <div className="container mx-auto w-full h-full flex flex-col-reverse gap-12 md:flex-row items-center justify-between px-4 xl:px-0 py-12 lg:py-16">
+    <section className="overflow-hidden bg-gradient-to-t from-[#E5FFE4] to-[#0A3507] md:h-[calc(100vh-5rem)]">
+      <div className="container mx-auto w-full h-full max-w-7xl flex flex-col-reverse gap-12 md:flex-row items-center justify-between px-4 xl:px-0 py-12 lg:py-16">
         {/* LEFT */}
         <div className="w-full md:w-1/2 text-white">
           <div className="hidden xl:block">
@@ -66,7 +66,7 @@ const HeroCarousel = () => {
         </div>
 
         {/* RIGHT */}
-        <div className="w-full md:w-1/3 flex justify-center relative">
+        <div className="w-full md:w-10/24 flex justify-center relative">
           <Carousel
             setApi={setApi}
             className="w-full"

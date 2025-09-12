@@ -24,7 +24,7 @@ const Category = () => {
             <PageLayout paddingSize="compact">
                 <div className="grid gap-6 grid-cols-1">
                     {recipes.filter(recipe => recipe.category.toLowerCase() === category).map(recipe => (
-                        <RecipeCard key={recipe.id} recipe={recipe} />
+                        <RecipeCard key={recipe.id} recipe={recipe} categoryPage={true}/>
                     ))}
                 </div>
             </PageLayout>

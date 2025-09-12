@@ -4,8 +4,13 @@ import { withErrorAndSuspense } from "@/tools/withErrorAndSuspense";
 import MainLayout from "../layout/MainLayout";
 import AuthLayout from "../layout/AuthLayout";
 import Profilelayout from "../layout/Profilelayout";
-import AddRecipe from "../pages/profile-route/add-recipe/AddRecipe";
-import EditRecipe from "../pages/profile-route/my-recipe/edit-recipe/EditRecipe";
+
+const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
+const EditRecipe = lazy(() => import("../pages/profile-route/my-recipe/edit-recipe/EditRecipe"));
+const Faq = lazy(() => import("../pages/main-route/legal-pages/faq/Faq"));
+const Help = lazy(() => import("../pages/main-route/legal-pages/help/Help"));
+const Privacy = lazy(() => import("../pages/main-route/legal-pages/privacy/Privacy"));
+const Terms = lazy(() => import("../pages/main-route/legal-pages/terms/Terms"));
 const Favorite = lazy(() => import("../pages/profile-route/my-favorite/MyFavorite"));
 const MyRecipe = lazy(() => import("../pages/profile-route/my-recipe/MyRecipe"));
 const MyAccount = lazy(() => import("../pages/profile-route/my-account/MyAccount"));
@@ -63,6 +68,22 @@ const router = createBrowserRouter([
             {
                 path: "contact",
                 element: withErrorAndSuspense(Contact, <div>Loading...</div>),
+            },
+            {
+                path: "legal/help",
+                element: withErrorAndSuspense(Help, <div>Loading...</div>),
+            },
+            {
+                path: "legal/faq",
+                element: withErrorAndSuspense(Faq, <div>Loading...</div>),
+            },
+            {
+                path: "legal/privacy",
+                element: withErrorAndSuspense(Privacy, <div>Loading...</div>),
+            },
+            {
+                path: "legal/terms",
+                element: withErrorAndSuspense(Terms, <div>Loading...</div>),
             },
             {
                 path: "profile",

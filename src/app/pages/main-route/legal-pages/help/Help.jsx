@@ -1,16 +1,16 @@
 import PageLayout from "@/app/layout/PageLayout";
 import PageHeader from "@/components/common/page-header/PageHeader";
 
-const About = () => {
+const Help = () => {
     const breadcrumb = [
         { name: 'Home', href: '/' },
-        { name: 'About' },
+        { name: 'Help' },
     ]
     return (
         <div>
             <PageHeader
                 breadcrumbs={breadcrumb}
-                title="About"
+                title="Help"
             />
             <PageLayout paddingSize="compact">
                 
@@ -19,4 +19,4 @@ const About = () => {
     );
 };
 
-export default About;
+export default Help;

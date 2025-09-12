@@ -8,7 +8,7 @@ const PageLayout = ({ children, className, paddingSize = "default" }) => {
     };
   
     return (
-      <div className={cn("container mx-auto", paddingMap[paddingSize], className)}>
+      <div className={cn("container max-w-7xl mx-auto", paddingMap[paddingSize], className)}>
         {children}
       </div>
     );

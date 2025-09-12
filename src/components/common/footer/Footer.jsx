@@ -3,13 +3,14 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Facebook, Twitter, Instagram, Linkedin, Phone, Mail, MapPin, Apple, Smartphone } from "lucide-react"
 import Logo from '../../../assets/Logo.png';
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-secondary to-secondary/50 text-foreground">
       {/* Newsletter Section */}
       <div className="px-4 py-8 md:px-8 lg:px-16">
-        <div className="mx-auto container">
+        <div className="mx-auto container max-w-7xl">
           <div className="flex flex-col items-center justify-center space-y-4 text-center md:flex-row md:justify-between md:space-x-4 md:space-y-0">
             <div className="flex flex-1 w-full max-w-md">
               <h3 className="text-xl md:text-2xl lg:text-4xl font-medium text-foreground font-caladea">Subscribe to our Newsletter</h3>
@@ -30,7 +31,7 @@ const Footer = () => {
 
       {/* Main Footer Content */}
       <div className="px-4 py-12 md:px-8 lg:px-16 xl:px-0">
-        <div className="mx-auto container">
+        <div className="mx-auto container max-w-7xl">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {/* Brand & Social */}
             <div className="space-y-4 flex flex-col">
@@ -95,15 +96,15 @@ const Footer = () => {
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-foreground">About & Legal</h4>
               <div className="space-y-2">
-                <a href="#" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
+                <Link to="/about" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
                   About Us
-                </a>
-                <a href="#" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
+                </Link>
+                <Link to="/legal/terms" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
                   Terms & Conditions
-                </a>
-                <a href="#" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
+                </Link>
+                <Link to="/legal/privacy" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
                   Privacy Policy
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -111,15 +112,15 @@ const Footer = () => {
             <div className="space-y-4">
               <h4 className="text-lg font-semibold text-foreground">Help & Support</h4>
               <div className="space-y-2">
-                <a href="#" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
+                <Link to="/contact" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
                   Contact Us
-                </a>
-                <a href="#" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
+                </Link>
+                <Link to="/legal/help" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
                   Help Center
-                </a>
-                <a href="#" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
+                </Link>
+                <Link to="/legal/faq" className="block text-sm text-foreground transition-colors hover:text-muted-foreground">
                   FAQs
-                </a>
+                </Link>
               </div>
             </div>
           </div>

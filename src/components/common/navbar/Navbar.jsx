@@ -69,7 +69,7 @@ const Navbar = () => {
 
     return (
         <nav className={`sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-            <div className="container mx-auto px-4 xl:px-0">
+            <div className="container max-w-7xl mx-auto px-4 xl:px-0">
                 <div className="flex h-20 items-center justify-between">
                     {/* Logo */}
                     <div className="flex items-center space-x-8">
