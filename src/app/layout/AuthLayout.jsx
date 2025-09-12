@@ -6,7 +6,9 @@ const AuthLayout = () => {
     return (
         <ErrorBoundary>
             <Suspense fallback={<div>Loading...</div>}>
-                <Outlet />
+                <div className="h-screen flex flex-col justify-center items-center">
+                    <Outlet />
+                </div>
             </Suspense>
         </ErrorBoundary>
     );

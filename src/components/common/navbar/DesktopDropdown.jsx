@@ -61,7 +61,7 @@ const DesktopDropdown = ({isLoading, isLoggedIn, admin, getInitials, handleLogou
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="max-w-64 mr-4">
                         <DropdownMenuItem asChild>
-                            <Link to="/login" className="w-full flex items-center">
+                            <Link to="/auth/login" className="w-full flex items-center">
                                 <LogIn size={16} className="opacity-60 mr-2" aria-hidden="true" />
                                 <span>Login</span>
                             </Link>
