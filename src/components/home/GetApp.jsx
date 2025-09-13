@@ -1,11 +1,10 @@
-import React from 'react';
 import { Smartphone } from 'lucide-react';
 import apple from '../../assets/apple.png'
 import google from '../../assets/google.png'
 
 const GetApp = () => {
     return (
-            <div className="bg-card py-20">
+            <div className="bg-card py-5 bg-gradient-to-b from-secondary to-secondary/50">
                 <div className="container mx-auto flex flex-col items-center text-center px-4">
                     {/* Title */}
                     <div className="flex items-center gap-3">
@@ -19,7 +18,7 @@ const GetApp = () => {
                     </p>
 
                     {/* App Store Buttons */}
-                    <div className="flex flex-col sm:flex-row items-center gap-6 mt-10">
+                    <div className="flex flex-col sm:flex-row items-center gap-6 mt-6">
                         <a href="#" aria-label="Download on the App Store" className="transform hover:scale-105 transition-transform duration-300">
                             <img src={apple} alt="Download on the App Store" className="h-14 w-auto" />
                         </a>

@@ -6,32 +6,28 @@ const FeatureSection = ({ icon, title, description, features, image, imagePositi
   const textOrderClass = imagePosition === 'left' ? 'md:order-2' : 'md:order-1';
 
   return (
-    <div className="py-12 md:py-16">
-      <div className="container max-w-7xl mx-auto px-4 xl:px-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Image Section */}
-          <div className={`order-1 ${imageOrderClass}`}>
-            <img src={image} alt={title} className="rounded-2xl aspect-video h-auto object-cover" />
-          </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-6">
+      {/* Image Section */}
+      <div className={`order-1 ${imageOrderClass}`}>
+        <img src={image} alt={title} className="rounded-2xl aspect-video h-auto object-cover" />
+      </div>
 
-          {/* Text Section */}
-          <div className={`order-2 ${textOrderClass}`}>
-            <div className="flex items-center gap-3 mb-4">
-              {icon && React.cloneElement(icon, { className: 'w-7 h-7 text-primary' })}
-              <h2 className="text-3xl font-bold ">{title}</h2>
-            </div>
-            <p className="text-muted-foreground mb-6 text-lg">{description}</p>
-            <ul className="space-y-3 ml-3">
-              {features.map((feature, index) => (
-                <li key={index} className="flex items-start text-muted-foreground">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-1 mr-3 flex-shrink-0" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="text-muted-foreground mt-6 text-lg">{conclusion}</p>
-          </div>
+      {/* Text Section */}
+      <div className={`order-2 ${textOrderClass}`}>
+        <div className="flex items-center gap-3 mb-4">
+          {icon && React.cloneElement(icon, { className: 'w-7 h-7 text-primary' })}
+          <h2 className="text-3xl font-bold ">{title}</h2>
         </div>
+        <p className="text-muted-foreground mb-6 text-lg">{description}</p>
+        <ul className="space-y-3 ml-3">
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-start text-muted-foreground">
+              <CheckCircle2 className="w-5 h-5 text-primary mt-1 mr-3 flex-shrink-0" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="text-muted-foreground mt-6 text-lg">{conclusion}</p>
       </div>
     </div>
   );

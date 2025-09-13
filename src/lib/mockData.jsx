@@ -1,4 +1,10 @@
 import { Cake, Leaf, Slice, UtensilsCrossed, Wine } from "lucide-react";
+import featured1 from '../assets/featured/featured (1).png';
+import featured2 from '../assets/featured/featured (6).png';
+import featured3 from '../assets/featured/featured (5).png';
+import featured4 from '../assets/featured/featured (4).png';
+import featured5 from '../assets/featured/featured (3).png';
+import featured6 from '../assets/featured/featured (2).png';
 
 export const mockRecipes = [
     {
@@ -219,3 +225,296 @@ export const contactInfo = {
     email: "contact@example.com",
     phone: "123-456-7890",
 }
+
+export const weeklyPlans = [
+    "This Week",
+    "Next week",
+    "2nd Week",
+    "3rd Week",
+    "4th Week",
+    "5th Week",
+    "6th Week",
+];
+export const simpleStarterPlans = [
+    "Budget $3 a Meal",
+    "Budget $5 a Meal",
+];
+export const preparations = [
+    "Breakfast",
+    "Lunch",
+    "Dinner",
+    "Dessert",
+    "Salad",
+    "Snacks",
+];
+export const menuOptions = [
+    "Reset Plan",
+    "Clean Plan",
+    "Print plan",
+    "Download plan",
+    "Save as Custom Plan",
+];
+
+const weeklyMealPlan_this_week = {
+    "DAY 1": {
+        breakfast: mockRecipes[2],
+        lunch: mockRecipes[0],
+        dinner: null,
+    },
+    "DAY 2": {
+        breakfast: mockRecipes[2],
+        lunch: null,
+        dinner: mockRecipes[0],
+    },
+    "DAY 3": {
+        breakfast: null,
+        lunch: mockRecipes[0],
+        dinner: mockRecipes[4],
+    },
+    "DAY 4": {
+        breakfast: mockRecipes[2],
+        lunch: mockRecipes[3],
+        dinner: null,
+    },
+    "DAY 5": {
+        breakfast: mockRecipes[2],
+        lunch: null,
+        dinner: mockRecipes[4],
+    },
+    "DAY 6": {
+        breakfast: null,
+        lunch: mockRecipes[3],
+        dinner: mockRecipes[0],
+    },
+    "DAY 7": {
+        breakfast: mockRecipes[2],
+        lunch: null,
+        dinner: null,
+    },
+};
+
+const weeklyMealPlan_next_week = {
+    "DAY 1": {
+        breakfast: mockRecipes[3],
+        lunch: mockRecipes[1],
+        dinner: mockRecipes[5],
+    },
+    "DAY 2": {
+        breakfast: null,
+        lunch: mockRecipes[2],
+        dinner: mockRecipes[0],
+    },
+    "DAY 3": {
+        breakfast: mockRecipes[3],
+        lunch: null,
+        dinner: null,
+    },
+    "DAY 4": {
+        breakfast: mockRecipes[1],
+        lunch: mockRecipes[2],
+        dinner: mockRecipes[5],
+    },
+    "DAY 5": {
+        breakfast: null,
+        lunch: mockRecipes[0],
+        dinner: null,
+    },
+    "DAY 6": {
+        breakfast: mockRecipes[3],
+        lunch: mockRecipes[1],
+        dinner: mockRecipes[4],
+    },
+    "DAY 7": {
+        breakfast: mockRecipes[2],
+        lunch: null,
+        dinner: mockRecipes[5],
+    },
+};
+
+const starterPlan_budget_3 = {
+    "DAY 1": {
+        breakfast: mockRecipes[0],
+        lunch: mockRecipes[1],
+        dinner: mockRecipes[2],
+    },
+    "DAY 2": {
+        breakfast: mockRecipes[3],
+        lunch: mockRecipes[4],
+        dinner: mockRecipes[5],
+    },
+    "DAY 3": {
+        breakfast: mockRecipes[0],
+        lunch: mockRecipes[2],
+        dinner: mockRecipes[4],
+    },
+    "DAY 4": {
+        breakfast: mockRecipes[1],
+        lunch: mockRecipes[3],
+        dinner: mockRecipes[5],
+    },
+    "DAY 5": {
+        breakfast: mockRecipes[0],
+        lunch: mockRecipes[4],
+        dinner: null,
+    },
+    "DAY 6": {
+        breakfast: mockRecipes[1],
+        lunch: null,
+        dinner: null,
+    },
+    "DAY 7": {
+        breakfast: mockRecipes[3],
+        lunch: null,
+        dinner: null,
+    },
+};
+
+const starterPlan_budget_5 = {
+    "DAY 1": {
+        breakfast: mockRecipes[5],
+        lunch: mockRecipes[4],
+        dinner: mockRecipes[3],
+    },
+    "DAY 2": {
+        breakfast: mockRecipes[2],
+        lunch: mockRecipes[1],
+        dinner: mockRecipes[0],
+    },
+    "DAY 3": {
+        breakfast: mockRecipes[5],
+        lunch: mockRecipes[3],
+        dinner: mockRecipes[1],
+    },
+    "DAY 4": {
+        breakfast: mockRecipes[4],
+        lunch: mockRecipes[2],
+        dinner: mockRecipes[0],
+    },
+    "DAY 5": {
+        breakfast: null,
+        lunch: mockRecipes[1],
+        dinner: null,
+    },
+    "DAY 6": {
+        breakfast: null,
+        lunch: mockRecipes[3],
+        dinner: null,
+    },
+    "DAY 7": {
+        breakfast: null,
+        lunch: mockRecipes[5],
+        dinner: mockRecipes[0],
+    },
+};
+
+export const allMealPlans = {
+    "my-weeks": {
+        "This Week": weeklyMealPlan_this_week,
+        "Next week": weeklyMealPlan_next_week,
+        "2nd Week": weeklyMealPlan_this_week, // Reusing for demo
+        "3rd Week": weeklyMealPlan_next_week, // Reusing for demo
+        "4th Week": weeklyMealPlan_this_week, // Reusing for demo
+        "5th Week": weeklyMealPlan_next_week, // Reusing for demo
+        "6th Week": weeklyMealPlan_this_week, // Reusing for demo
+    },
+    "starter-plans": {
+        "Budget $3 a Meal": starterPlan_budget_3,
+        "Budget $5 a Meal": starterPlan_budget_5,
+    },
+    "custom-plans": {
+        "My Custom Mean Plan": weeklyMealPlan_next_week, // Reusing for demo
+    }
+};
+
+
+
+export const featureData = [
+    {
+        id: 1,
+        title: '🔥 Lose Weight, Build Muscle, Stay Healthy',
+        description: 'With 7,500+ curated recipes, the Koumanis Diet makes eating well simple, sustainable, and satisfying. Every meal is designed to support your health and fitness goals:',
+        features: [
+            'Burn fat while staying full and energized',
+            'Build lean muscle with protein-rich recipes and exercise pairing',
+            'Support heart and gut health with fiber-focused meals',
+            'Maintain a balanced, nutrient-dense lifestyle'
+        ],
+        conclusion: 'Our nutrition system works hand in hand with exercise to accelerate results when you want them most.',
+        image: featured1,
+        imagePosition: 'left'
+    },
+    {
+        id: 2,
+        title: '🍽️ Meal Planning Made Easy',
+        description: 'Your week of healthy eating is just a few taps away. After signing up, you’ll have access to a personalized dashboard where you can:',
+        features: [
+            'Select daily meals — from breakfast to desserts',
+            'Customize weekly meal schedules for convenience and variety',
+            'Swap recipes instantly to match cravings or goals',
+            'Rate meals by taste and satisfaction',
+            'Save favorites for quick access anytime'
+        ],
+        conclusion: 'Whether you’re new to meal prep or a seasoned pro, the app adapts to your lifestyle.',
+        image: featured2,
+        imagePosition: 'right'
+    },
+    {
+        id: 3,
+        title: '🌿 Recipes for Every Lifestyle',
+        description: 'Eating healthy should be enjoyable, not restrictive. Explore a variety of cuisines and dietary styles, including:',
+        features: [
+            'Vegan and plant-based',
+            'Paleo, Mediterranean, and low-carb',
+            'High-protein, meat-based meals',
+            'Global flavors — Asian, Latin, Middle Eastern, and more',
+            'Holiday-friendly recipes to celebrate without losing progress'
+        ],
+        conclusion: 'Our nutrition system works hand in hand with exercise to accelerate results when you want them most.',
+        image: featured3,
+        imagePosition: 'left'
+    },
+    {
+        id: 4,
+        title: '📚 Meal Planning Knowledge Hub',
+        description: 'Access a library of articles and guides from nutritionists and fitness coaches. Empower yourself with knowledge to make lasting changes.',
+        features: [
+            'Evidence-based articles on nutrition and fitness',
+            'Cooking tips and healthy kitchen hacks',
+            'Guides to understanding food labels and ingredients',
+            'Community support and expert Q&A sessions'
+        ],
+        conclusion: 'Knowledge is power—especially when paired with smart nutrition and exercise.',
+        image: featured4,
+        imagePosition: 'right'
+    },
+    {
+        id: 5,
+        title: '🛒 Automated Grocery Support',
+        description: 'Turn your weekly meal plan into a ready-to-use shopping list and streamline your grocery experience.',
+        features: [
+            'Generate shopping lists based on your selected meals',
+            'Organize ingredients by category for easy navigation',
+            'Remove items you already have at home',
+            'Send your list to Instacart or Amazon Fresh for delivery or pickup',
+            'Save time and reduce food waste'
+        ],
+        conclusion: 'Smart grocery planning means less stress and more success in the kitchen.',
+        image: featured5,
+        imagePosition: 'left'
+    },
+    {
+        id: 6,
+        title: '💪 Your Pocket-Sized Coach',
+        description: 'The Koumanis Diet is more than a meal planner—it’s your personal wellness companion, built on science and behavior.',
+        features: [
+            'Personalized meal recommendations based on your goals',
+            'Real-time feedback on nutrition and progress',
+            'Behavior-focused habit tracking',
+            'Evidence-based coaching for weight loss, strength, and gut health',
+            'Supportive tools to stay motivated and consistent'
+        ],
+        conclusion: 'Your goals are within reach—with a coach that fits in your pocket.',
+        image: featured6,
+        imagePosition: 'right'
+    }
+];

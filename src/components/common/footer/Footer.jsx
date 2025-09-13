@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { Facebook, Twitter, Instagram, Linkedin, Phone, Mail, MapPin, Apple, Smartphone } from "lucide-react"
+import { Facebook, Twitter, Instagram, Linkedin, Phone, Mail, MapPin } from "lucide-react"
 import Logo from '../../../assets/Logo.png';
 import { Link } from "react-router-dom";
+import apple from '../../../assets/apple.png'
+import google from '../../../assets/google.png'
 
 const Footer = () => {
   return (
@@ -133,22 +135,16 @@ const Footer = () => {
       <div className="px-4 py-8 md:px-8 lg:px-16">
         <div className="mx-auto max-w-7xl">
           <div className="text-center">
-            <h4 className="mb-6 text-lg font-semibold text-foreground">Download our App from</h4>
+            <h4 className="text-lg font-semibold text-foreground">Download our App from</h4>
             <div className="flex flex-col items-center justify-center space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
-              <Button
-                variant="outline"
-                className="flex items-center space-x-2 border-secondary bg-card text-foreground hover:bg-accent hover:text-accent-foreground"
-              >
-                <Apple className="h-5 w-5" />
-                <span>App Store</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="flex items-center space-x-2 border-secondary bg-card text-foreground hover:bg-accent hover:text-accent-foreground"
-              >
-                <Smartphone className="h-5 w-5" />
-                <span>Google Play</span>
-              </Button>
+              <div id="app-store" className="flex flex-col sm:flex-row items-center gap-6 mt-6">
+                <a href="#" aria-label="Download on the App Store" className="transform hover:scale-105 transition-transform duration-300">
+                  <img src={apple} alt="Download on the App Store" className="h-10 w-auto" />
+                </a>
+                <a href="#" aria-label="Get it on Google Play" className="transform hover:scale-105 transition-transform duration-300">
+                  <img src={google} alt="Get it on Google Play" className="h-10 w-auto" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
