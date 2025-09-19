@@ -247,164 +247,138 @@ export const preparations = [
     "Salad",
     "Snacks",
 ];
-export const menuOptions = [
-    "Reset Plan",
-    "Clean Plan",
-    "Print plan",
-    "Download plan",
-    "Save as Custom Plan",
-];
 
 const weeklyMealPlan_this_week = {
-    "DAY 1": {
-        breakfast: mockRecipes[2],
-        lunch: mockRecipes[0],
-        dinner: null,
-    },
-    "DAY 2": {
-        breakfast: mockRecipes[2],
-        lunch: null,
-        dinner: mockRecipes[0],
-    },
-    "DAY 3": {
-        breakfast: null,
-        lunch: mockRecipes[0],
-        dinner: mockRecipes[4],
-    },
-    "DAY 4": {
-        breakfast: mockRecipes[2],
-        lunch: mockRecipes[3],
-        dinner: null,
-    },
-    "DAY 5": {
-        breakfast: mockRecipes[2],
-        lunch: null,
-        dinner: mockRecipes[4],
-    },
-    "DAY 6": {
-        breakfast: null,
-        lunch: mockRecipes[3],
-        dinner: mockRecipes[0],
-    },
-    "DAY 7": {
-        breakfast: mockRecipes[2],
-        lunch: null,
-        dinner: null,
-    },
+    "DAY 1": [
+        { type: "Breakfast", recipe: mockRecipes[2] },
+        { type: "Lunch", recipe: mockRecipes[0] },
+        { type: "Dinner", recipe: mockRecipes[3] },
+        { type: "Dessert", recipe: mockRecipes[1] },
+    ],
+    "DAY 2": [
+        { type: "Breakfast", recipe: mockRecipes[2] },
+        { type: "Lunch", recipe: mockRecipes[0] },
+        { type: "Dinner", recipe: mockRecipes[4] },
+    ],
+    "DAY 3": [
+        { type: "Lunch", recipe: mockRecipes[0] },
+        { type: "Dinner", recipe: mockRecipes[4] },
+        { type: "Dessert", recipe: mockRecipes[2] },
+        { type: "Snacks", recipe: mockRecipes[0] },
+    ],
+    "DAY 4": [
+        { type: "Breakfast", recipe: mockRecipes[2] },
+        { type: "Lunch", recipe: mockRecipes[3] },
+    ],
+    "DAY 5": [
+        { type: "Breakfast", recipe: mockRecipes[2] },
+        { type: "Dinner", recipe: mockRecipes[4] },
+    ],
+    "DAY 6": [
+        { type: "Lunch", recipe: mockRecipes[3] },
+        { type: "Dinner", recipe: mockRecipes[0] },
+    ],
+    "DAY 7": [
+        { type: "Breakfast", recipe: mockRecipes[2] },
+    ],
 };
 
 const weeklyMealPlan_next_week = {
-    "DAY 1": {
-        breakfast: mockRecipes[3],
-        lunch: mockRecipes[1],
-        dinner: mockRecipes[5],
-    },
-    "DAY 2": {
-        breakfast: null,
-        lunch: mockRecipes[2],
-        dinner: mockRecipes[0],
-    },
-    "DAY 3": {
-        breakfast: mockRecipes[3],
-        lunch: null,
-        dinner: null,
-    },
-    "DAY 4": {
-        breakfast: mockRecipes[1],
-        lunch: mockRecipes[2],
-        dinner: mockRecipes[5],
-    },
-    "DAY 5": {
-        breakfast: null,
-        lunch: mockRecipes[0],
-        dinner: null,
-    },
-    "DAY 6": {
-        breakfast: mockRecipes[3],
-        lunch: mockRecipes[1],
-        dinner: mockRecipes[4],
-    },
-    "DAY 7": {
-        breakfast: mockRecipes[2],
-        lunch: null,
-        dinner: mockRecipes[5],
-    },
+    "DAY 1": [
+        { type: "Breakfast", recipe: mockRecipes[3] },
+        { type: "Lunch", recipe: mockRecipes[1] },
+        { type: "Dinner", recipe: mockRecipes[5] },
+    ],
+    "DAY 2": [
+        { type: "Lunch", recipe: mockRecipes[2] },
+        { type: "Dinner", recipe: mockRecipes[0] },
+    ],
+    "DAY 3": [
+        { type: "Breakfast", recipe: mockRecipes[3] },
+    ],
+    "DAY 4": [
+        { type: "Breakfast", recipe: mockRecipes[1] },
+        { type: "Lunch", recipe: mockRecipes[2] },
+        { type: "Dinner", recipe: mockRecipes[5] },
+    ],
+    "DAY 5": [
+        { type: "Lunch", recipe: mockRecipes[0] },
+    ],
+    "DAY 6": [
+        { type: "Breakfast", recipe: mockRecipes[3] },
+        { type: "Lunch", recipe: mockRecipes[1] },
+        { type: "Dinner", recipe: mockRecipes[4] },
+    ],
+    "DAY 7": [
+        { type: "Breakfast", recipe: mockRecipes[2] },
+        { type: "Dinner", recipe: mockRecipes[5] },
+    ],
 };
 
 const starterPlan_budget_3 = {
-    "DAY 1": {
-        breakfast: mockRecipes[0],
-        lunch: mockRecipes[1],
-        dinner: mockRecipes[2],
-    },
-    "DAY 2": {
-        breakfast: mockRecipes[3],
-        lunch: mockRecipes[4],
-        dinner: mockRecipes[5],
-    },
-    "DAY 3": {
-        breakfast: mockRecipes[0],
-        lunch: mockRecipes[2],
-        dinner: mockRecipes[4],
-    },
-    "DAY 4": {
-        breakfast: mockRecipes[1],
-        lunch: mockRecipes[3],
-        dinner: mockRecipes[5],
-    },
-    "DAY 5": {
-        breakfast: mockRecipes[0],
-        lunch: mockRecipes[4],
-        dinner: null,
-    },
-    "DAY 6": {
-        breakfast: mockRecipes[1],
-        lunch: null,
-        dinner: null,
-    },
-    "DAY 7": {
-        breakfast: mockRecipes[3],
-        lunch: null,
-        dinner: null,
-    },
+    "DAY 1": [
+        { type: "Breakfast", recipe: mockRecipes[0] },
+        { type: "Lunch", recipe: mockRecipes[1] },
+        { type: "Dinner", recipe: mockRecipes[2] },
+    ],
+    "DAY 2": [
+        { type: "Breakfast", recipe: mockRecipes[3] },
+        { type: "Lunch", recipe: mockRecipes[4] },
+        { type: "Dinner", recipe: mockRecipes[5] },
+    ],
+    "DAY 3": [
+        { type: "Breakfast", recipe: mockRecipes[0] },
+        { type: "Lunch", recipe: mockRecipes[2] },
+        { type: "Dinner", recipe: mockRecipes[4] },
+    ],
+    "DAY 4": [
+        { type: "Breakfast", recipe: mockRecipes[1] },
+        { type: "Lunch", recipe: mockRecipes[3] },
+        { type: "Dinner", recipe: mockRecipes[5] },
+    ],
+    "DAY 5": [
+        { type: "Breakfast", recipe: mockRecipes[0] },
+        { type: "Lunch", recipe: mockRecipes[4] },
+    ],
+    "DAY 6": [
+        { type: "Breakfast", recipe: mockRecipes[1] },
+    ],
+    "DAY 7": [
+        { type: "Breakfast", recipe: mockRecipes[3] },
+    ],
 };
 
 const starterPlan_budget_5 = {
-    "DAY 1": {
-        breakfast: mockRecipes[5],
-        lunch: mockRecipes[4],
-        dinner: mockRecipes[3],
-    },
-    "DAY 2": {
-        breakfast: mockRecipes[2],
-        lunch: mockRecipes[1],
-        dinner: mockRecipes[0],
-    },
-    "DAY 3": {
-        breakfast: mockRecipes[5],
-        lunch: mockRecipes[3],
-        dinner: mockRecipes[1],
-    },
-    "DAY 4": {
-        breakfast: mockRecipes[4],
-        lunch: mockRecipes[2],
-        dinner: mockRecipes[0],
-    },
-    "DAY 5": {
-        breakfast: null,
-        lunch: mockRecipes[1],
-        dinner: null,
-    },
-    "DAY 6": {
-        breakfast: null,
-        lunch: mockRecipes[3],
-        dinner: null,
-    },
-    "DAY 7": {
-        breakfast: null,
-        lunch: mockRecipes[5],
-        dinner: mockRecipes[0],
-    },
+    "DAY 1": [
+        { type: "Breakfast", recipe: mockRecipes[5] },
+        { type: "Lunch", recipe: mockRecipes[4] },
+        { type: "Dinner", recipe: mockRecipes[3] },
+    ],
+    "DAY 2": [
+        { type: "Breakfast", recipe: mockRecipes[2] },
+        { type: "Lunch", recipe: mockRecipes[1] },
+        { type: "Dinner", recipe: mockRecipes[0] },
+    ],
+    "DAY 3": [
+        { type: "Breakfast", recipe: mockRecipes[5] },
+        { type: "Lunch", recipe: mockRecipes[3] },
+        { type: "Dinner", recipe: mockRecipes[1] },
+    ],
+    "DAY 4": [
+        { type: "Breakfast", recipe: mockRecipes[4] },
+        { type: "Lunch", recipe: mockRecipes[2] },
+        { type: "Dinner", recipe: mockRecipes[0] },
+    ],
+    "DAY 5": [
+        { type: "Lunch", recipe: mockRecipes[1] },
+    ],
+    "DAY 6": [
+        { type: "Lunch", recipe: mockRecipes[3] },
+    ],
+    "DAY 7": [
+        { type: "Lunch", recipe: mockRecipes[5] },
+        { type: "Dinner", recipe: mockRecipes[0] },
+    ],
 };
 
 export const allMealPlans = {

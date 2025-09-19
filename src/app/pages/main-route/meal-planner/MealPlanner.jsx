@@ -7,7 +7,6 @@ import {
     weeklyPlans, 
     simpleStarterPlans, 
     preparations, 
-    menuOptions, 
     allMealPlans
 } from "@/lib/mockData";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -34,14 +33,13 @@ const MealPlanner = () => {
                 <div className="space-y-8">
                     <Tabs value={activeTab} onValueChange={setActiveTab}>
                         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                            <TabsList className="grid grid-cols-3 border *:data-[state=active]:bg-primary *:data-[state=active]:text-white">
+                            <TabsList className="grid grid-cols-3">
                                 <TabsTrigger value="my-weeks">My Weeks</TabsTrigger>
                                 <TabsTrigger value="starter-plans">Starter Plans</TabsTrigger>
                                 <TabsTrigger value="custom-plans">Custom Plans</TabsTrigger>
                             </TabsList>
                             <GlobalMenu
                                 preparations={preparations}
-                                menuOptions={menuOptions}
                                 selectedPreparation={selectedPreparation}
                                 setSelectedPreparation={setSelectedPreparation}
                             />
