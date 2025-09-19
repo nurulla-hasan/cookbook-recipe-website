@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
-// import { useLoginMutation } from "@/redux/feature/auth/authApi";
+import { useLoginMutation } from "@/redux/feature/auth/authApi";
 
 const loginSchema = z.object({
     email: z.string().min(1, { message: "Email is required." }).email({ message: "Invalid email address." }),
@@ -18,7 +18,7 @@ const loginSchema = z.object({
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
-    // const [login, { isLoading }] = useLoginMutation();
+    const [login, { isLoading }] = useLoginMutation();
 
     const form = useForm({
         resolver: zodResolver(loginSchema),
@@ -29,8 +29,8 @@ const LoginForm = () => {
     });
 
     const onSubmit = (data) => {
-        console.log(data)
-        // login(data)
+        console.log(data);
+        login(data)
     };
 
     return (
@@ -99,7 +99,7 @@ const LoginForm = () => {
                                     )}
                                 />
 
-                                <Button type="submit" className="w-full">
+                                <Button loading={isLoading} type="submit" className="w-full">
                                     Login
                                 </Button>
                             </div>
