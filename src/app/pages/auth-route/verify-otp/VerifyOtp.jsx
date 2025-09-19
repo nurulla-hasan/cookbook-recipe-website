@@ -1,15 +1,21 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-// import { useResendResetOTPMutation, useVerifyOTPForResetPasswordMutation } from "@/redux/feature/auth/authApi";
-import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import {
+    useResendResetOTPMutation,
+    useResendSignupOTPMutation,
+    useVerifyOTPForResetPasswordMutation,
+    useVerifyOTPForSignupMutation
+} from "@/redux/feature/auth/authApi";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { ErrorToast } from "@/lib/utils";
 
 const verificationSchema = z.object({
     code: z.string().min(6, {
@@ -18,52 +24,74 @@ const verificationSchema = z.object({
 });
 
 const VerifyOtp = () => {
-    // const navigate = useNavigate();
+    const searchParams = new URLSearchParams(window.location.search);
+    const type = searchParams.get('type');
+    const email = decodeURIComponent(searchParams.get('email') || '');
+    const navigate = useNavigate();
+    const [cooldown, setCooldown] = useState(0);
+
     const form = useForm({
         resolver: zodResolver(verificationSchema),
+        mode: "onSubmit",
         defaultValues: {
             code: "",
         },
     });
 
-    // const [verifyOTPForResetPassword, { isLoading, isSuccess }] = useVerifyOTPForResetPasswordMutation();
-    // const [resendResetOTP, { isLoading: isResendLoading, isSuccess: isResendSuccess }] = useResendResetOTPMutation();
+    // Resend OTP Mutations
+    const [resendResetOTP, { isLoading: isResendResetLoading }] = useResendResetOTPMutation();
+    const [resendSignupOTP, { isLoading: isResendSignupLoading }] = useResendSignupOTPMutation();
 
-    const [cooldown, setCooldown] = useState(0);
+    // Verify OTP Mutations
+    const [verifyOTPForSignup, { isLoading: isVerifyLoadingForSignup }] = useVerifyOTPForSignupMutation();
+    const [verifyOTPForResetPassword, { isLoading: isVerifyLoadingForResetPassword }] = useVerifyOTPForResetPasswordMutation();
 
-    // const FPE = typeof window !== "undefined" ? localStorage.getItem("FPE") : null;
-    const onSubmit = (data) => {
-        console.log(data)
-        // const OTP = Number(data.code);
-        // verifyOTPForResetPassword({ resetCode: OTP, email: FPE })
+    const onSubmit = async (data) => {
+        const OTP = Number(data.code);
+        try {
+            if (type === 'forget-password') {
+                await verifyOTPForResetPassword({ code: OTP, email }).unwrap();
+                navigate("/auth/reset-password");
+            }
+            else if (type === 'signup') {
+                await verifyOTPForSignup({ activation_code: OTP, userEmail: email }).unwrap();
+                navigate("/auth/login");
+            }
+        } catch (error) {
+            ErrorToast(error?.data?.message || "Verification failed. Please try again.");
+        }
     };
 
-    const handleResendOTP = () => {
+    const handleResendOTP = async () => {
         if (cooldown > 0) return;
-        // resendResetOTP({ email: FPE });
+
+        try {
+            if (type === 'forget-password') {
+                await resendResetOTP({ email });
+            }
+            else if (type === 'signup') {
+                await resendSignupOTP({ email });
+            }
+            setCooldown(60);
+        } catch (error) {
+            ErrorToast(error?.data?.message || "Failed to resend OTP");
+        }
     };
 
-    // useEffect(() => {
-    //     if (isSuccess) {
-    //         navigate("/auth/reset-password");
-    //     }
-    // }, [isSuccess, navigate]);
+    // Cooldown timer effect
+    useEffect(() => {
+        if (cooldown <= 0) return;
+        const timer = setInterval(() => setCooldown(s => s - 1), 1000);
+        return () => clearInterval(timer);
+    }, [cooldown]);
 
+    // Set initial cooldown
     useEffect(() => {
         setCooldown(60);
     }, []);
 
-    // useEffect(() => {
-    //     if (isResendSuccess) {
-    //         setCooldown(60);
-    //     }
-    // }, [isResendSuccess]);
-
-    useEffect(() => {
-        if (cooldown <= 0) return;
-        const timer = setInterval(() => setCooldown((s) => s - 1), 1000);
-        return () => clearInterval(timer);
-    }, [cooldown]);
+    const isLoading = isVerifyLoadingForSignup || isVerifyLoadingForResetPassword || isResendResetLoading || isResendSignupLoading;
+    const isResendLoading = isResendResetLoading || isResendSignupLoading;
 
     return (
         <div className="w-full max-w-sm md:max-w-lg">
@@ -71,16 +99,16 @@ const VerifyOtp = () => {
                 <CardContent className="p-0">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 md:p-8">
-                            <Link to="/auth/forgot-password">
+                            <Link to={type === 'signup' ? '/auth/register' : '/auth/forgot-password'}>
                                 <ArrowLeft className="cursor-pointer" />
                             </Link>
                             <div className="flex flex-col gap-6 mt-6">
-                                <div className="flex flex-col items-center text-center">
-                                    <h1 className="text-2xl font-semibold text-title mb-2">
-                                        Verify Your Account
+                                <div className="text-center space-y-2">
+                                    <h1 className="text-2xl font-bold">
+                                        {type === 'signup' ? 'Verify Your Email' : 'Reset Password'}
                                     </h1>
-                                    <p className="text-sm text-subtitle">
-                                        Enter the 6-digit code sent to your email.
+                                    <p className="text-gray-500">
+                                        We&apos;ve sent a verification code to {email}
                                     </p>
                                 </div>
 
@@ -88,10 +116,13 @@ const VerifyOtp = () => {
                                     control={form.control}
                                     name="code"
                                     render={({ field }) => (
-                                        <FormItem className="flex flex-col items-center justify-center">
+                                        <FormItem className="space-y-2 flex flex-col justify-center items-center">
                                             <FormLabel>Verification Code</FormLabel>
                                             <FormControl>
-                                                <InputOTP {...field} maxLength={6}>
+                                                <InputOTP
+                                                    maxLength={6}
+                                                    {...field}
+                                                >
                                                     <InputOTPGroup>
                                                         <InputOTPSlot index={0} />
                                                         <InputOTPSlot index={1} />
@@ -110,30 +141,36 @@ const VerifyOtp = () => {
                                     )}
                                 />
 
-                                <div className="flex justify-center text-sm text-subtitle">
-                                    <Button
-                                        type="button"
-                                        variant="link"
-                                        onClick={handleResendOTP}
-                                        className="p-0 h-auto"
-                                        // disabled={isResendLoading || cooldown > 0}
-                                        // aria-disabled={isResendLoading || cooldown > 0}
-                                        title={cooldown > 0 ? `Please wait ${cooldown}s` : "Resend Code"}
-                                    >
-                                        {cooldown > 0 ? `Resend in ${cooldown}s` : "Resend Code"}
-                                    </Button>
-                                </div>
-
-                                <Button type="submit" className="w-full">
+                                <Button
+                                    type="submit"
+                                    className="w-full"
+                                    loading={isLoading}
+                                >
                                     Verify
                                 </Button>
+
+                                <div className="text-center text-sm">
+                                    <span>Didn&apos;t receive code? </span>
+                                    <button
+                                        type="button"
+                                        onClick={handleResendOTP}
+                                        disabled={cooldown > 0 || isResendLoading}
+                                        className="text-primary hover:underline"
+                                    >
+                                        {isResendLoading
+                                            ? 'Sending...'
+                                            : cooldown > 0
+                                                ? `Resend in ${cooldown}s`
+                                                : 'Resend Code'}
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </Form>
                 </CardContent>
             </Card>
         </div>
-    )
-}
+    );
+};
 
 export default VerifyOtp;

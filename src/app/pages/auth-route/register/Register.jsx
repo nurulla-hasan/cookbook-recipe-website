@@ -5,11 +5,11 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,6 +19,7 @@ import { useState } from "react";
 import { ArrowLeft, Eye, EyeOff, CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { useRegisterMutation } from "@/redux/feature/auth/authApi";
 
 const registerSchema = z.object({
     fullname: z.string().min(1, { message: "Full name is required." }),
@@ -42,25 +43,25 @@ const Register = () => {
         },
     });
 
+    const handleCalendarChange = (value, e) => {
+        const event = {
+            target: {
+                value: String(value),
+            },
+        }
+        e(event)
+    }
+
+    const [register, { isLoading }] = useRegisterMutation();
+
     const onSubmit = (data) => {
         const formattedData = {
             ...data,
             dob: format(data.dob, "yyyy-MM-dd"),
         };
-        console.log(formattedData);
+        register(formattedData);
     };
 
-    const handleCalendarChange = (
-        _value,
-        _e
-    ) => {
-        const _event = {
-            target: {
-                value: String(_value),
-            },
-        }
-        _e(_event)
-    }
 
     return (
         <div className="w-full max-w-sm md:max-w-lg">
@@ -215,7 +216,7 @@ const Register = () => {
                                     )}
                                 />
 
-                                <Button type="submit" className="w-full">
+                                <Button loading={isLoading} type="submit" className="w-full">
                                     Create Account
                                 </Button>
                             </div>

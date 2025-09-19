@@ -1,4 +1,6 @@
+/* eslint-disable refresh/only-export-components */
 import { clsx } from "clsx";
+import { toast } from "sonner";
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs) {
@@ -43,3 +45,23 @@ export const replaceWhiteBackground = (html) => {
     }
   });
 };
+
+// Success Toast
+export const SuccessToast = (msg) => {
+  toast.success(msg)
+}
+
+// Error Toast 
+export const ErrorToast = (msg) => {
+  toast.error(msg)
+}
+
+// Warning Toast
+export const WarningToast = (msg) => {
+  toast.warning(msg)
+}
+
+// Info Toast
+export const InfoToast = (msg) => {
+  toast.info(msg)
+}
