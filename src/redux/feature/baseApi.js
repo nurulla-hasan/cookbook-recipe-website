@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { SetAccessToken, SetUser } from './auth/authSlice';
+import { SetAccessToken } from './auth/authSlice';
+import { SetProfile } from './profile/profileSlice';
 
 export const IMAGE_BASE_URL = 'http://10.10.20.11:5000';
 
@@ -23,7 +24,7 @@ const baseQuery = async (args, api, extraOptions) => {
     if (status === 401 || status === 403) {
         // Clear auth state
         api.dispatch(SetAccessToken(null));
-        api.dispatch(SetUser(null));
+        api.dispatch(SetProfile(null));
         localStorage.removeItem("accessToken");
         // Redirect to login
         if (typeof window !== 'undefined') {
@@ -38,6 +39,6 @@ export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery,
 
-    tagTypes: [],
+    tagTypes: ["USER", "RECIPE", "REVIEW", "FAVORITE", "PROFILE"],
     endpoints: () => ({})
 })

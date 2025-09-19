@@ -1,40 +1,11 @@
 import { SuccessToast, ErrorToast } from "@/lib/utils";
-import { SetAccessToken, SetUser } from "../auth/authSlice";
+import { SetAccessToken } from "../auth/authSlice";
 import { baseApi } from "../baseApi";
 import { jwtDecode } from "jwt-decode";
 
 const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-
-        // GET USER PROFILE
-        getUserProfile: builder.query({
-            query: () => ({
-                url: "/auth/profile",
-                method: "GET",
-            }),
-            providesTags: ["PROFILE"],
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-                try {
-                    const { data } = await queryFulfilled;
-                    if (data?.data) {
-                        dispatch(SetUser(data.data));
-                    }
-                } catch {
-                    // silently ignore; UI can read error from hook if needed
-                }
-            },
-        }),
-
-        // UPDATE USER PROFILE
-        updateUserProfile: builder.mutation({
-            query: (data) => ({
-                url: "/auth/edit-profile",
-                method: "PATCH",
-                body: data,
-            }),
-            invalidatesTags: ["PROFILE"],
-        }),
-
+        
         // Login Endpoint (Mutation) 
         login: builder.mutation({
             query: (credentials) => ({

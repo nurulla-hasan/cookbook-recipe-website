@@ -17,8 +17,8 @@ export class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="p-4 bg-red-50 text-red-700 rounded">
-          Oops! Something went wrong. Please try refreshing the page.
+        <div className="bg-background text-red-500 rounded h-[calc(100vh-5rem)] flex items-center justify-center">
+          <p className="text-2xl font-bold">Oops! Something went wrong. Please try refreshing the page.</p>
         </div>
       );
     }
