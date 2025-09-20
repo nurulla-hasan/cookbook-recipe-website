@@ -1,4 +1,4 @@
-import { Cake, Leaf, Slice, UtensilsCrossed, Wine } from "lucide-react";
+import { Cake, Dumbbell, Leaf, Scale, Slice, UtensilsCrossed, Wine, Zap } from "lucide-react";
 import featured1 from '../assets/featured/featured (1).png';
 import featured2 from '../assets/featured/featured (6).png';
 import featured3 from '../assets/featured/featured (5).png';
@@ -77,6 +77,29 @@ export const categories = [
     {
         name: 'Salads',
         icon: <Leaf className="w-12 h-12" />
+    },
+];
+
+export const diatGoals = [
+    {
+        name: 'Weight Loss',
+        icon: <Dumbbell className="w-16 h-16 text-primary" />,
+    },
+    {
+        name: 'Muscle Gain',
+        icon: <Zap className="w-16 h-16 text-primary" />,
+    },
+    {
+        name: 'Maintain Weight',
+        icon: <Scale className="w-16 h-16 text-primary" />,
+    },
+    {
+        name: 'Improve Endurance',
+        icon: <Dumbbell className="w-16 h-16 text-primary" />,
+    },
+    {
+        name: 'Weight Gain',
+        icon: <Dumbbell className="w-16 h-16 text-primary" />,
     },
 ];
 

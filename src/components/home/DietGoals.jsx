@@ -2,31 +2,10 @@ import React from 'react';
 import PageLayout from '@/app/layout/PageLayout';
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Button } from '@/components/ui/button';
-import { Dumbbell, Zap, Scale, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Title from '../ui/Title';
-
-const dietGoals = [
-    {
-        id: 1,
-        title: 'Weight lose',
-        icon: <Dumbbell className="w-16 h-16 text-primary" />,
-    },
-    {
-        id: 2,
-        title: 'Muscle gain',
-        icon: <Zap className="w-16 h-16 text-primary" />,
-    },
-    {
-        id: 3,
-        title: 'Maintain Weight',
-        icon: <Scale className="w-16 h-16 text-primary" />,
-    },
-    {
-        id: 4,
-        title: 'Improve Endurance',
-        icon: <Dumbbell className="w-16 h-16 text-primary" />,
-    },
-];
+import { Link } from 'react-router-dom';
+import { diatGoals } from '@/lib/mockData';
 
 const DietGoals = () => {
     const [api, setApi] = React.useState(null);
@@ -49,14 +28,20 @@ const DietGoals = () => {
 
             <Carousel setApi={setApi} opts={{ align: "start", loop: true }} className="w-full">
                 <CarouselContent>
-                    {dietGoals.map((goal) => (
-                        <CarouselItem key={goal.id} className="sm:basis-1/2 lg:basis-1/5 mx-auto">
-                            <div className="bg-secondary rounded-2xl p-6 flex flex-col items-center justify-center shadow-sm aspect-square">
-                                <div className="bg-card p-6 rounded-lg flex-grow flex items-center justify-center w-full">
-                                    {goal.icon}
+                    {diatGoals.map((goal, i) => (
+                        <CarouselItem key={i} className="sm:basis-1/2 lg:basis-1/5 mx-auto">
+                            <Link
+                                to={`/diat-gols/${goal.name.replace(" ", "-").toLowerCase()}`}
+                                className="group"
+                                key={i}
+                            >
+                                <div className="group-hover:scale-95 transition-all duration-300 bg-secondary rounded-2xl p-6 flex flex-col items-center justify-center shadow-sm aspect-square">
+                                    <div className="bg-card p-6 rounded-lg flex-grow flex items-center justify-center w-full">
+                                        {goal.icon}
+                                    </div>
+                                    <p className="mt-4 text-lg font-semibold text-primary dark:text-foreground">{goal.name}</p>
                                 </div>
-                                <p className="mt-4 text-lg font-semibold text-primary dark:text-foreground">{goal.title}</p>
-                            </div>
+                            </Link>
                         </CarouselItem>
                     ))}
                 </CarouselContent>

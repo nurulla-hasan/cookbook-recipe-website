@@ -28,6 +28,7 @@ const ForgetPassword = lazy(() => import("../pages/auth-route/forgot-password/Fo
 const VerifyOtp = lazy(() => import("../pages/auth-route/verify-otp/VerifyOtp"));
 const ResetPassword = lazy(() => import("../pages/auth-route/reset-password/ResetPassword"));
 const Category = lazy(() => import("../pages/main-route/category/Category"));
+const DiatGoals = lazy(() => import("../pages/main-route/diat-gols/DiatGoals"));
 const router = createBrowserRouter([
     {
         path: "/",
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
             {
                 path: "category/:slug",
                 element: withErrorAndSuspense(Category, <div>Loading...</div>),
+            },
+            {
+                path: "diat-gols/:slug",
+                element: withErrorAndSuspense(DiatGoals, <div>Loading...</div>),
             },
             {
                 path: "recipes/recipe-details/:id",

@@ -24,7 +24,7 @@ const TopCategories = () => {
                                     {category.icon}
                                 </div>
                             </div>
-                            <p className="mt-5 text-lg font-semibold text-primary dark:text-foreground">
+                            <p className="mt-5 text-lg font-semibold text-primary dark:text-foreground"> 
                                 {category.name}
                             </p>
                         </Link>
