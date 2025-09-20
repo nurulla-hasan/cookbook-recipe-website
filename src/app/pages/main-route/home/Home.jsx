@@ -11,7 +11,7 @@ import Featured from "../featured/Featured";
 
 const Home = () => {
 
-    const [isLoggedIn] = useState(false);
+    const [isLoggedIn] = useState(true);
 
     return (
         <>
