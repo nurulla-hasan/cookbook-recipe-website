@@ -1,4 +1,4 @@
-import { SuccessToast, ErrorToast } from "@/lib/utils";
+import { ErrorToast, SuccessToast } from "@/lib/utils";
 import { SetAccessToken } from "../auth/authSlice";
 import { baseApi } from "../baseApi";
 import { jwtDecode } from "jwt-decode";
@@ -44,7 +44,7 @@ const authApi = baseApi.injectEndpoints({
             async onQueryStarted({ email }, { queryFulfilled }) {
                 try {
                     await queryFulfilled;
-                    window.location.href = `/auth/verification?type=signup&email=${encodeURIComponent(email)}`;
+                    window.location.href = `/auth/verify-otp?type=signup&email=${encodeURIComponent(email)}`;
                     SuccessToast("Registration successful! Please check your email for OTP verification.");
                 } catch (error) {
                     ErrorToast(error?.error?.data?.message || "Registration failed.");
@@ -184,9 +184,7 @@ const authApi = baseApi.injectEndpoints({
 })
 
 export const {
-    useGetUserProfileQuery,
     useRegisterMutation,
-    useUpdateUserProfileMutation,
     useLoginMutation,
     useForgetPasswordMutation,
     useVerifyOTPForSignupMutation,

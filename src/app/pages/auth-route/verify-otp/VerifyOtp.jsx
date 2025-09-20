@@ -47,7 +47,7 @@ const VerifyOtp = () => {
     const [verifyOTPForResetPassword, { isLoading: isVerifyLoadingForResetPassword }] = useVerifyOTPForResetPasswordMutation();
 
     const onSubmit = async (data) => {
-        const OTP = Number(data.code);
+        const OTP = data.code;
         try {
             if (type === 'forget-password') {
                 await verifyOTPForResetPassword({ code: OTP, email }).unwrap();
@@ -58,7 +58,8 @@ const VerifyOtp = () => {
                 navigate("/auth/login");
             }
         } catch (error) {
-            ErrorToast(error?.data?.message || "Verification failed. Please try again.");
+            console.log(error)
+            // ErrorToast(error?.data?.message || "Verification failed. Please try again.");
         }
     };
 
@@ -87,7 +88,7 @@ const VerifyOtp = () => {
 
     // Set initial cooldown
     useEffect(() => {
-        setCooldown(60);
+        setCooldown(5);
     }, []);
 
     const isLoading = isVerifyLoadingForSignup || isVerifyLoadingForResetPassword || isResendResetLoading || isResendSignupLoading;

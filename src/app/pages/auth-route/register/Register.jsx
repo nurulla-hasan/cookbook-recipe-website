@@ -55,11 +55,16 @@ const Register = () => {
     const [register, { isLoading }] = useRegisterMutation();
 
     const onSubmit = (data) => {
-        const formattedData = {
-            ...data,
-            dob: format(data.dob, "yyyy-MM-dd"),
-        };
-        register(formattedData);
+        const payload = {
+            name: data.fullname,
+            role: "USER",
+            email: data.email,
+            date_of_birth: format(data.dob, "dd-MM-yyyy"),
+            password: data.password,
+            confirmPassword: data.password,
+        }
+        console.log(payload)
+        register(payload);
     };
 
 

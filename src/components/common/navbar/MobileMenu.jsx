@@ -4,8 +4,9 @@ import { Menu } from "lucide-react"
 import { NavLink } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { getInitials } from "@/lib/utils"
 
-const MobileMenu = ({navigationItems}) => {
+const MobileMenu = ({navigationItems,user}) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
         <>
@@ -23,11 +24,11 @@ const MobileMenu = ({navigationItems}) => {
                         {/* Mobile User Profile */}
                         <div className="flex items-center space-x-3 py-4.5 border-b px-4">
                             <Avatar className="h-10 w-10 border">
-                                <AvatarImage src="/user-avatar.jpg" alt="Mr. Mike" />
-                                <AvatarFallback>MM</AvatarFallback>
+                                <AvatarImage src={user?.profile_image} alt={user?.name || "User avatar"} />
+                                <AvatarFallback>{getInitials(user?.name)}</AvatarFallback>
                             </Avatar>
                             <div>
-                                <p className="font-medium">Mr. Mike</p>
+                                <p className="font-medium">{user?.name || "User"}</p>
                             </div>
                         </div>
 

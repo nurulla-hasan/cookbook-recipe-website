@@ -4,21 +4,30 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { LogIn, LogOutIcon, User, UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { getInitials } from "@/lib/utils";
 
-
-const DesktopDropdown = ({isLoading, isLoggedIn, admin, getInitials, handleLogout}) => {
+const DesktopDropdown = ({ isLoading, isLoggedIn, user, handleLogout }) => {
     return (
         <>
             {isLoggedIn ? (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <div className="flex items-center space-x-2 cursor-pointer">
-                            <Avatar className="h-10 w-10 border">
-                                <AvatarImage src={admin?.profile_image} alt={admin?.name || "User avatar"} />
-                                <AvatarFallback>{getInitials(admin?.name)}</AvatarFallback>
-                            </Avatar>
-                            <span className="text-sm font-medium">{admin?.name || "User"}</span>
-                        </div>
+                        {
+                            isLoading ? (
+                                <div className="flex items-center space-x-2 cursor-pointer">
+                                    <Skeleton className="h-10 w-10 border rounded-full"/>
+                                    <Skeleton className="w-24 h-4"></Skeleton>
+                                </div>
+                            ) : (
+                                <div className="flex items-center space-x-2 cursor-pointer">
+                                    <Avatar className="h-10 w-10 border">
+                                        <AvatarImage src={user?.profile_image} alt={user?.name || "User avatar"} />
+                                        <AvatarFallback>{getInitials(user?.name)}</AvatarFallback>
+                                    </Avatar>
+                                    <span className="text-sm font-medium">{user?.name || "User"}</span>
+                                </div>
+                            )
+                        }
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="max-w-64 mr-4">
                         {isLoading ? (
@@ -29,10 +38,10 @@ const DesktopDropdown = ({isLoading, isLoggedIn, admin, getInitials, handleLogou
                         ) : (
                             <DropdownMenuLabel className="flex min-w-0 flex-col">
                                 <span className="text-foreground truncate text-sm font-medium">
-                                    {admin?.name || "User"}
+                                    {user?.name || "User"}
                                 </span>
                                 <span className="text-muted-foreground truncate text-xs font-normal">
-                                    {admin?.email || ""}
+                                    {user?.email || ""}
                                 </span>
                             </DropdownMenuLabel>
                         )}

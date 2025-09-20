@@ -8,6 +8,9 @@ import { useTheme } from "@/theme/theme-provider"
 import MobileMenu from "./MobileMenu"
 import MobileDropdown from "./MobileDropdown"
 import DesktopDropdown from "./DesktopDropdown"
+import { useDispatch, useSelector } from "react-redux"
+import { useGetUserProfileQuery } from "@/redux/feature/profile/profileApi"
+import { Logout } from "@/redux/feature/auth/authSlice"
 
 const navigationItems = [
     { name: "Home", href: "/", icon: Home },
@@ -21,6 +24,7 @@ const navigationItems = [
 
 const Navbar = () => {
     const { setTheme, theme } = useTheme();
+    const dispatch = useDispatch();
 
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isVisible, setIsVisible] = useState(true);
@@ -42,29 +46,16 @@ const Navbar = () => {
         };
     }, [lastScrollY]);
 
-    // Mock authentication state (replace with actual auth logic)
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
-    const [isLoading] = useState(false);
-    const [admin, setAdmin] = useState({
-        name: "Mr. Mike",
-        email: "mike@example.com",
-        profile_image: "/user-avatar.jpg",
-    });
+    const { isLoading } = useGetUserProfileQuery();
+    const user = useSelector((state) => state.profile.userProfile);
+    const token = useSelector((state) => state.auth.accessToken);
+    const isLoggedIn = !!token;
 
-    // Utility to get initials (for AvatarFallback)
-    const getInitials = (name) => {
-        if (!name) return "";
-        const parts = name.split(" ");
-        if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
-        return (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase();
-    };
 
     // Mock logout function
     const handleLogout = () => {
-        setIsLoggedIn(false);
-        setAdmin(null);
-        console.log("User logged out");
-        // Implement actual logout logic (e.g., clear token, redirect)
+        dispatch(Logout());
+        window.location.href = "/auth/login";
     };
 
     return (
@@ -86,8 +77,7 @@ const Navbar = () => {
                                     key={item.name}
                                     to={item.href}
                                     className={({ isActive }) =>
-                                        `text-sm font-medium transition-colors hover:text-foreground ${
-                                            isActive ? 'text-foreground' : 'text-muted-foreground'
+                                        `text-sm font-medium transition-colors hover:text-foreground ${isActive ? 'text-foreground' : 'text-muted-foreground'
                                         }`
                                     }
                                 >
@@ -128,16 +118,16 @@ const Navbar = () => {
 
                         {/* Desktop User Profile (md and up) */}
                         <div className="hidden md:flex items-center space-x-2">
-                            <DesktopDropdown {...{isLoading, isLoggedIn, admin, getInitials, handleLogout}} />
+                            <DesktopDropdown {...{ isLoading, isLoggedIn, user, handleLogout }} />
                         </div>
 
                         {/* Mobile User Profile (below md) */}
                         <div className="md:hidden">
-                            <MobileDropdown {...{isLoading, isLoggedIn, admin, getInitials, handleLogout}} />
+                            <MobileDropdown {...{ isLoading, isLoggedIn, user, handleLogout }} />
                         </div>
 
                         {/* Mobile Menu */}
-                        <MobileMenu {...{navigationItems}}/>
+                        <MobileMenu {...{ navigationItems, user }} />
                     </div>
                 </div>
             </div>

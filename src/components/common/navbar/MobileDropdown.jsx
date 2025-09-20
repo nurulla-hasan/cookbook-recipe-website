@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Heart, LogIn, LogOutIcon, Moon, Sun, User, UserPlus } from "lucide-react";
 import { useTheme } from "@/theme/theme-provider";
 import { Link } from "react-router-dom";
+import { getInitials } from "@/lib/utils";
 
-const MobileDropdown = ({isLoading, isLoggedIn, admin, getInitials, handleLogout}) => {
+const MobileDropdown = ({isLoading, isLoggedIn, user, handleLogout}) => {
     const { setTheme, theme } = useTheme();
     return (
         <>
@@ -16,8 +17,8 @@ const MobileDropdown = ({isLoading, isLoggedIn, admin, getInitials, handleLogout
                         <Skeleton className="h-10 w-10 rounded-full" />
                     ) : isLoggedIn ? (
                         <Avatar className="h-10 w-10 border">
-                            <AvatarImage src={admin?.profile_image} alt={admin?.name || "User avatar"} />
-                            <AvatarFallback>{getInitials(admin?.name)}</AvatarFallback>
+                            <AvatarImage src={user?.profile_image} alt={user?.name || "User avatar"} />
+                            <AvatarFallback>{getInitials(user?.name)}</AvatarFallback>
                         </Avatar>
                     ) : (
                         <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full">
@@ -35,10 +36,10 @@ const MobileDropdown = ({isLoading, isLoggedIn, admin, getInitials, handleLogout
                         <>
                             <DropdownMenuLabel className="flex min-w-0 flex-col">
                                 <span className="text-foreground truncate text-sm font-medium">
-                                    {admin?.name || "User"}
+                                    {user?.name || "User"}
                                 </span>
                                 <span className="text-muted-foreground truncate text-xs font-normal">
-                                    {admin?.email || ""}
+                                    {user?.email || ""}
                                 </span>
                             </DropdownMenuLabel>
                             <DropdownMenuSeparator />

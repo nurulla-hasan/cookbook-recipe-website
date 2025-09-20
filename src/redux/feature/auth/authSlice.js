@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    user: null,
     accessToken: typeof window !== "undefined" ? localStorage.getItem("accessToken") : null,
 };
 
@@ -17,8 +16,12 @@ const authSlice = createSlice({
                 localStorage.removeItem("accessToken");
             }
         },
+        Logout: (state) => {
+            state.accessToken = null;
+            localStorage.removeItem("accessToken");
+        },
     },
 });
 
-export const { SetAccessToken } = authSlice.actions;
+export const { SetAccessToken, Logout } = authSlice.actions;
 export const authSliceReducer = authSlice.reducer;
