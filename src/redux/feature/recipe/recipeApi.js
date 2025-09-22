@@ -1,4 +1,4 @@
-import { ErrorToast, SuccessToast } from "@/lib/utils";
+// import { ErrorToast, SuccessToast } from "@/lib/utils";
 import { baseApi } from "../baseApi";
 
 
@@ -94,35 +94,6 @@ const recipeApi = baseApi.injectEndpoints({
                 url: `/dashboard/toggle_favorite/${id}`,
                 method: "PATCH",
             }),
-            async onQueryStarted(id, { dispatch, queryFulfilled }) {
-                // Optimistically update the cache
-                const patchResult = dispatch(
-                    recipeApi.util.updateQueryData(
-                        "getRecipes",
-                        undefined,
-                        (draft) => {
-                            if (!draft?.data?.results) return;
-                            // Update in recipe list
-                            const recipe = draft.data.results.find(r => r.id === id);
-                            if (recipe) {
-                                recipe.isFavorite = !recipe.isFavorite;
-                                recipe.favoriteCount = recipe.isFavorite
-                                    ? (recipe.favoriteCount || 0) + 1
-                                    : Math.max(0, (recipe.favoriteCount || 1) - 1);
-                            }
-                        }
-                    )
-                );
-
-                try {
-                    await queryFulfilled;
-                    SuccessToast("Favorite updated successfully");
-                } catch (error) {
-                    patchResult.undo();
-                    ErrorToast(error?.data?.message || "Failed to update favorite");
-                    throw error;
-                }
-            },
             invalidatesTags: ["RECIPE", "FAVORITE"],
         }),
 

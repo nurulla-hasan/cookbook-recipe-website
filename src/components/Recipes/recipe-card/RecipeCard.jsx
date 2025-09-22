@@ -4,8 +4,7 @@ import { Heart, Clock, Star, ShoppingCart, ChefHat, Trash2, SquarePen } from 'lu
 import { Link } from 'react-router-dom';
 import { getImageUrl } from '@/lib/utils';
 import { useToggleFavoriteRecipeMutation } from "@/redux/feature/recipe/recipeApi";
-import { useSelector } from "react-redux";
-import { useGetUserFavoriteRecipesQuery } from "@/redux/feature/profile/profileApi";
+import { useState } from "react";
 
 const RecipeCard = (
     {
@@ -18,12 +17,16 @@ const RecipeCard = (
         onEdit
     }) => {
 
-        useGetUserFavoriteRecipesQuery()
-        const [toggleFavoriteRecipe] = useToggleFavoriteRecipeMutation();
-        const { favoriteRecipes: favoriteIds } = useSelector((state) => state.profile);
+    const [toggleFavoriteRecipe] = useToggleFavoriteRecipeMutation();
+    const [isFavorite, setIsFavorite] = useState(recipe.favorite);
 
     const onFavoriteToggle = async (id) => {
-        await toggleFavoriteRecipe(id)
+        setIsFavorite(!isFavorite)
+        try {
+            await toggleFavoriteRecipe(id)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -55,7 +58,7 @@ const RecipeCard = (
                         <span className="inline-block text-xs font-medium px-3 py-1 rounded-full bg-primary/30 text-foreground">
                             {recipe.category}
                         </span>
-                        
+
                         <Button
                             variant="ghost"
                             size="icon"
@@ -67,7 +70,7 @@ const RecipeCard = (
                             }}
                         >
                             <Heart
-                                className={`${favoriteIds?.includes(recipe?._id) ? 'fill-red-500 text-red-500' : 'text-white'}`}
+                                className={`${isFavorite ? 'fill-red-500 text-red-500' : 'text-white'}`}
                             />
                         </Button>
 
