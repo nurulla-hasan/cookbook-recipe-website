@@ -4,6 +4,7 @@ import { withErrorAndSuspense } from "@/tools/withErrorAndSuspense";
 import MainLayout from "../layout/MainLayout";
 import AuthLayout from "../layout/AuthLayout";
 import Profilelayout from "../layout/Profilelayout";
+import RecipeDetailsSkeleton from "@/components/skeleton/recipe-details/RecipeDetailsSkeleton";
 
 const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
 const EditRecipe = lazy(() => import("../pages/profile-route/my-recipe/edit-recipe/EditRecipe"));
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "recipes/recipe-details/:id",
-                element: withErrorAndSuspense(RecipeDetails, <div>Loading...</div>),
+                element: withErrorAndSuspense(RecipeDetails, <RecipeDetailsSkeleton />),
             },
             {
                 path: "meal-planner",

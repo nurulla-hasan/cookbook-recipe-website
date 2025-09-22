@@ -3,17 +3,29 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { StarRating } from '@/tools/StarRating';
+import { useSendReviewMutation } from '@/redux/feature/recipe/recipeApi';
+import { useParams } from 'react-router-dom';
 
 
 const ReviewModal = ({ isOpen, onClose }) => {
+    const { id } = useParams();
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
 
+    const [sendReview, { isLoading }] = useSendReviewMutation();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle review submission logic here
-        console.log({ rating, comment });
-        onClose(false);
+        try {
+            sendReview({
+                recipeId: id,
+                ratting: rating,
+                feedback: comment,
+            });
+            onClose(false);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -40,7 +52,7 @@ const ReviewModal = ({ isOpen, onClose }) => {
                             rows={4}
                         />
                     </div>
-                    <Button type="submit" className="w-full">Submit</Button>
+                    <Button loading={isLoading} type="submit" className="w-full">Submit</Button>
                 </form>
             </DialogContent>
         </Dialog>

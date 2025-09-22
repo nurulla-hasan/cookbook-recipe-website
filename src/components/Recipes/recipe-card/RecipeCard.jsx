@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Heart, Clock, Star, ShoppingCart, ChefHat, Trash2, SquarePen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getImageUrl } from '@/lib/utils';
-import { useToggleFavoriteRecipeMutation } from "@/redux/feature/recipe/recipeApi";
-import { useState } from "react";
+import useFavorite from '@/hooks/useFavorite';
 
 const RecipeCard = (
     {
@@ -17,17 +16,7 @@ const RecipeCard = (
         onEdit
     }) => {
 
-    const [toggleFavoriteRecipe] = useToggleFavoriteRecipeMutation();
-    const [isFavorite, setIsFavorite] = useState(recipe.favorite);
-
-    const onFavoriteToggle = async (id) => {
-        setIsFavorite(!isFavorite)
-        try {
-            await toggleFavoriteRecipe(id)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    const { isFavorite, onFavoriteToggle } = useFavorite(recipe.favorite);
 
     return (
         <Link
@@ -42,7 +31,7 @@ const RecipeCard = (
                         src={getImageUrl(recipe.image)}
                         alt={recipe.title}
                         className="w-full h-full object-cover transition-transform duration-500"
-                        onError={(e) => e.target.src = "https://placehold.co/400"}
+                        onError={(e) => e.target.src = `https://placehold.co/400?text=${recipe.name}&font=roboto`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                         <div className="flex items-center gap-2 text-white text-sm">

@@ -2,16 +2,22 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { StarRating } from '@/tools/StarRating';
+import { useSendSatietyReviewMutation } from '@/redux/feature/recipe/recipeApi';
 
 
-const ScoreModal = ({ isOpen, onClose }) => {
+const ScoreModal = ({ isOpen, onClose, recipe }) => {
     const [rating, setRating] = useState(0);
+
+    const [sendScore, { isLoading }] = useSendSatietyReviewMutation();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle review submission logic here
-        console.log({ rating });
-        onClose(false);
+        try {
+            sendScore({ recipeId: recipe._id, ratting: rating });
+            onClose(false);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -31,7 +37,7 @@ const ScoreModal = ({ isOpen, onClose }) => {
                             rating={rating}
                             onRate={setRating} />
                     </div>
-                    <Button type="submit" className="w-full">Submit</Button>
+                    <Button loading={isLoading} type="submit" className="w-full">Submit</Button>
                 </form>
             </DialogContent>
         </Dialog>

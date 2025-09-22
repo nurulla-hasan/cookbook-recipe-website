@@ -15,7 +15,7 @@ const CustomBreadcrumb = ({ links }) => {
     <Breadcrumb className="hidden md:block mb-4">
       <BreadcrumbList>
         {links.map((link, index) => (
-          <React.Fragment key={link.name}>
+          <React.Fragment key={index}>
             <BreadcrumbItem>
               {link.href && !link.isCurrent ? ( 
                 <BreadcrumbLink asChild>
