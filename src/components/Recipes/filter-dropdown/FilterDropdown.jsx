@@ -14,11 +14,15 @@ const FilterDropdown = ({ label, options, onSelect, selected }) => {
         <SelectValue placeholder={label} />
       </SelectTrigger>
       <SelectContent>
-        {options.map((option) => (
-          <SelectItem key={option} value={option}>
-            {option}
-          </SelectItem>
-        ))}
+        {options.map((option) => {
+          const value = typeof option === 'object' ? option.value : option;
+          const label = typeof option === 'object' ? option.label : option;
+          return (
+            <SelectItem key={value} value={value}>
+              {label}
+            </SelectItem>
+          );
+        })}
       </SelectContent>
     </Select>
   );

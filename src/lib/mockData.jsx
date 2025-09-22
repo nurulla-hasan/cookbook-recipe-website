@@ -1,4 +1,4 @@
-import { Cake, Dumbbell, Leaf, Scale, Slice, UtensilsCrossed, Wine, Zap } from "lucide-react";
+import { Dumbbell, Scale, Zap } from "lucide-react";
 import featured1 from '../assets/featured/featured (1).png';
 import featured2 from '../assets/featured/featured (6).png';
 import featured3 from '../assets/featured/featured (5).png';
@@ -57,28 +57,6 @@ export const mockRecipes = [
     },
 ];
 
-export const categories = [
-    {
-        name: 'Breakfast',
-        icon: <Slice className="w-12 h-12" />
-    },
-    {
-        name: 'Lunches',
-        icon: <UtensilsCrossed className="w-12 h-12" />
-    },
-    {
-        name: 'Desserts',
-        icon: <Cake className="w-12 h-12" />
-    },
-    {
-        name: 'Appetizer',
-        icon: <Wine className="w-12 h-12" />
-    },
-    {
-        name: 'Salads',
-        icon: <Leaf className="w-12 h-12" />
-    },
-];
 
 export const diatGoals = [
     {

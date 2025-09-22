@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Heart, Clock, Star, ShoppingCart, ChefHat, Trash2, SquarePen } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { getImageUrl } from '@/lib/utils';
 
 const RecipeCard = ({ recipe, from = 'Recipes', fromPath = '/recipes', showCartButton = false, isMyRecipe = false }) => {
     const [isLiked, setIsLiked] = useState(false);
@@ -22,9 +23,10 @@ const RecipeCard = ({ recipe, from = 'Recipes', fromPath = '/recipes', showCartB
                 {/* Image with Overlay - Left Side */}
                 <div className="w-full md:w-40 h-40 relative flex-shrink-0 overflow-hidden group">
                     <img
-                        src={recipe.image}
+                        src={getImageUrl(recipe.image)}
                         alt={recipe.title}
                         className="w-full h-full object-cover transition-transform duration-500"
+                        onError={(e) => e.target.src = "https://placehold.co/400"}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                         <div className="flex items-center gap-2 text-white text-sm">
@@ -79,18 +81,18 @@ const RecipeCard = ({ recipe, from = 'Recipes', fromPath = '/recipes', showCartB
                     </div>
 
                     <h3 className="font-semibold  dark:text-white mb-2 line-clamp-2">
-                        {recipe.title}
+                        {recipe.name}
                     </h3>
 
                     <div className="flex items-center justify-between mt-auto pt-3 border-t ">
                         <div className="flex items-center gap-3 text-sm text-muted-foreground dark:text-gray-300">
                             <div className="flex items-center gap-1">
                                 <Clock className="w-4 h-4" />
-                                <span>{recipe.duration}</span>
+                                <span>{recipe.prep_time}</span>
                             </div>
                             <div className="flex items-center gap-1">
                                 <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                                <span className="font-medium">{recipe.rating}</span>
+                                <span className="font-medium">{recipe.ratting.toFixed(1)}</span>
                             </div>
                         </div>
 

@@ -1,31 +1,41 @@
-import { useState, useEffect } from "react";
-import useDebounce from "./useDebounce";
+import { useState, useEffect, useMemo } from 'react';
+import useDebounce from './useDebounce';
 
-export default function useSmartFetchHook(queryHook, { limit = 10, resultsKey = "results" }, filters = {}) {
-  const searchKey = "searchTerm";
-
-  const [searchTerm, setSearchTerm] = useState("");
+const useSmartFetchHook = (queryHook, options = {}, initialParams = {}) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterParams, setFilterParams] = useState(initialParams);
+  
+  // Debounce search term and search params
+  const debouncedSearchTerm = useDebounce(searchTerm);
+  const debouncedFilterParams = useDebounce(filterParams);
 
-  const debouncedSearch = useDebounce(searchTerm);
-  const debouncedFilters = useDebounce(filters);
+  const { resultsKey = 'results', ...queryOptions } = options;
 
-  const stringifiedDebouncedFilters = JSON.stringify(debouncedFilters);
+  // Memoize the stringified debounced search params
+  const stringifiedDebouncedParams = useMemo(
+    () => JSON.stringify(debouncedFilterParams),
+    [debouncedFilterParams]
+  );
+
+  // Combine all parameters for the query
+  const queryParams = useMemo(() => ({
+    page: currentPage,
+    searchTerm: debouncedSearchTerm,
+    ...debouncedFilterParams,
+    ...queryOptions,
+  }), [currentPage, debouncedSearchTerm, debouncedFilterParams, queryOptions]);
+
+  const { data, isLoading, isError } = queryHook(queryParams);
+
+  // Reset to first page when debounced search term or params change
   useEffect(() => {
     setCurrentPage(1);
-  }, [debouncedSearch, stringifiedDebouncedFilters]);
-
-  const { data, isLoading, isError } = queryHook({
-    page: currentPage,
-    limit,
-    [searchKey]: debouncedSearch,
-    ...debouncedFilters,
-  });
+  }, [debouncedSearchTerm, stringifiedDebouncedParams]);
 
   const rawResults = data?.data?.[resultsKey];
   const items = Array.isArray(rawResults) ? rawResults : [];
-  const totalPages = data?.data?.pagination?.totalPage || 1;
-  const page = data?.data?.pagination?.page || 1;
+  const totalPages = data?.data?.meta?.totalPage || 1;
 
   return {
     searchTerm,
@@ -33,9 +43,12 @@ export default function useSmartFetchHook(queryHook, { limit = 10, resultsKey = 
     currentPage,
     setCurrentPage,
     totalPages,
-    page,
     items,
     isLoading,
     isError,
+    filterParams,
+    setFilterParams,
   };
-}
+};
+
+export default useSmartFetchHook;

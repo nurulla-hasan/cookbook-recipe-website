@@ -6,39 +6,66 @@ import { Button } from "@/components/ui/button";
 import { Search, SlidersHorizontal } from "lucide-react";
 import RecipeCard from "@/components/Recipes/recipe-card/RecipeCard";
 import FilterModal from "@/components/Recipes/filter-modal/FilterModal";
-import {mockRecipes} from "@/lib/mockData";
+import { useGetRecipesQuery } from "@/redux/feature/recipe/recipeApi";
+import useSmartFetchHook from "@/hooks/useSmartFetchHook";
+import RecipeCardSkeleton from "@/components/skeleton/recipe/RecipeCardSkeleton";
+import Error from "@/components/common/error/Error";
+import NoData from "@/components/common/no-data/NoData";
+import CustomPagination from "@/components/common/custom-pagination/CustomPagination";
 
 const Recipes = () => {
-    const [searchQuery, setSearchQuery] = useState('');
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [appliedFilters, setAppliedFilters] = useState({});
-    const [recipes] = useState(mockRecipes);
-    console.log('Applied Filters:', appliedFilters);
+    console.log(appliedFilters);
+
+    const {
+        searchTerm,
+        setSearchTerm,
+        currentPage,
+        setCurrentPage,
+        totalPages,
+        items: recipes,
+        isLoading,
+        isError,
+        setFilterParams,
+    } = useSmartFetchHook(useGetRecipesQuery, { resultsKey: "result" }, appliedFilters);
+
+
+    const handleApplyFilters = (filters) => {
+        setAppliedFilters(filters);
+        setFilterParams(filters);
+    };
+
+    const handleClearFilters = () => {
+        setAppliedFilters({});
+        setFilterParams({});
+    };
 
     const breadcrumbs = [
         { name: 'Home', href: '/' },
         { name: 'Recipes' },
     ];
-
-    const handleApplyFilters = (filters) => {
-        setAppliedFilters(filters);
-        // In a real app, you would filter the recipes based on these filters
-        console.log('Applied Filters:', filters);
-    };
-
-    const handleClearFilters = () => {
-        setAppliedFilters({});
-        // In a real app, you would reset the recipes to original list
-        console.log('Filters Cleared');
-    };
-
     return (
         <>
             <PageHeader
                 title="Recipes"
                 breadcrumbs={breadcrumbs}
             />
-            <PageLayout paddingSize="compact">
+            <PageLayout
+                paddingSize="compact"
+                pagination={
+                    totalPages > 1 && (
+                        <div className="absolute bottom-4 left-0 right-0">
+                            <CustomPagination
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                onPageChange={setCurrentPage}
+                            />
+                        </div>
+                    )
+                }
+
+            >
                 {/* Title and Search/Filter */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                     <div>
@@ -52,8 +79,8 @@ const Recipes = () => {
                                 type="text"
                                 placeholder="Search recipes..."
                                 className="w-full pl-9 pr-4 text-sm bg-background"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
                             />
                         </div>
                         <Button
@@ -68,9 +95,23 @@ const Recipes = () => {
 
                 {/* Recipe List */}
                 <div className="grid gap-6 grid-cols-1">
-                    {recipes.map((recipe) => (
-                        <RecipeCard key={recipe.id} recipe={recipe} from="Recipes" fromPath="/recipes" showCartButton={true} />
-                    ))}
+                    {isLoading ? (
+                        <RecipeCardSkeleton count={3} />
+                    ) : isError ? (
+                        <Error msg="Something went wrong" />
+                    ) : recipes.length === 0 ? (
+                        <NoData msg="No recipes found" />
+                    ) : (
+                        recipes.map((recipe) => (
+                            <RecipeCard
+                                key={recipe._id}
+                                recipe={recipe}
+                                from="Recipes"
+                                fromPath="/recipes"
+                                showCartButton={true}
+                            />
+                        ))
+                    )}
                 </div>
             </PageLayout>
 
