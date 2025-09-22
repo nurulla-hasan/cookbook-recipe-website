@@ -1,4 +1,4 @@
-import { ErrorToast } from "@/lib/utils";
+import { ErrorToast, SuccessToast } from "@/lib/utils";
 import { baseApi } from "../baseApi";
 
 
@@ -92,7 +92,7 @@ const recipeApi = baseApi.injectEndpoints({
         toggleFavoriteRecipe: builder.mutation({
             query: (id) => ({
                 url: `/dashboard/toggle_favorite/${id}`,
-                method: "POST",
+                method: "PATCH",
             }),
             async onQueryStarted(id, { dispatch, queryFulfilled }) {
                 // Optimistically update the cache
@@ -116,6 +116,7 @@ const recipeApi = baseApi.injectEndpoints({
 
                 try {
                     await queryFulfilled;
+                    SuccessToast("Favorite updated successfully");
                 } catch (error) {
                     patchResult.undo();
                     ErrorToast(error?.data?.message || "Failed to update favorite");

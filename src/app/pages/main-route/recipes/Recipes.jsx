@@ -16,7 +16,6 @@ import CustomPagination from "@/components/common/custom-pagination/CustomPagina
 const Recipes = () => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [appliedFilters, setAppliedFilters] = useState({});
-    console.log(appliedFilters);
 
     const {
         searchTerm,

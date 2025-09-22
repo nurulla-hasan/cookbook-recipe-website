@@ -1,21 +1,34 @@
-import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Heart, Clock, Star, ShoppingCart, ChefHat, Trash2, SquarePen } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getImageUrl } from '@/lib/utils';
+import { useToggleFavoriteRecipeMutation } from "@/redux/feature/recipe/recipeApi";
+import { useSelector } from "react-redux";
+import { useGetUserFavoriteRecipesQuery } from "@/redux/feature/profile/profileApi";
 
-const RecipeCard = ({ recipe, from = 'Recipes', fromPath = '/recipes', showCartButton = false, isMyRecipe = false }) => {
-    const [isLiked, setIsLiked] = useState(false);
-    const navigate = useNavigate();
+const RecipeCard = (
+    {
+        recipe,
+        from = 'Recipes',
+        fromPath = '/recipes',
+        showCartButton = false,
+        isMyRecipe = false,
+        onDelete,
+        onEdit
+    }) => {
 
-    const handleEditRecipe = (id) => {
-        navigate(`/profile/edit-recipe/${id}`);
+        useGetUserFavoriteRecipesQuery()
+        const [toggleFavoriteRecipe] = useToggleFavoriteRecipeMutation();
+        const { favoriteRecipes: favoriteIds } = useSelector((state) => state.profile);
+
+    const onFavoriteToggle = async (id) => {
+        await toggleFavoriteRecipe(id)
     }
 
     return (
         <Link
-            to={`/recipes/recipe-details/${recipe.id}`}
+            to={`/recipes/recipe-details/${recipe._id}`}
             state={{ from, fromPath }}
             className="h-full group transition-all duration-300 hover:-translate-y-1 block"
         >
@@ -42,28 +55,29 @@ const RecipeCard = ({ recipe, from = 'Recipes', fromPath = '/recipes', showCartB
                         <span className="inline-block text-xs font-medium px-3 py-1 rounded-full bg-primary/30 text-foreground">
                             {recipe.category}
                         </span>
-                        {!isMyRecipe && <Button
+                        
+                        <Button
                             variant="ghost"
                             size="icon"
                             className="rounded-full bg-primary/20"
                             onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                setIsLiked(!isLiked)
+                                onFavoriteToggle(recipe._id)
                             }}
                         >
                             <Heart
-                                className={`${isLiked ? 'fill-red-500 text-red-500' : 'text-white'}`}
+                                className={`${favoriteIds?.includes(recipe?._id) ? 'fill-red-500 text-red-500' : 'text-white'}`}
                             />
-                        </Button>}
+                        </Button>
+
                         {isMyRecipe && (
                             <div className='grid grid-cols-2 gap-2'>
                                 <Button
                                     onClick={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();
-                                        // Edit recipe logic here
-                                        handleEditRecipe(recipe.id)
+                                        onEdit(recipe._id)
                                     }}
                                     variant="outline">
                                     <SquarePen />
@@ -72,6 +86,7 @@ const RecipeCard = ({ recipe, from = 'Recipes', fromPath = '/recipes', showCartB
                                     onClick={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();
+                                        onDelete(recipe._id)
                                     }}
                                     variant="outline">
                                     <Trash2 />

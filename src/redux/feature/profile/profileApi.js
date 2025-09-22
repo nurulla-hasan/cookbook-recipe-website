@@ -54,7 +54,7 @@ const profileApi = baseApi.injectEndpoints({
                 try {
                     const { data } = await queryFulfilled;
                     if (data?.data) {
-                        dispatch(SetFavoriteRecipes(data.data));
+                        dispatch(SetFavoriteRecipes(data?.data?.recipes?.map(r => r._id)));
                     }
                 } catch {
                     // silently ignore; UI can read error from hook if needed
