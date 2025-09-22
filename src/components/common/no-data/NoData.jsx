@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 
 const NoData = ({ msg, size = "sm", className }) => {
   const heightMap = {
+    noHeight: "",
     sm: "h-[calc(100vh-450px)]",
     perfect: "h-[calc(100vh-340px)]",
     full: "h-[calc(100vh-248px)]",

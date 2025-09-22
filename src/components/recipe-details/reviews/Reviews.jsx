@@ -6,9 +6,12 @@ import { StarRating } from "@/tools/StarRating";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetRecipeReviewsQuery } from "@/redux/feature/recipe/recipeApi";
-import { formatDate, getImageUrl } from "@/lib/utils";
+import { getImageUrl, timeAgo } from "@/lib/utils";
 import useSmartFetchHook from "@/hooks/useSmartFetchHook";
 import CustomPagination from "@/components/common/custom-pagination/CustomPagination";
+import { Skeleton } from "@/components/ui/skeleton";
+import Error from "@/components/common/error/Error";
+import NoData from "@/components/common/no-data/NoData";
 
 const Reviews = ({ recipe }) => {
     const { id } = useParams();
@@ -19,8 +22,8 @@ const Reviews = ({ recipe }) => {
         setCurrentPage,
         totalPages,
         items: reviews,
-        // isLoading,
-        // isError,
+        isLoading,
+        isError
     } = useSmartFetchHook(useGetRecipeReviewsQuery, { limit: 5 }, { id });
 
     return (
@@ -36,7 +39,15 @@ const Reviews = ({ recipe }) => {
 
             <div>
                 <div className="space-y-6">
-                    {reviews?.map((review) => (
+                    {isLoading ? (
+                        Array.from({ length: 3 }, (_, index) => (
+                            <Skeleton key={index} className="w-full h-26" />
+                        ))
+                    ) : isError ? (
+                        <Error msg="Something went wrong" />
+                    ) : reviews?.length === 0 ? (
+                        <NoData size="noHeight" msg="No reviews found" />
+                    ) : reviews?.map((review) => (
                         <div key={review._id} className="border rounded-lg p-6">
                             <div className="flex items-start gap-4">
                                 <Avatar className="w-10 h-10">
@@ -47,7 +58,7 @@ const Reviews = ({ recipe }) => {
                                     <div className="flex justify-between items-center">
                                         <div>
                                             <div className="font-medium">{review.userId?.name}</div>
-                                            {review.createdAt && <div className="text-sm text-muted-foreground">{formatDate(review.createdAt)}</div>}
+                                            {review.createdAt && <div className="text-sm text-muted-foreground">{timeAgo(review.createdAt)}</div>}
                                         </div>
                                         <StarRating rating={review.ratting} />
                                     </div>

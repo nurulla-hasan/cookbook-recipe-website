@@ -27,7 +27,7 @@ const Recipes = () => {
         isLoading,
         isError,
         setFilterParams,
-    } = useSmartFetchHook(useGetRecipesQuery, { resultsKey: "result", limit: 3 }, appliedFilters);
+    } = useSmartFetchHook(useGetRecipesQuery, { resultsKey: "result" }, appliedFilters);
 
 
     const handleApplyFilters = (filters) => {
