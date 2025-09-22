@@ -7,15 +7,13 @@ import { useGetRecipeByCategoryQuery } from '@/redux/feature/home/homeApi';
 import CustomPagination from '@/components/common/custom-pagination/CustomPagination';
 import Error from '@/components/common/error/Error';
 import NoData from '@/components/common/no-data/NoData';
-import RecipeCardSkeleton from '@/components/skeleton/recipe/RecipeCardSkeleton';
+import CategoryPageSkeleton from '@/components/skeleton/category/CategoryPageSkeleton';
 
 const Category = () => {
     const { slug: category } = useParams();
     const formattedSlug = category.charAt(0).toUpperCase() + category.slice(1);
 
     const {
-        // searchTerm,
-        // setSearchTerm,
         currentPage,
         setCurrentPage,
         totalPages,
@@ -28,6 +26,10 @@ const Category = () => {
         { name: 'Home', href: '/' },
         { name: formattedSlug },
     ];
+
+    if (isLoading) {
+        return <CategoryPageSkeleton />;
+    }
 
     return (
         <>
@@ -49,25 +51,21 @@ const Category = () => {
                 }
                 paddingSize="compact">
                 <div className="grid gap-6 grid-cols-1">
-                    {isLoading ? (
-                        <RecipeCardSkeleton count={3} />
+                    {isError ? (
+                        <Error size="perfect" msg="Something went wrong" />
                     ) : (
-                        isError ? (
-                            <Error size="perfect" msg="Something went wrong" />
+                        recipes.length === 0 ? (
+                            <NoData size="perfect" msg="No recipes found" />
                         ) : (
-                            recipes.length === 0 ? (
-                                <NoData size="perfect" msg="No recipes found" />
-                            ) : (
-                                recipes.map(recipe => (
-                                    <RecipeCard
-                                        key={recipe._id}
-                                        recipe={recipe}
-                                        from={formattedSlug}
-                                        fromPath={`/category/${category}`}
-                                        showCartButton={true}
-                                    />
-                                ))
-                            )
+                            recipes.map(recipe => (
+                                <RecipeCard
+                                    key={recipe._id}
+                                    recipe={recipe}
+                                    from={formattedSlug}
+                                    fromPath={`/category/${category}`}
+                                    showCartButton={true}
+                                />
+                            ))
                         )
                     )}
                 </div>

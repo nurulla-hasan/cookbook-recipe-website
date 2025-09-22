@@ -5,6 +5,7 @@ import MainLayout from "../layout/MainLayout";
 import AuthLayout from "../layout/AuthLayout";
 import Profilelayout from "../layout/Profilelayout";
 import RecipeDetailsSkeleton from "@/components/skeleton/recipe-details/RecipeDetailsSkeleton";
+import CategoryPageSkeleton from "@/components/skeleton/category/CategoryPageSkeleton";
 
 const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
 const EditRecipe = lazy(() => import("../pages/profile-route/my-recipe/edit-recipe/EditRecipe"));
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "category/:slug",
-                element: withErrorAndSuspense(Category, <div>Loading...</div>),
+                element: withErrorAndSuspense(Category, <CategoryPageSkeleton />),
             },
             {
                 path: "diat-gols/:slug",
