@@ -20,7 +20,7 @@ const RecipeDetails = () => {
 
     const { data, isLoading, isError } = useGetRecipeByIdQuery(id);
     const recipe = data?.data || {};
-    const { isFavorite, onFavoriteToggle } = useFavorite(recipe?.favorites);
+    const { isFavorite, onFavoriteToggle } = useFavorite(recipe.favorite);
 
 
     const breadcrumbs = [

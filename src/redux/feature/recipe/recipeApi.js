@@ -52,7 +52,7 @@ const recipeApi = baseApi.injectEndpoints({
                 url: `/dashboard/get_recipe_detail/${id}`,
                 method: "GET",
             }),
-            providesTags: ["RECIPE"],
+            providesTags: ["RECIPE", "FAVORITE"],
         }),
 
         // ===================================END GET QUERY============================================
