@@ -113,7 +113,7 @@ const RecipeCard = (
                             }}
                         >
                             <ShoppingCart />
-                            Add to Cart
+                            Add to Plan
                         </Button>}
                     </div>
                 </div>

@@ -42,7 +42,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "recipes",
-                element: withErrorAndSuspense(Recipes, <div>Loading...</div>),
+                element: withErrorAndSuspense(Recipes, <CategoryPageSkeleton />),
             },
             {
                 path: "category/:slug",

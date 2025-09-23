@@ -8,7 +8,7 @@ export default function RecipeCardSkeleton({ count = 3 }) {
                     key={i}
                     className="h-full group block"
                 >
-                    <div className="h-full flex flex-col md:flex-row overflow-hidden border-0 shadow-sm bg-secondary rounded-lg">
+                    <div className="h-full flex flex-col md:flex-row overflow-hidden border-0 shadow-sm bg-secondary rounded-xl">
 
                         {/* Image skeleton */}
                         <div className="w-full md:w-40 h-auto relative flex-shrink-0 overflow-hidden">
@@ -32,7 +32,7 @@ export default function RecipeCardSkeleton({ count = 3 }) {
                                     <Skeleton className="h-4 w-16" />
                                     <Skeleton className="h-4 w-12" />
                                 </div>
-                                <Skeleton className="h-8 w-28 rounded-full" />
+                                <Skeleton className="h-7 w-28 rounded-full" />
                             </div>
                         </div>
                     </div>
