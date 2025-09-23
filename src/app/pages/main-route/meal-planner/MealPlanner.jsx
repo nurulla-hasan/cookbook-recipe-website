@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetCustomMealPlanQuery, useGetFeaturedMealPlanQuery, useGetMealPlanDetailsQuery, useGetWeeklyMealPlanQuery } from "@/redux/feature/meal-plan/mealPlanApi";
 import { useSelector } from "react-redux";
+import CreatePlanModal from "@/components/meal-planner/CreatePlanModal";
 
 const MealPlanner = () => {
     useGetWeeklyMealPlanQuery()
@@ -20,9 +21,15 @@ const MealPlanner = () => {
     const [selectedPlan, setSelectedPlan] = useState();
     const [selectedCustomPlan, setSelectedCustomPlan] = useState();
     const [activeMealPlanId, setActiveMealPlanId] = useState();
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
     const { data: mealPlanDetailsResponse } = useGetMealPlanDetailsQuery(activeMealPlanId, { skip: !activeMealPlanId });
     const mealPlanDetails = mealPlanDetailsResponse?.data;
+
+    const customDropDownWithOptions = [
+        ...(customDropDown || []),
+        { _id: 'add_new', label: '+ Add New Plan', value: 'add_new' }
+    ];
 
     useEffect(() => {
         if (activeTab === 'my-weeks') {
@@ -100,9 +107,15 @@ const MealPlanner = () => {
                             <div className="mt-4">
                                 <PlanTypeFilter
                                     title="Select Custom Plan"
-                                    items={customDropDown || []}
+                                    items={customDropDownWithOptions}
                                     value={selectedCustomPlan}
-                                    onValueChange={setSelectedCustomPlan}
+                                    onValueChange={(plan) => {
+                                        if (plan?._id === 'add_new') {
+                                            setIsCreateModalOpen(true);
+                                        } else {
+                                            setSelectedCustomPlan(plan);
+                                        }
+                                    }}
                                 />
                             </div>
                             <div className="mt-8">
@@ -112,6 +125,7 @@ const MealPlanner = () => {
                     </Tabs>
                 </div>
             </PageLayout>
+            <CreatePlanModal isOpen={isCreateModalOpen} setIsOpen={setIsCreateModalOpen} />
         </>
     );
 };
