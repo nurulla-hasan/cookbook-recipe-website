@@ -3,8 +3,8 @@ import DayCard from "./DayCard";
 const WeeklyMealPlan = ({ mealPlan }) => {
     return (
         <div className="space-y-8">
-            {Object.keys(mealPlan).map((day) => (
-                <DayCard key={day} day={day} meals={mealPlan[day]} />
+            {mealPlan?.data?.map((dayData) => (
+                <DayCard key={dayData._id} day={dayData.day} meals={dayData.recipes} nutritionalTotals={dayData.nutritionalTotals} />
             ))}
         </div>
     );

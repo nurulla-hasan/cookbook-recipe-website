@@ -1,0 +1,100 @@
+{
+    "statusCode": 200,
+    "success": true,
+    "message": "Add Successfully!",
+    "data": {
+        "_id": "687b271c1fb802fe10f5201d",
+        "user": "680a42335ad46da3d6fac6a3",
+        "startDate": "2025-07-20T05:03:24.697Z",
+        "endDate": "2025-07-26T05:03:24.697Z",
+        "data": [
+            {
+                "day": "Day-1",
+                "recipes": [],
+                "_id": "687b271c1fb802fe10f5201e",
+                "nutritionalTotals": {
+                    "calories": 0,
+                    "protein": 0,
+                    "carbs": 0,
+                    "fat": 0,
+                    "fiber": 0
+                }
+            },
+            {
+                "day": "Day-2",
+                "recipes": [],
+                "_id": "687b271c1fb802fe10f5201f",
+                "nutritionalTotals": {
+                    "calories": 0,
+                    "protein": 0,
+                    "carbs": 0,
+                    "fat": 0,
+                    "fiber": 0
+                }
+            },
+            {
+                "day": "Day-3",
+                "recipes": [],
+                "_id": "687b271c1fb802fe10f52020",
+                "nutritionalTotals": {
+                    "calories": 0,
+                    "protein": 0,
+                    "carbs": 0,
+                    "fat": 0,
+                    "fiber": 0
+                }
+            },
+            {
+                "day": "Day-4",
+                "recipes": [],
+                "_id": "687b271c1fb802fe10f52021",
+                "nutritionalTotals": {
+                    "calories": 0,
+                    "protein": 0,
+                    "carbs": 0,
+                    "fat": 0,
+                    "fiber": 0
+                }
+            },
+            {
+                "day": "Day-5",
+                "recipes": [],
+                "_id": "687b271c1fb802fe10f52022",
+                "nutritionalTotals": {
+                    "calories": 0,
+                    "protein": 0,
+                    "carbs": 0,
+                    "fat": 0,
+                    "fiber": 0
+                }
+            },
+            {
+                "day": "Day-6",
+                "recipes": [],
+                "_id": "687b271c1fb802fe10f52023",
+                "nutritionalTotals": {
+                    "calories": 0,
+                    "protein": 0,
+                    "carbs": 0,
+                    "fat": 0,
+                    "fiber": 0
+                }
+            },
+            {
+                "day": "Day-7",
+                "recipes": [],
+                "_id": "687b271c1fb802fe10f52024",
+                "nutritionalTotals": {
+                    "calories": 0,
+                    "protein": 0,
+                    "carbs": 0,
+                    "fat": 0,
+                    "fiber": 0
+                }
+            }
+        ],
+        "types": "week",
+        "createdAt": "2025-07-19T05:03:24.710Z",
+        "__v": 0
+    }
+}

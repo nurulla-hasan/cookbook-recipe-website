@@ -1,4 +1,5 @@
 import { baseApi } from "../baseApi"
+import { SetCustomDropDown, SetFeaturedDropDown, SetWeeklyDropDown } from "./mealPlanSlice"
 
 const mealPlanApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -15,9 +16,57 @@ const mealPlanApi = baseApi.injectEndpoints({
                     });
                 }
                 return {
-                    url: "/dashboard/get_weekly_meal_plane",
+                    url: "/meal_plan/get_weekly_plane",
                     method: "GET",
                     params,
+                }
+            },
+            onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(SetWeeklyDropDown(
+                        data?.data?.plans?.map((plan) => ({
+                            _id: plan._id,
+                            value: plan.types,
+                            label: plan.week_name,
+                        }))
+                    ));
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            providesTags: ["MEAL_PLAN"],
+        }),
+
+        // GET FEATURED MEAL PLAN
+        getFeaturedMealPlan: builder.query({
+            query: (args) => {
+                const params = new URLSearchParams();
+                if (args) {
+                    Object.entries(args).forEach(([key, value]) => {
+                        if (value) {
+                            params.append(key, value);
+                        }
+                    });
+                }
+                return {
+                    url: "/meal_plan/get_featured_plane",
+                    method: "GET",
+                    params,
+                }
+            },
+            onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(SetFeaturedDropDown(
+                        data?.data?.map((plan) => ({
+                            _id: plan._id,
+                            value: plan.types,
+                            label: plan.name,
+                        }))
+                    ));
+                } catch (error) {
+                    console.log(error);
                 }
             },
             providesTags: ["MEAL_PLAN"],
@@ -40,24 +89,18 @@ const mealPlanApi = baseApi.injectEndpoints({
                     params,
                 }
             },
-            providesTags: ["MEAL_PLAN"],
-        }),
-
-        // GET FEATURED MEAL PLAN
-        getFeaturedMealPlan: builder.query({
-            query: (args) => {
-                const params = new URLSearchParams();
-                if (args) {
-                    Object.entries(args).forEach(([key, value]) => {
-                        if (value) {
-                            params.append(key, value);
-                        }
-                    });
-                }
-                return {
-                    url: "/meal_plan/get_featured_plane",
-                    method: "GET",
-                    params,
+            onQueryStarted: async (args, { dispatch, queryFulfilled }) => {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(SetCustomDropDown(
+                        data?.data?.map((plan) => ({
+                            _id: plan._id,
+                            value: plan.types,
+                            label: plan.name,
+                        }))
+                    ));
+                } catch (error) {
+                    console.log(error);
                 }
             },
             providesTags: ["MEAL_PLAN"],
@@ -150,8 +193,8 @@ const mealPlanApi = baseApi.injectEndpoints({
 
 export const {
     useGetWeeklyMealPlanQuery,
-    useGetCustomMealPlanQuery,
     useGetFeaturedMealPlanQuery,
+    useGetCustomMealPlanQuery,
     useGetMealPlanDetailsQuery,
     useAddMealPlanRecipesMutation,
     useCreateCustomMealPlanMutation,

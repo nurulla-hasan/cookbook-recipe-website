@@ -392,7 +392,7 @@ export const allMealPlans = {
         "5th Week": weeklyMealPlan_next_week, // Reusing for demo
         "6th Week": weeklyMealPlan_this_week, // Reusing for demo
     },
-    "starter-plans": {
+    "featured-plans": {
         "Budget $3 a Meal": starterPlan_budget_3,
         "Budget $5 a Meal": starterPlan_budget_5,
     },
