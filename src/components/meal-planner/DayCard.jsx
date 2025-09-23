@@ -10,10 +10,18 @@ const DayCard = ({ day, meals, nutritionalTotals }) => {
                     {day}
                 </Badge>
                 <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm">
-                    <Badge>Calories: {nutritionalTotals?.calories || 0}</Badge>
-                    <Badge>Protein: {nutritionalTotals?.protein || 0}g</Badge>
-                    <Badge>Carbs: {nutritionalTotals?.carbs || 0}g</Badge>
-                    <Badge>Fat: {nutritionalTotals?.fat || 0}g</Badge>
+                    <Badge className="bg-orange-200 dark:bg-orange-800 text-black dark:text-white flex items-center gap-1">
+                        🍛 Calories: {nutritionalTotals?.calories || 0}kcal
+                    </Badge>
+                    <Badge className="bg-blue-200 dark:bg-blue-800 text-black dark:text-white flex items-center gap-1">
+                        🥩 Protein: {nutritionalTotals?.protein || 0}g
+                    </Badge>
+                    <Badge className="bg-yellow-200 dark:bg-yellow-800 text-black dark:text-white flex items-center gap-1">
+                        🍞 Carbs: {nutritionalTotals?.carbs || 0}g
+                    </Badge>
+                    <Badge className="bg-pink-200 dark:bg-pink-800 text-black dark:text-white flex items-center gap-1">
+                        🧈 Fat: {nutritionalTotals?.fat || 0}g
+                    </Badge>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

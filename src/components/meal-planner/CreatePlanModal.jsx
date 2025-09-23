@@ -5,6 +5,7 @@ import {
     DialogTitle,
     DialogFooter,
     DialogClose,
+    DialogDescription,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,9 @@ const CreatePlanModal = ({ isOpen, setIsOpen }) => {
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Create Custom Meal Plan</DialogTitle>
+                    <DialogDescription>
+                        Enter a name for your custom meal plan.
+                    </DialogDescription>
                 </DialogHeader>
                 <div className="py-4">
                     <Input

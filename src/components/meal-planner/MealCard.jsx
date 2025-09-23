@@ -1,12 +1,16 @@
+import { getImageUrl } from "@/lib/utils";
 import { Plus } from "lucide-react";
+import { Badge } from "../ui/badge";
 
 const MealCard = ({ meal }) => {
     if (meal) {
         return (
             <div className="border rounded-lg p-4">
-                <img src={meal.image} alt={meal.title} className="w-full h-32 object-cover rounded-md mb-4" />
-                <h3 className="font-semibold">{meal.title}</h3>
-                <p className="text-sm text-muted-foreground">{meal.category}</p>
+                <img src={getImageUrl(meal.image)} alt={meal.name} className="w-full h-32 object-cover rounded-md mb-4" />
+                <div className="flex justify-between items-center gap-2">
+                    <h3 className="font-semibold">{meal.name}</h3>
+                    <Badge variant="outline">{meal.category}</Badge>
+                </div>
             </div>
         );
     }

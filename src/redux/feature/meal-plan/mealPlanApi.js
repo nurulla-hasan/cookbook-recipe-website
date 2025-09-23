@@ -121,11 +121,21 @@ const mealPlanApi = baseApi.injectEndpoints({
 
         // ADD MEAL PLAN RECIPES
         addMealPlanRecipes: builder.mutation({
-            query: (data) => ({
-                url: "/meal_plan/add_recipes",
-                method: "POST",
-                body: data
-            }),
+            query: (args) => {
+                const params = new URLSearchParams();
+                if (args) {
+                    Object.entries(args).forEach(([key, value]) => {
+                        if (value) {
+                            params.append(key, value);
+                        }
+                    });
+                }
+                return {
+                    url: "/meal_plan/add_recipes",
+                    method: "POST",
+                    params,
+                }
+            },
             invalidatesTags: ["MEAL_PLAN"],
         }),
 
@@ -183,7 +193,7 @@ const mealPlanApi = baseApi.injectEndpoints({
         deleteCustomMealPlan: builder.mutation({
             query: (id) => ({
                 url: `/meal_plan/delete_custom_plane/${id}`,
-                method: "POST",
+                method: "DELETE",
             }),
             invalidatesTags: ["MEAL_PLAN"],
         }),
@@ -198,7 +208,7 @@ export const {
     useGetMealPlanDetailsQuery,
     useAddMealPlanRecipesMutation,
     useCreateCustomMealPlanMutation,
-    useDeleteCustomMealPlanMutation,
     useSwapRecipeMutation,
-    useRemoveRecipeMutation
+    useRemoveRecipeMutation,
+    useDeleteCustomMealPlanMutation
 } = mealPlanApi

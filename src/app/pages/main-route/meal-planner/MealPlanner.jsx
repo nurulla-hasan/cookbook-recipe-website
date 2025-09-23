@@ -4,9 +4,18 @@ import WeeklyMealPlan from "@/components/meal-planner/WeeklyMealPlan";
 import PlanTypeFilter from "@/components/meal-planner/PlanTypeFilter";
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useGetCustomMealPlanQuery, useGetFeaturedMealPlanQuery, useGetMealPlanDetailsQuery, useGetWeeklyMealPlanQuery } from "@/redux/feature/meal-plan/mealPlanApi";
+import { 
+    useDeleteCustomMealPlanMutation, 
+    useGetCustomMealPlanQuery, 
+    useGetFeaturedMealPlanQuery, 
+    useGetMealPlanDetailsQuery, 
+    useGetWeeklyMealPlanQuery 
+} from "@/redux/feature/meal-plan/mealPlanApi";
 import { useSelector } from "react-redux";
 import CreatePlanModal from "@/components/meal-planner/CreatePlanModal";
+import { Button } from "@/components/ui/button";
+import { Trash2 } from "lucide-react";
+import ConfirmationModal from "@/components/common/modal/ConfirmationModal";
 
 const MealPlanner = () => {
     useGetWeeklyMealPlanQuery()
@@ -22,14 +31,27 @@ const MealPlanner = () => {
     const [selectedCustomPlan, setSelectedCustomPlan] = useState();
     const [activeMealPlanId, setActiveMealPlanId] = useState();
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const { data: mealPlanDetailsResponse } = useGetMealPlanDetailsQuery(activeMealPlanId, { skip: !activeMealPlanId });
     const mealPlanDetails = mealPlanDetailsResponse?.data;
+    const [deleteCustomMealPlan, { isLoading: isDeleting }] = useDeleteCustomMealPlanMutation();
 
     const customDropDownWithOptions = [
         ...(customDropDown || []),
         { _id: 'add_new', label: '+ Add New Plan', value: 'add_new' }
     ];
+
+    const handleDelete = async () => {
+        if (!selectedCustomPlan) return;
+        try {
+            await deleteCustomMealPlan(selectedCustomPlan._id).unwrap();
+            setSelectedCustomPlan(undefined); // Reset selection
+            setIsDeleteModalOpen(false);
+        } catch (error) {
+            console.error("Failed to delete custom meal plan", error);
+        }
+    };
 
     useEffect(() => {
         if (activeTab === 'my-weeks') {
@@ -104,7 +126,7 @@ const MealPlanner = () => {
                             </div>
                         </TabsContent>
                         <TabsContent value="custom-plans">
-                            <div className="mt-4">
+                            <div className="flex items-center gap-4 mt-4">
                                 <PlanTypeFilter
                                     title="Select Custom Plan"
                                     items={customDropDownWithOptions}
@@ -117,6 +139,14 @@ const MealPlanner = () => {
                                         }
                                     }}
                                 />
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => setIsDeleteModalOpen(true)}
+                                    disabled={!selectedCustomPlan || selectedCustomPlan?._id === 'add_new'}
+                                >
+                                    <Trash2 />
+                                </Button>
                             </div>
                             <div className="mt-8">
                                 <WeeklyMealPlan mealPlan={mealPlanDetails || {}} />
@@ -125,7 +155,19 @@ const MealPlanner = () => {
                     </Tabs>
                 </div>
             </PageLayout>
-            <CreatePlanModal isOpen={isCreateModalOpen} setIsOpen={setIsCreateModalOpen} />
+            <CreatePlanModal 
+                isOpen={isCreateModalOpen} 
+                setIsOpen={setIsCreateModalOpen} 
+            />
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onOpenChange={setIsDeleteModalOpen}
+                title="Are you sure?"
+                description={`This will permanently delete the "${selectedCustomPlan?.label}" meal plan.`}
+                onConfirm={handleDelete}
+                loading={isDeleting}
+                confirmText="Delete"
+            />
         </>
     );
 };
