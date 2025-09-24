@@ -1,5 +1,4 @@
 import { getImageUrl } from "@/lib/utils";
-import { Plus } from "lucide-react";
 import { Badge } from "../ui/badge";
 
 const MealCard = ({ meal }) => {
@@ -14,20 +13,6 @@ const MealCard = ({ meal }) => {
             </div>
         );
     }
-
-    return (
-        <div className="border-2 border-dashed rounded-lg p-8 flex flex-col items-center justify-center space-y-2">
-            <button className="border-2 border-dashed rounded-md p-4">
-                <Plus />
-            </button>
-            <p className="text-muted-foreground text-center">
-                Drag and drop a recipe here, or click to add.
-            </p>
-            <p className="font-medium">
-                Add Recipe
-            </p>
-        </div>
-    );
 }
 
 export default MealCard;

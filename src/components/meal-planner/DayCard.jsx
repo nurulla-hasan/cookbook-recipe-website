@@ -10,16 +10,16 @@ const DayCard = ({ day, meals, nutritionalTotals }) => {
                     {day}
                 </Badge>
                 <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm">
-                    <Badge className="bg-orange-200 dark:bg-orange-800 text-black dark:text-white flex items-center gap-1">
+                    <Badge className="bg-orange-200/40 dark:bg-orange-800/20 text-black dark:text-white flex items-center gap-1">
                         🍛 Calories: {nutritionalTotals?.calories || 0}kcal
                     </Badge>
-                    <Badge className="bg-blue-200 dark:bg-blue-800 text-black dark:text-white flex items-center gap-1">
+                    <Badge className="bg-blue-200/40 dark:bg-blue-800/20 text-black dark:text-white flex items-center gap-1">
                         🥩 Protein: {nutritionalTotals?.protein || 0}g
                     </Badge>
-                    <Badge className="bg-yellow-200 dark:bg-yellow-800 text-black dark:text-white flex items-center gap-1">
+                    <Badge className="bg-yellow-200/40 dark:bg-yellow-800/20 text-black dark:text-white flex items-center gap-1">
                         🍞 Carbs: {nutritionalTotals?.carbs || 0}g
                     </Badge>
-                    <Badge className="bg-pink-200 dark:bg-pink-800 text-black dark:text-white flex items-center gap-1">
+                    <Badge className="bg-pink-200/40 dark:bg-pink-800/20 text-black dark:text-white flex items-center gap-1">
                         🧈 Fat: {nutritionalTotals?.fat || 0}g
                     </Badge>
                 </div>
@@ -27,7 +27,6 @@ const DayCard = ({ day, meals, nutritionalTotals }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {meals.map((meal, index) => (
                     <div key={index}>
-                        {/* <p className="font-semibold mb-2">{meal.type}</p> */}
                         <MealCard meal={meal.recipe} />
                     </div>
                 ))}

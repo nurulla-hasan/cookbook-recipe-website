@@ -3,27 +3,45 @@
     "success": true,
     "message": "Add Successfully!",
     "data": {
-        "_id": "687b271c1fb802fe10f5201d",
-        "user": "680a42335ad46da3d6fac6a3",
-        "startDate": "2025-07-20T05:03:24.697Z",
-        "endDate": "2025-07-26T05:03:24.697Z",
+        "_id": "68d28a35ca0377c13d6bfe4b",
+        "user": "68ce7049f1bf8e744f9a534e",
+        "name": "My Plan",
         "data": [
             {
                 "day": "Day-1",
-                "recipes": [],
-                "_id": "687b271c1fb802fe10f5201e",
+                "recipes": [
+                    {
+                        "recipe": {
+                            "_id": "6860f8e2b888c25bf564d340",
+                            "image": "/images/image/1751185634322-scaled_18.jpg",
+                            "name": "Recipe1",
+                            "nutritional": {
+                                "calories": 10,
+                                "protein": 20,
+                                "carbs": 10,
+                                "fat": 10,
+                                "fiber": 35,
+                                "_id": "6860f8e2b888c25bf564d341"
+                            },
+                            "category": "breakfast",
+                            "ratting": 3
+                        },
+                        "_id": "68d2949eca0377c13d6bff84"
+                    }
+                ],
+                "_id": "68d28a35ca0377c13d6bfe4c",
                 "nutritionalTotals": {
-                    "calories": 0,
-                    "protein": 0,
-                    "carbs": 0,
-                    "fat": 0,
-                    "fiber": 0
+                    "calories": 10,
+                    "protein": 20,
+                    "carbs": 10,
+                    "fat": 10,
+                    "fiber": 35
                 }
             },
             {
                 "day": "Day-2",
                 "recipes": [],
-                "_id": "687b271c1fb802fe10f5201f",
+                "_id": "68d28a35ca0377c13d6bfe4d",
                 "nutritionalTotals": {
                     "calories": 0,
                     "protein": 0,
@@ -35,7 +53,7 @@
             {
                 "day": "Day-3",
                 "recipes": [],
-                "_id": "687b271c1fb802fe10f52020",
+                "_id": "68d28a35ca0377c13d6bfe4e",
                 "nutritionalTotals": {
                     "calories": 0,
                     "protein": 0,
@@ -47,7 +65,7 @@
             {
                 "day": "Day-4",
                 "recipes": [],
-                "_id": "687b271c1fb802fe10f52021",
+                "_id": "68d28a35ca0377c13d6bfe4f",
                 "nutritionalTotals": {
                     "calories": 0,
                     "protein": 0,
@@ -59,7 +77,7 @@
             {
                 "day": "Day-5",
                 "recipes": [],
-                "_id": "687b271c1fb802fe10f52022",
+                "_id": "68d28a35ca0377c13d6bfe50",
                 "nutritionalTotals": {
                     "calories": 0,
                     "protein": 0,
@@ -71,7 +89,7 @@
             {
                 "day": "Day-6",
                 "recipes": [],
-                "_id": "687b271c1fb802fe10f52023",
+                "_id": "68d28a35ca0377c13d6bfe51",
                 "nutritionalTotals": {
                     "calories": 0,
                     "protein": 0,
@@ -83,7 +101,7 @@
             {
                 "day": "Day-7",
                 "recipes": [],
-                "_id": "687b271c1fb802fe10f52024",
+                "_id": "68d28a35ca0377c13d6bfe52",
                 "nutritionalTotals": {
                     "calories": 0,
                     "protein": 0,
@@ -93,8 +111,8 @@
                 }
             }
         ],
-        "types": "week",
-        "createdAt": "2025-07-19T05:03:24.710Z",
-        "__v": 0
+        "types": "custom",
+        "createdAt": "2025-09-23T11:53:25.957Z",
+        "__v": 1
     }
 }
