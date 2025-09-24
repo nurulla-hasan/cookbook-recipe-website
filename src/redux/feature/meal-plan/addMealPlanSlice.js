@@ -6,6 +6,7 @@ const addMealPlanSlice = createSlice({
         planId: null,
         selectedDay: null,
         recipeId: null,
+        mealPlannerModalOpen: false,
     },
     reducers: {
         SetPlanId: (state, action) => {
@@ -26,6 +27,12 @@ const addMealPlanSlice = createSlice({
         ResetRecipeId: (state) => {
             state.recipeId = null;
         },
+        SetMealPlannerModalOpen: (state, action) => {
+            state.mealPlannerModalOpen = action.payload;
+        },
+        SetMealPlannerModalClose: (state) => {
+            state.mealPlannerModalOpen = false;
+        },
     },
 });
 
@@ -36,6 +43,8 @@ export const {
     ResetSelectedDay,
     SetRecipeId,
     ResetRecipeId,
+    SetMealPlannerModalOpen,
+    SetMealPlannerModalClose,
 } = addMealPlanSlice.actions;
 
 export const addMealPlanSliceReducer = addMealPlanSlice.reducer;

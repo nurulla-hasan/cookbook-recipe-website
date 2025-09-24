@@ -5,7 +5,12 @@ const MealCard = ({ meal }) => {
     if (meal) {
         return (
             <div className="border rounded-lg p-4">
-                <img src={getImageUrl(meal.image)} alt={meal.name} className="w-full h-32 object-cover rounded-md mb-4" />
+                <img 
+                src={getImageUrl(meal.image)} 
+                alt={meal.name} 
+                className="w-full h-32 object-cover rounded-md mb-4" 
+                onError={(e) => e.target.src = `https://placehold.co/400?text=${meal.name}&font=roboto`}
+                />
                 <div className="flex justify-between items-center gap-2">
                     <h3 className="font-semibold">{meal.name}</h3>
                     <Badge variant="outline">{meal.category}</Badge>

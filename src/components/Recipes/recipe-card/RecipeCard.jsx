@@ -4,6 +4,9 @@ import { Heart, Clock, Star, ShoppingCart, ChefHat, Trash2, SquarePen } from 'lu
 import { Link } from 'react-router-dom';
 import { getImageUrl } from '@/lib/utils';
 import useFavorite from '@/hooks/useFavorite';
+import { useDispatch, useSelector } from "react-redux";
+import { SetMealPlannerModalOpen, SetRecipeId } from "@/redux/feature/meal-plan/addMealPlanSlice";
+import { useAddMealPlanRecipesMutation } from "@/redux/feature/meal-plan/mealPlanApi";
 
 const RecipeCard = (
     {
@@ -12,11 +15,26 @@ const RecipeCard = (
         fromPath = '/recipes',
         showCartButton = false,
         isMyRecipe = false,
+        showChooseButton = false,
         onDelete,
         onEdit
     }) => {
-
+    const dispatch = useDispatch();
+    const [addMealPlanRecipes, { isLoading }] = useAddMealPlanRecipesMutation();
     const { isFavorite, onFavoriteToggle } = useFavorite(recipe.favorite);
+    const { planId, selectedDay } = useSelector((state) => state.addMealPlan);
+
+
+    const handleChooseClick = async (recipeId) => {
+        dispatch(SetRecipeId(recipeId));
+        try {
+            await addMealPlanRecipes({ planId, day: selectedDay, recipeId });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(SetMealPlannerModalOpen(false));
+        }
+    };
 
     return (
         <Link
@@ -114,6 +132,18 @@ const RecipeCard = (
                         >
                             <ShoppingCart />
                             Add to Plan
+                        </Button>}
+                        {showChooseButton && <Button
+                            loading={isLoading}
+                            className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
+                            size="sm"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleChooseClick(recipe._id);
+                            }}
+                        >
+                            Choose
                         </Button>}
                     </div>
                 </div>

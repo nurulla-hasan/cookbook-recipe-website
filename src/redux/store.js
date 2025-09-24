@@ -4,7 +4,7 @@ import { baseApi } from "./feature/baseApi";
 import { authSliceReducer } from "./feature/auth/authSlice";
 import { profileSliceReducer } from "./feature/profile/profileSlice";
 import { mealPlanSliceReducer } from "./feature/meal-plan/mealPlanSlice";
-import { addMealPlanSliceReducer } from "./feature/meal-plan/mealPlanUISlice";
+import { addMealPlanSliceReducer } from "./feature/meal-plan/addMealPlanSlice";
 
 export const store = configureStore({
     reducer: {

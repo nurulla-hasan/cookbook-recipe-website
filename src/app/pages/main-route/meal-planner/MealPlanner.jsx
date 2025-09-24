@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import ConfirmationModal from "@/components/common/modal/ConfirmationModal";
 import { useDispatch } from "react-redux";
-import { SetPlanId } from "@/redux/feature/meal-plan/mealPlanUISlice";
+import { SetPlanId } from "@/redux/feature/meal-plan/addMealPlanSlice";
 
 const MealPlanner = () => {
     const dispatch = useDispatch();
