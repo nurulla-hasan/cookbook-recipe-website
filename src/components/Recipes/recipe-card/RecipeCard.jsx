@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { getImageUrl } from '@/lib/utils';
 import useFavorite from '@/hooks/useFavorite';
 import { useDispatch, useSelector } from "react-redux";
-import { SetMealPlannerModalOpen, SetRecipeId } from "@/redux/feature/meal-plan/addMealPlanSlice";
+import { SetCardModalOpen, SetMealPlannerModalOpen, SetRecipeId } from "@/redux/feature/meal-plan/addMealPlanSlice";
 import { useAddMealPlanRecipesMutation } from "@/redux/feature/meal-plan/mealPlanApi";
 
 const RecipeCard = (
@@ -24,7 +24,6 @@ const RecipeCard = (
     const { isFavorite, onFavoriteToggle } = useFavorite(recipe.favorite);
     const { planId, selectedDay } = useSelector((state) => state.addMealPlan);
 
-
     const handleChooseClick = async (recipeId) => {
         dispatch(SetRecipeId(recipeId));
         try {
@@ -34,6 +33,11 @@ const RecipeCard = (
         } finally {
             dispatch(SetMealPlannerModalOpen(false));
         }
+    };
+
+    const handleAddToPlanClick = (recipeId) => {
+        dispatch(SetRecipeId(recipeId));
+        dispatch(SetCardModalOpen(true));
     };
 
     return (
@@ -66,6 +70,7 @@ const RecipeCard = (
                             {recipe.category}
                         </span>
 
+                        {/* Favorite Button */}
                         <Button
                             variant="ghost"
                             size="icon"
@@ -81,6 +86,7 @@ const RecipeCard = (
                             />
                         </Button>
 
+                        {/* Edit and Delete Buttons */}
                         {isMyRecipe && (
                             <div className='grid grid-cols-2 gap-2'>
                                 <Button
@@ -121,18 +127,20 @@ const RecipeCard = (
                             </div>
                         </div>
 
+                        {/* Add to Plan Button */}
                         {showCartButton && <Button
                             className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
                             size="sm"
                             onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                // Add to cart logic here
+                                handleAddToPlanClick(recipe._id);
                             }}
                         >
                             <ShoppingCart />
                             Add to Plan
                         </Button>}
+                        {/* Choose Button */}
                         {showChooseButton && <Button
                             loading={isLoading}
                             className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"

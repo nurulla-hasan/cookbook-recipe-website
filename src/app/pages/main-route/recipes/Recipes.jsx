@@ -12,8 +12,13 @@ import RecipeCardSkeleton from "@/components/skeleton/recipe/RecipeCardSkeleton"
 import Error from "@/components/common/error/Error";
 import NoData from "@/components/common/no-data/NoData";
 import CustomPagination from "@/components/common/custom-pagination/CustomPagination";
+import { useDispatch, useSelector } from "react-redux";
+import AddToPlanModal from "@/components/Recipes/add-plan-modal/AddToPlanModal";
+import { SetCardModalClose } from "@/redux/feature/meal-plan/addMealPlanSlice";
 
-const Recipes = () => {
+const Recipes = () => { 
+    const dispatch = useDispatch();
+    const { cardModalOpen } = useSelector((state) => state.addMealPlan);
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [appliedFilters, setAppliedFilters] = useState({});
 
@@ -120,6 +125,12 @@ const Recipes = () => {
                 onClose={() => setIsFilterModalOpen(false)}
                 onApplyFilters={handleApplyFilters}
                 onClearFilters={handleClearFilters}
+            />
+
+            {/* Add to Plan Modal */}
+            <AddToPlanModal
+                isOpen={cardModalOpen}
+                onClose={() => dispatch(SetCardModalClose())}
             />
         </>
     );
