@@ -16,8 +16,11 @@ import CreatePlanModal from "@/components/meal-planner/CreatePlanModal";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import ConfirmationModal from "@/components/common/modal/ConfirmationModal";
+import { useDispatch } from "react-redux";
+import { SetPlanId } from "@/redux/feature/meal-plan/mealPlanUISlice";
 
 const MealPlanner = () => {
+    const dispatch = useDispatch();
     useGetWeeklyMealPlanQuery()
     useGetFeaturedMealPlanQuery()
     useGetCustomMealPlanQuery()
@@ -56,12 +59,15 @@ const MealPlanner = () => {
     useEffect(() => {
         if (activeTab === 'my-weeks') {
             setActiveMealPlanId(selectedWeek?._id);
+            dispatch(SetPlanId(selectedWeek?._id));
         } else if (activeTab === 'featured-plans') {
             setActiveMealPlanId(selectedPlan?._id);
+            dispatch(SetPlanId(selectedPlan?._id));
         } else if (activeTab === 'custom-plans') {
             setActiveMealPlanId(selectedCustomPlan?._id);
+            dispatch(SetPlanId(selectedCustomPlan?._id));
         }
-    }, [activeTab, selectedWeek, selectedPlan, selectedCustomPlan]);
+    }, [activeTab, selectedWeek, selectedPlan, selectedCustomPlan, dispatch]);
 
     useEffect(() => {
         if (weekDropDown && weekDropDown.length > 0 && !selectedWeek) {
@@ -155,6 +161,7 @@ const MealPlanner = () => {
                     </Tabs>
                 </div>
             </PageLayout>
+            {/* Modal */}
             <CreatePlanModal 
                 isOpen={isCreateModalOpen} 
                 setIsOpen={setIsCreateModalOpen} 

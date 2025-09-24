@@ -4,6 +4,8 @@ const addMealPlanSlice = createSlice({
     name: 'addMealPlan',
     initialState: {
         planId: null,
+        selectedDay: null,
+        recipeId: null,
     },
     reducers: {
         SetPlanId: (state, action) => {
@@ -12,12 +14,28 @@ const addMealPlanSlice = createSlice({
         ResetPlanId: (state) => {
             state.planId = null;
         },
+        SetSelectedDay: (state, action) => {
+            state.selectedDay = action.payload;
+        },
+        ResetSelectedDay: (state) => {
+            state.selectedDay = null;
+        },
+        SetRecipeId: (state, action) => {
+            state.recipeId = action.payload;
+        },
+        ResetRecipeId: (state) => {
+            state.recipeId = null;
+        },
     },
 });
 
 export const {
     SetPlanId,
     ResetPlanId,
+    SetSelectedDay,
+    ResetSelectedDay,
+    SetRecipeId,
+    ResetRecipeId,
 } = addMealPlanSlice.actions;
 
 export const addMealPlanSliceReducer = addMealPlanSlice.reducer;

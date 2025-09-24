@@ -1,8 +1,18 @@
+import { SetSelectedDay } from "@/redux/feature/meal-plan/mealPlanUISlice";
 import { Badge } from "../ui/badge";
 import MealCard from "./MealCard";
 import { Plus } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const DayCard = ({ day, meals, nutritionalTotals }) => {
+    console.log(meals)
+    
+    const dispatch = useDispatch();
+    const { planId, selectedDay, recipeId } = useSelector((state) => state.addMealPlan);
+    console.log(planId, selectedDay, recipeId)
+
+
     return (
         <div className="border p-4 rounded-lg">
             <div className="flex flex-col gap-2 sm:flex-row items-center justify-between mb-4">
@@ -30,7 +40,9 @@ const DayCard = ({ day, meals, nutritionalTotals }) => {
                         <MealCard meal={meal.recipe} />
                     </div>
                 ))}
-                <div className="flex flex-col gap-2 items-center justify-center border-2 border-dashed rounded-lg min-h-[200px] cursor-pointer">
+                <div onClick={() => {
+                    dispatch(SetSelectedDay(day))
+                }} className="flex flex-col gap-2 items-center justify-center border-2 border-dashed rounded-lg min-h-[200px] cursor-pointer">
                     <button className="border-2 border-dashed rounded-md p-4 cursor-pointer">
                         <Plus />
                     </button>
