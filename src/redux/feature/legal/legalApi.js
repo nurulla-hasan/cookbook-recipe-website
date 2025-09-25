@@ -49,6 +49,15 @@ const legalApi = baseApi.injectEndpoints({
             providesTags: ["LEGAL"],
         }),
 
+        // GET HELP
+        getHelp: builder.query({
+            query: () => ({
+                url: "/dashboard/get-help",
+                method: "GET",
+            }),
+            providesTags: ["LEGAL"],
+        }),
+
         //======================================================================================================
         //====================================    MUTATION    ====================================================
         //======================================================================================================
@@ -109,5 +118,6 @@ export const {
     useGetTermsQuery,
     useGetPrivacyPolicyQuery,
     useGetFaqQuery,
-    useSendMessageMutation
+    useSendMessageMutation,
+    useGetHelpQuery
 } = legalApi
