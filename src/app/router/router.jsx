@@ -6,6 +6,8 @@ import AuthLayout from "../layout/AuthLayout";
 import Profilelayout from "../layout/Profilelayout";
 import RecipeDetailsSkeleton from "@/components/skeleton/recipe-details/RecipeDetailsSkeleton";
 import CategoryPageSkeleton from "@/components/skeleton/category/CategoryPageSkeleton";
+import LegalSkeleton from "@/components/skeleton/legal/LegalSkeleton";
+import ContactPageSkeleton from "@/components/skeleton/legal/ContactPageSkeleton";
 
 const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
 const EditRecipe = lazy(() => import("../pages/profile-route/my-recipe/edit-recipe/EditRecipe"));
@@ -70,27 +72,27 @@ const router = createBrowserRouter([
             },
             {
                 path: "about",
-                element: withErrorAndSuspense(About, <div>Loading...</div>),
+                element: withErrorAndSuspense(About, <LegalSkeleton />),
             },
             {
                 path: "contact",
-                element: withErrorAndSuspense(Contact, <div>Loading...</div>),
+                element: withErrorAndSuspense(Contact, <ContactPageSkeleton />),
             },
             {
                 path: "legal/help",
-                element: withErrorAndSuspense(Help, <div>Loading...</div>),
+                element: withErrorAndSuspense(Help, <LegalSkeleton />),
             },
             {
                 path: "legal/faq",
-                element: withErrorAndSuspense(Faq, <div>Loading...</div>),
+                element: withErrorAndSuspense(Faq, <LegalSkeleton />),
             },
             {
                 path: "legal/privacy",
-                element: withErrorAndSuspense(Privacy, <div>Loading...</div>),
+                element: withErrorAndSuspense(Privacy, <LegalSkeleton />),
             },
             {
                 path: "legal/terms",
-                element: withErrorAndSuspense(Terms, <div>Loading...</div>),
+                element: withErrorAndSuspense(Terms, <LegalSkeleton />),
             },
             {
                 path: "profile",

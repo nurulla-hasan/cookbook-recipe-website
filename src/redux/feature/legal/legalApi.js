@@ -5,13 +5,13 @@ const legalApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
 
         // GET ABOUT
-        // getAbout: builder.query({
-        //     query: () => ({
-        //         url: "/manage/get-about-us",
-        //         method: "GET",
-        //     }),
-        //     providesTags: ["LEGAL"],
-        // }),
+        getAbout: builder.query({
+            query: () => ({
+                url: "/dashboard/get-about",
+                method: "GET",
+            }),
+            providesTags: ["LEGAL"],
+        }),
 
         // GET TERMS
         getTerms: builder.query({
