@@ -78,6 +78,7 @@ const MealPlanner = () => {
         }
     }, [activeTab, selectedWeek, selectedPlan, selectedCustomPlan, dispatch]);
 
+
     useEffect(() => {
         if (weekDropDown && weekDropDown.length > 0 && !selectedWeek) {
             setSelectedWeek(weekDropDown[0]);

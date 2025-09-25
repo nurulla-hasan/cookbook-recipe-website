@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PageLayout from "@/app/layout/PageLayout";
 import PageHeader from "@/components/common/page-header/PageHeader";
-import PlanTypeFilter from "@/components/meal-planner/PlanTypeFilter";
-import { useDispatch, useSelector } from "react-redux";
+// import PlanTypeFilter from "@/components/meal-planner/PlanTypeFilter";
+import { useSelector } from "react-redux";
 import {
     useGetCustomMealPlanQuery,
     useGetFeaturedMealPlanQuery,
@@ -12,58 +12,58 @@ import {
 import { useGetGroceryListQuery } from "@/redux/feature/grocery/groceryApi";
 import { Button } from "@/components/ui/button";
 import GroceryRecipeCard from "@/components/grocery/GroceryRecipeCard";
-import { SetPlanId } from "@/redux/feature/meal-plan/addMealPlanSlice";
+// import { SetPlanId } from "@/redux/feature/meal-plan/addMealPlanSlice";
 
 const Grocery = () => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     useGetWeeklyMealPlanQuery()
     useGetFeaturedMealPlanQuery()
     useGetCustomMealPlanQuery()
-    const weekDropDown = useSelector((state) => state.mealPlan.weeklyDropDown);
-    const featuredDropDown = useSelector((state) => state.mealPlan.featuredDropDown);
-    const customDropDown = useSelector((state) => state.mealPlan.customDropDown);
+    // const weekDropDown = useSelector((state) => state.mealPlan.weeklyDropDown);
+    // const featuredDropDown = useSelector((state) => state.mealPlan.featuredDropDown);
+    // const customDropDown = useSelector((state) => state.mealPlan.customDropDown);
     const { planId } = useSelector((state) => state.addMealPlan);
 
-    const [activeTab, setActiveTab] = useState("my-weeks");
-    const [selectedWeek, setSelectedWeek] = useState();
-    const [selectedPlan, setSelectedPlan] = useState();
-    const [selectedCustomPlan, setSelectedCustomPlan] = useState();
+    // const [activeTab, setActiveTab] = useState("my-weeks");
+    // const [selectedWeek, setSelectedWeek] = useState();
+    // const [selectedPlan, setSelectedPlan] = useState();
+    // const [selectedCustomPlan, setSelectedCustomPlan] = useState();
     // const [activeMealPlanId, setActiveMealPlanId] = useState();
 
     const { data: groceryData, isLoading: isGroceryLoading } = useGetGroceryListQuery(planId, { skip: !planId });
 
-    useEffect(() => {
-        if (activeTab === 'my-weeks') {
-            // setActiveMealPlanId(selectedWeek?._id);
-            dispatch(SetPlanId(selectedWeek?._id));
-        } else if (activeTab === 'featured-plans') {
-            // setActiveMealPlanId(selectedPlan?._id);
-            dispatch(SetPlanId(selectedPlan?._id));
-        } else if (activeTab === 'custom-plans') {
-            // setActiveMealPlanId(selectedCustomPlan?._id);
-            dispatch(SetPlanId(selectedCustomPlan?._id));
-        }
-    }, [activeTab, selectedWeek, selectedPlan, selectedCustomPlan, dispatch]);
+    // useEffect(() => {
+    //     if (activeTab === 'my-weeks') {
+    //         // setActiveMealPlanId(selectedWeek?._id);
+    //         dispatch(SetPlanId(selectedWeek?._id));
+    //     } else if (activeTab === 'featured-plans') {
+    //         // setActiveMealPlanId(selectedPlan?._id);
+    //         dispatch(SetPlanId(selectedPlan?._id));
+    //     } else if (activeTab === 'custom-plans') {
+    //         // setActiveMealPlanId(selectedCustomPlan?._id);
+    //         dispatch(SetPlanId(selectedCustomPlan?._id));
+    //     }
+    // }, [activeTab, selectedWeek, selectedPlan, selectedCustomPlan, dispatch]);
 
-    useEffect(() => {
-        if (weekDropDown && weekDropDown.length > 0 && !selectedWeek) {
-            setSelectedWeek(weekDropDown[0]);
-        }
-    }, [weekDropDown, selectedWeek]);
+    // useEffect(() => {
+    //     if (weekDropDown && weekDropDown.length > 0 && !selectedWeek) {
+    //         setSelectedWeek(weekDropDown[0]);
+    //     }
+    // }, [weekDropDown, selectedWeek]);
 
-    useEffect(() => {
-        if (featuredDropDown && featuredDropDown.length > 0 && !selectedPlan) {
-            setSelectedPlan(featuredDropDown[0]);
-        }
-    }, [featuredDropDown, selectedPlan]);
+    // useEffect(() => {
+    //     if (featuredDropDown && featuredDropDown.length > 0 && !selectedPlan) {
+    //         setSelectedPlan(featuredDropDown[0]);
+    //     }
+    // }, [featuredDropDown, selectedPlan]);
 
-    useEffect(() => {
-        if (customDropDown && customDropDown.length > 0 && !selectedCustomPlan) {
-            setSelectedCustomPlan(customDropDown[0]);
-        }
-    }, [customDropDown, selectedCustomPlan]);
+    // useEffect(() => {
+    //     if (customDropDown && customDropDown.length > 0 && !selectedCustomPlan) {
+    //         setSelectedCustomPlan(customDropDown[0]);
+    //     }
+    // }, [customDropDown, selectedCustomPlan]);
 
-    const recipes = groceryData?.data?.data.flatMap(day =>
+    const recipesWithAllIngredients = groceryData?.data?.data.flatMap(day =>
         day.recipes
             .filter(r => r.ingredients && r.ingredients.length > 0)
             .map(r => ({
@@ -71,9 +71,19 @@ const Grocery = () => {
                 image: r.recipe.image,
                 title: r.recipe.name,
                 subtitle: r.recipe.category,
-                ingredients: r.ingredients.map(i => i.ingredient)
+                ingredients: r.ingredients
             }))
     );
+
+    const aisleRecipes = recipesWithAllIngredients?.map(recipe => ({
+        ...recipe,
+        ingredients: recipe.ingredients.filter(i => !i.buy)
+    })).filter(recipe => recipe.ingredients.length > 0);
+
+    const recipeTabRecipes = recipesWithAllIngredients?.map(recipe => ({
+        ...recipe,
+        ingredients: recipe.ingredients.filter(i => i.buy)
+    })).filter(recipe => recipe.ingredients.length > 0);
 
     const breadcrumbs = [
         { name: "Home", href: "/" },
@@ -83,8 +93,8 @@ const Grocery = () => {
     return (
         <>
             <PageHeader breadcrumbs={breadcrumbs} title="Grocery" />
-            <PageLayout>
-                <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <PageLayout paddingSize="none">
+                {/* <Tabs value={activeTab} onValueChange={setActiveTab}>
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                         <TabsList className="grid grid-cols-3">
                             <TabsTrigger value="my-weeks">My Weeks</TabsTrigger>
@@ -123,9 +133,9 @@ const Grocery = () => {
                             />
                         </div>
                     </TabsContent>
-                </Tabs>
+                </Tabs> */}
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Left Section */}
                     <div className="md:col-span-2">
                         <Tabs defaultValue="aisle" className="w-full">
@@ -145,7 +155,7 @@ const Grocery = () => {
                             </TabsList>
 
                             <TabsContent value="aisle" className="space-y-8">
-                                {isGroceryLoading ? <div>Loading...</div> : recipes?.length > 0 ? recipes.map((recipe) => (
+                                {isGroceryLoading ? <div>Loading...</div> : aisleRecipes?.length > 0 ? aisleRecipes.map((recipe) => (
                                     <GroceryRecipeCard
                                         key={`aisle-${recipe.id}`}
                                         image={recipe.image}
@@ -157,7 +167,7 @@ const Grocery = () => {
                             </TabsContent>
 
                             <TabsContent value="recipe" className="space-y-8">
-                                {isGroceryLoading ? <div>Loading...</div> : recipes?.length > 0 ? recipes.map((recipe) => (
+                                {isGroceryLoading ? <div>Loading...</div> : recipeTabRecipes?.length > 0 ? recipeTabRecipes.map((recipe) => (
                                     <GroceryRecipeCard
                                         key={`recipe-${recipe.id}`}
                                         image={recipe.image}
