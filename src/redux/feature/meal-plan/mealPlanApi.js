@@ -35,7 +35,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                     console.log(error);
                 }
             },
-            providesTags: ["MEAL_PLAN"],
+            providesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 
         // GET FEATURED MEAL PLAN
@@ -69,7 +69,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                     console.log(error);
                 }
             },
-            providesTags: ["MEAL_PLAN"],
+            providesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 
         // GET CUSTOM MEAL PLAN
@@ -103,7 +103,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                     console.log(error);
                 }
             },
-            providesTags: ["MEAL_PLAN"],
+            providesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 
         // GET MEAL PLAN DETAILS
@@ -112,7 +112,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                 url: `/meal_plan/get_mealPlan_details/${id}`,
                 method: "GET",
             }),
-            providesTags: ["MEAL_PLAN"],
+            providesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 
         //===========================END GET QUERY============================================
@@ -136,7 +136,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                     params,
                 }
             },
-            invalidatesTags: ["MEAL_PLAN"],
+            invalidatesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 
         // SWAP MEAL PLAN RECIPES
@@ -156,7 +156,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                     params,
                 }
             },
-            invalidatesTags: ["MEAL_PLAN"],
+            invalidatesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 
         // REMOVE MEAL PLAN RECIPES
@@ -176,7 +176,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                     params,
                 }
             },
-            invalidatesTags: ["MEAL_PLAN"],
+            invalidatesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 
         // CREATE CUSTOM MEAL PLAN
@@ -186,7 +186,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["MEAL_PLAN"],
+            invalidatesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 
         // DELETE CUSTOM MEAL PLAN
@@ -195,7 +195,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                 url: `/meal_plan/delete_custom_plane/${id}`,
                 method: "DELETE",
             }),
-            invalidatesTags: ["MEAL_PLAN"],
+            invalidatesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 
     })
