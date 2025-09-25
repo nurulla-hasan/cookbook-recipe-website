@@ -172,7 +172,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                 }
                 return {
                     url: "/meal_plan/remove_plan_recipes",
-                    method: "POST",
+                    method: "DELETE",
                     params,
                 }
             },

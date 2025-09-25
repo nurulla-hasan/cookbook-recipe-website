@@ -11,10 +11,14 @@ import RecipeCardSkeleton from "@/components/skeleton/recipe/RecipeCardSkeleton"
 import Error from "@/components/common/error/Error";
 import NoData from "@/components/common/no-data/NoData";
 import CustomPagination from "@/components/common/custom-pagination/CustomPagination";
+import { SetPlanId, SetRecipeId, SetSelectedDay } from "@/redux/feature/meal-plan/addMealPlanSlice";
+import { useDispatch } from "react-redux";
 
 const AddRecipePlanModal = () => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [appliedFilters, setAppliedFilters] = useState({});
+
+    const dispatch = useDispatch();
 
     const {
         searchTerm,
@@ -37,6 +41,9 @@ const AddRecipePlanModal = () => {
     const handleClearFilters = () => {
         setAppliedFilters({});
         setFilterParams({});
+        dispatch(SetPlanId(null));
+        dispatch(SetRecipeId(null));
+        dispatch(SetSelectedDay(null));
     };
 
     return (

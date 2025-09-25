@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import PlanTypeFilter from "../../meal-planner/PlanTypeFilter";
-import { SetCardModalClose, SetPlanId } from "@/redux/feature/meal-plan/addMealPlanSlice";
+import { SetCardModalClose, SetPlanId, SetRecipeId, SetSelectedDay } from "@/redux/feature/meal-plan/addMealPlanSlice";
 import { useAddMealPlanRecipesMutation, useGetCustomMealPlanQuery, useGetFeaturedMealPlanQuery, useGetWeeklyMealPlanQuery } from "@/redux/feature/meal-plan/mealPlanApi";
 import { Dialog } from '@radix-ui/react-dialog';
 import { DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
@@ -102,7 +102,11 @@ const AddToPlanModal = ({ isOpen, onClose }) => {
             ErrorToast("Failed to add recipe to meal plan");
         } finally {
             dispatch(SetCardModalClose());
+            dispatch(SetPlanId(null));
+            dispatch(SetRecipeId(null));
+            dispatch(SetSelectedDay(null));
             onClose(); // Close the modal
+            form.reset();
         }
     };
 
