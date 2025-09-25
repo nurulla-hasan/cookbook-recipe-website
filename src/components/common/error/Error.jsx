@@ -8,7 +8,7 @@ const Error = ({ msg, size = "sm", className }) => {
   };
 
   return (
-    <div className={cn("flex items-center justify-center", heightMap[size], className)}>
+    <div className={cn("flex items-center justify-center col-span-full", heightMap[size], className)}>
       <p className="text-red-500 text-center text-sm md:text-base px-4">
         {msg}
       </p>
