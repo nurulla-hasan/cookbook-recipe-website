@@ -12,6 +12,11 @@ import {
 import { useGetGroceryListQuery } from "@/redux/feature/grocery/groceryApi";
 import { Button } from "@/components/ui/button";
 import GroceryRecipeCard from "@/components/grocery/GroceryRecipeCard";
+import { useEffect, useRef } from "react";
+import { InfoToast } from "@/lib/utils";
+// import { SetPlanId } from "@/redux/feature/meal-plan/addMealPlanSlice";
+// import { useDispatch } from "react-redux";
+// import { useEffect, useState } from "react";
 // import { SetPlanId } from "@/redux/feature/meal-plan/addMealPlanSlice";
 
 const Grocery = () => {
@@ -28,19 +33,15 @@ const Grocery = () => {
     // const [selectedWeek, setSelectedWeek] = useState();
     // const [selectedPlan, setSelectedPlan] = useState();
     // const [selectedCustomPlan, setSelectedCustomPlan] = useState();
-    // const [activeMealPlanId, setActiveMealPlanId] = useState();
 
     const { data: groceryData, isLoading: isGroceryLoading } = useGetGroceryListQuery(planId, { skip: !planId });
 
     // useEffect(() => {
     //     if (activeTab === 'my-weeks') {
-    //         // setActiveMealPlanId(selectedWeek?._id);
     //         dispatch(SetPlanId(selectedWeek?._id));
     //     } else if (activeTab === 'featured-plans') {
-    //         // setActiveMealPlanId(selectedPlan?._id);
     //         dispatch(SetPlanId(selectedPlan?._id));
     //     } else if (activeTab === 'custom-plans') {
-    //         // setActiveMealPlanId(selectedCustomPlan?._id);
     //         dispatch(SetPlanId(selectedCustomPlan?._id));
     //     }
     // }, [activeTab, selectedWeek, selectedPlan, selectedCustomPlan, dispatch]);
@@ -84,6 +85,15 @@ const Grocery = () => {
         ...recipe,
         ingredients: recipe.ingredients.filter(i => i.buy)
     })).filter(recipe => recipe.ingredients.length > 0);
+
+
+    const hasShownToast = useRef(false);
+    useEffect(() => {
+        if (!planId && !hasShownToast.current) {
+            hasShownToast.current = true;
+            InfoToast("Please select a plan from Meal Planner");
+        }
+    }, [planId]);
 
     const breadcrumbs = [
         { name: "Home", href: "/" },
@@ -179,9 +189,8 @@ const Grocery = () => {
                             </TabsContent>
                         </Tabs>
                     </div>
-
                     {/* Right Section */}
-                    <div className="md:col-span-1 flex justify-center items-start">
+                    <div className="md:col-span-1 flex justify-center items-start border-l px-6">
                         <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
                             BUY ON AMAZON FRESH
                         </Button>
