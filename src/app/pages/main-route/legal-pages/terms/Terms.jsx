@@ -1,14 +1,17 @@
 import PageLayout from "@/app/layout/PageLayout";
 import PageHeader from "@/components/common/page-header/PageHeader";
 import { replaceWhiteBackground } from "@/lib/utils";
+import { useGetTermsQuery } from "@/redux/feature/legal/legalApi";
 
 const Terms = () => {
+
+    const { data } = useGetTermsQuery()
+    const terms = data?.data?.description
     const breadcrumb = [
         { name: 'Home', href: '/' },
         { name: 'Terms' },
     ];
 
-    const terms = "<h2>You can add any text from your dashboard.</h2>";
     return (
         <div>
             <PageHeader
