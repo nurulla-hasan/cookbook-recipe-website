@@ -11,35 +11,59 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactInfo } from "@/lib/mockData";
+import { useSendMessageMutation } from "@/redux/feature/legal/legalApi";
+import { useSelector } from "react-redux";
+import { ErrorToast, SuccessToast } from "@/lib/utils";
 
 const formSchema = z.object({
     email: z.string().min(1, { message: "Email is required" }).email({
         message: "Invalid email address",
     }),
-    phone: z
-        .string()
-        .min(10, { message: "Phone must be at least 10 digits." })
-        .regex(/^\d+$/, { message: "Only digits allowed." }),
+    // phone: z
+    //     .string()
+    //     .min(10, { message: "Phone must be at least 10 digits." })
+    //     .regex(/^\d+$/, { message: "Only digits allowed." }),
     message: z
         .string()
         .min(2, { message: "Message must be at least 2 characters." }),
+    subject: z
+        .string()
+        .min(2, { message: "Subject must be at least 2 characters." }),
 });
 
 
 
 const Contact = () => {
-
+    const user = useSelector((state) => state.profile.userProfile);
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
             email: "",
             phone: "",
             message: "",
+            subject: "",
         },
     })
 
-    const onSubmit = (data) => {
-        console.log(data)
+    const [sendMessage, { isLoading }] = useSendMessageMutation()
+
+    const onSubmit = async (data) => {
+        const payload = {
+            name: user?.name || "",
+            email: data.email,
+            // phone: data.phone,
+            subject: data.subject || "New message",
+            message: data.message,
+        }
+        // console.log(payload)
+        try {
+            await sendMessage(payload)
+            SuccessToast("Message sent successfully")
+        } catch (error) {
+            console.log(error)
+            ErrorToast("Message sent failed")
+        }
+        form.reset()
     }
 
     const breadcrumb = [
@@ -102,7 +126,7 @@ const Contact = () => {
                                         </FormItem>
                                     )}
                                 />
-                                <FormField
+                                {/* <FormField
                                     control={form.control}
                                     name="phone"
                                     render={({ field }) => (
@@ -110,6 +134,19 @@ const Contact = () => {
                                             <FormLabel>Phone</FormLabel>
                                             <FormControl>
                                                 <Input placeholder="Enter your phone" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                /> */}
+                                <FormField
+                                    control={form.control}
+                                    name="subject"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Subject</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="Enter your subject" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -129,6 +166,7 @@ const Contact = () => {
                                     )}
                                 />
                                 <Button
+                                    loading={isLoading}
                                     type="submit"
                                     className="flex items-center gap-2 md:absolute bottom-4 right-4"
                                 >
