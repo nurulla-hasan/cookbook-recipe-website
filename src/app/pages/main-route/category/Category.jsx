@@ -11,7 +11,10 @@ import CategoryPageSkeleton from '@/components/skeleton/category/CategoryPageSke
 
 const Category = () => {
     const { slug: category } = useParams();
-    const formattedSlug = category.charAt(0).toUpperCase() + category.slice(1);
+    const formattedSlug = category
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 
     const {
         currentPage,

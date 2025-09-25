@@ -6,9 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Heart, Clock, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import Title from '../ui/Title';
 import { Link } from 'react-router-dom';
-import { mockRecipes } from '@/lib/mockData';
+import { useGetFeaturedRecipesQuery } from '@/redux/feature/home/homeApi';
+import { getImageUrl } from '@/lib/utils';
 
 const FeaturedRecipes = () => {
+
+    const { data: recipes, isLoading, isError } = useGetFeaturedRecipesQuery();
+
     const [api, setApi] = React.useState(null);
 
     return (
@@ -30,39 +34,52 @@ const FeaturedRecipes = () => {
 
                 <Carousel setApi={setApi} opts={{ align: "start", loop: true }} className="w-full">
                     <CarouselContent>
-                        {mockRecipes.map((recipe) => (
-                            <CarouselItem key={recipe.id} className="sm:basis-1/2 lg:basis-1/4">
-                                {/* <div className="p-1"> */}
-                                <Link
-                                    to={`/recipes/recipe-details/${recipe.id}`}
-                                    state={{ from: 'Featured', fromPath: '/#featured-recipes' }}
-                                    className="h-full group transition-all duration-300 hover:-translate-y-1 block"
-                                >
-                                    <Card className="overflow-hidden group rounded-2xl">
-                                        <CardHeader className="p-0 relative">
-                                            <img src={recipe.image} alt={recipe.title} className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300" />
-                                            <Button variant="ghost" size="icon" className="absolute top-3 right-3 bg-secondary/80 hover:bg-secondary rounded-full h-9 w-9">
-                                                <Heart className="w-5 h-5 text-primary dark:text-foreground" />
-                                            </Button>
-                                        </CardHeader>
-                                        <CardContent className="px-4">
-                                            <p className="text-sm text-muted-foreground mb-1">{recipe.category}</p>
-                                            <h3 title={recipe.title} className="text-lg font-semibold mt-1 text-primary dark:text-foreground line-clamp-1">{recipe.title}</h3>
-                                        </CardContent>
-                                        <CardFooter className="p-4 pt-0 flex justify-between items-center text-muted-foreground">
-                                            <div className="flex items-center gap-2 text-sm">
-                                                <Clock className="w-4 h-4" />
-                                                <span>{recipe.duration}</span>
-                                            </div>
-                                            <div className="flex items-center gap-1 text-sm">
-                                                <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                                                <span className="font-medium">{recipe.rating}</span>
-                                            </div>
-                                        </CardFooter>
-                                    </Card>
-                                </Link>
-                            </CarouselItem>
-                        ))}
+                        {isLoading ? (
+                            <p>Loading...</p>
+                        ) : isError ? (
+                            <p>Error fetching recipes</p>
+                        ) : recipes?.data?.length === 0 ? (
+                            <p>No recipes found</p>
+                        ) : (
+                            recipes?.data?.result?.slice(0, 6).map((recipe) => (
+                                <CarouselItem key={recipe._id} className="sm:basis-1/2 lg:basis-1/4">
+                                    <Link
+                                        to={`/recipes/recipe-details/${recipe._id}`}
+                                        state={{ from: 'Featured', fromPath: '/#featured-recipes' }}
+                                        className="h-full group transition-all duration-300 hover:-translate-y-1 block"
+                                    >
+                                        <Card className="overflow-hidden group rounded-2xl">
+                                            <CardHeader className="p-0 relative">
+                                                <img
+                                                 src={getImageUrl(recipe.image)}
+                                                  alt={recipe.title}
+                                                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                                                  onError={(e) => {
+                                                    e.target.src = `https://placehold.co/400?text=${recipe.name}&font=roboto`;
+                                                  }}
+                                                   />
+                                                <Button variant="ghost" size="icon" className="absolute top-3 right-3 bg-secondary/80 hover:bg-secondary rounded-full h-9 w-9">
+                                                    <Heart className="w-5 h-5 text-primary dark:text-foreground" />
+                                                </Button>
+                                            </CardHeader>
+                                            <CardContent className="px-4">
+                                                <p className="text-sm text-muted-foreground mb-1">{recipe.category}</p>
+                                                <h3 title={recipe.title} className="text-lg font-semibold mt-1 text-primary dark:text-foreground line-clamp-1">{recipe.title}</h3>
+                                            </CardContent>
+                                            <CardFooter className="p-4 pt-0 flex justify-between items-center text-muted-foreground">
+                                                <div className="flex items-center gap-2 text-sm">
+                                                    <Clock className="w-4 h-4" />
+                                                    <span>{recipe.duration}</span>
+                                                </div>
+                                                <div className="flex items-center gap-1 text-sm">
+                                                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                                                    <span className="font-medium">{recipe.rating}</span>
+                                                </div>
+                                            </CardFooter>
+                                        </Card>
+                                    </Link>
+                                </CarouselItem>
+                            )))}
                     </CarouselContent>
                 </Carousel>
             </PageLayout>

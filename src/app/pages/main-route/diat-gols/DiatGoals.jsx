@@ -11,8 +11,10 @@ import NoData from '@/components/common/no-data/NoData';
 
 const DiatGoals = () => {
     const { slug: diatGoals } = useParams();
-    const formattedSlug = diatGoals.charAt(0).toUpperCase() + diatGoals.slice(1);
-
+    const formattedSlug = diatGoals
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 
     const {
         currentPage,
@@ -26,7 +28,7 @@ const DiatGoals = () => {
     if (isLoading) {
         return <CategoryPageSkeleton />;
     }
-    
+
     const breadcrumbs = [
         { name: 'Home', href: '/' },
         { name: formattedSlug },
