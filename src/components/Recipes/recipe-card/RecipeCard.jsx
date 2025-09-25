@@ -2,11 +2,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Heart, Clock, Star, ShoppingCart, ChefHat, Trash2, SquarePen } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getImageUrl } from '@/lib/utils';
+import { ErrorToast, getImageUrl, SuccessToast } from '@/lib/utils';
 import useFavorite from '@/hooks/useFavorite';
 import { useDispatch, useSelector } from "react-redux";
-import { SetCardModalOpen, SetMealPlannerModalOpen, SetRecipeId } from "@/redux/feature/meal-plan/addMealPlanSlice";
-import { useAddMealPlanRecipesMutation } from "@/redux/feature/meal-plan/mealPlanApi";
+import { SetCardModalOpen, SetMealPlannerModalOpen, SetMealPlannerSwapModalOpen, SetRecipeId, SetSelectedDay } from "@/redux/feature/meal-plan/addMealPlanSlice";
+import { useAddMealPlanRecipesMutation, useSwapRecipeMutation } from "@/redux/feature/meal-plan/mealPlanApi";
 
 const RecipeCard = (
     {
@@ -16,22 +16,56 @@ const RecipeCard = (
         showCartButton = false,
         isMyRecipe = false,
         showChooseButton = false,
+        showSwapButton = false,
         onDelete,
         onEdit
     }) => {
     const dispatch = useDispatch();
     const [addMealPlanRecipes, { isLoading }] = useAddMealPlanRecipesMutation();
+    const [swapRecipe, { isLoading: swapLoading }] = useSwapRecipeMutation();
     const { isFavorite, onFavoriteToggle } = useFavorite(recipe.favorite);
-    const { planId, selectedDay } = useSelector((state) => state.addMealPlan);
+    const { planId, selectedDay, recipeId } = useSelector((state) => state.addMealPlan);
 
     const handleChooseClick = async (recipeId) => {
         dispatch(SetRecipeId(recipeId));
         try {
-            await addMealPlanRecipes({ planId, day: selectedDay, recipeId });
+            const result = await addMealPlanRecipes({ planId, day: selectedDay, recipeId }).unwrap();
+            SuccessToast("Recipe added to meal plan successfully");
+            // Reset states after successful addition
+            dispatch(SetRecipeId(null));
+            dispatch(SetSelectedDay(null));
+            return result;
         } catch (error) {
-            console.log(error);
+            console.error('Error adding recipe to meal plan:', error);
+            ErrorToast(error.data?.message || "Failed to add recipe to meal plan");
+            throw error;
         } finally {
             dispatch(SetMealPlannerModalOpen(false));
+        }
+    };
+
+    const handleSwapClick = async (newId) => {
+        console.log('Before swap - State:', { planId, selectedDay, recipeId });
+        try {
+            const result = await swapRecipe({ planId, day: selectedDay, removeId: recipeId, newId });
+            console.log('Swap API response:', result);
+            SuccessToast("Recipe swapped successfully");
+            
+            // Log before dispatching resets
+            console.log('Before reset - State:', { planId, selectedDay, recipeId });
+            
+            // Reset states
+            dispatch(SetRecipeId(null));
+            dispatch(SetSelectedDay(null));
+            
+            // Log after dispatching resets (note: this won't reflect in the same render)
+            console.log('After reset - State should be null');
+        } catch (error) {
+            console.error('Swap error:', error);
+            ErrorToast(error.data?.message || "Failed to swap recipe");
+        } finally {
+            console.log('Closing swap modal');
+            dispatch(SetMealPlannerSwapModalOpen(false));
         }
     };
 
@@ -152,6 +186,19 @@ const RecipeCard = (
                             }}
                         >
                             Choose
+                        </Button>}
+                        {/* Swap Button */}
+                        {showSwapButton && <Button
+                            loading={swapLoading}
+                            className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
+                            size="sm"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleSwapClick(recipe._id);
+                            }}
+                        >
+                            Swap
                         </Button>}
                     </div>
                 </div>

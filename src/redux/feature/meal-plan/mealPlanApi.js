@@ -152,7 +152,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                 }
                 return {
                     url: "/meal_plan/swap_plane_recipe",
-                    method: "POST",
+                    method: "PATCH",
                     params,
                 }
             },

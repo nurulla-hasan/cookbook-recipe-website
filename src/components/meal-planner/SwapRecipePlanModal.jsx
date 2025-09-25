@@ -19,7 +19,7 @@ import {
     DialogDescription,
 } from "@/components/ui/dialog";
 
-const AddRecipePlanModal = ({ isOpen, onOpenChange }) => {
+const SwapRecipePlanModal = ({ isOpen, onOpenChange }) => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [appliedFilters, setAppliedFilters] = useState({});
 
@@ -50,8 +50,8 @@ const AddRecipePlanModal = ({ isOpen, onOpenChange }) => {
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogContent className="max-w-5xl h-[90vh] flex flex-col p-0">
                 <DialogHeader className="px-6 pt-6 pb-0">
-                    <DialogTitle>Select a Recipe to Add</DialogTitle>
-                    <DialogDescription>Choose a recipe to add to your meal plan.</DialogDescription>
+                    <DialogTitle>Swap Recipe</DialogTitle>
+                    <DialogDescription>Choose a recipe to swap with the current recipe.</DialogDescription>
                 </DialogHeader>
                 <div className="flex-grow overflow-y-auto px-6">
                     <PageLayout
@@ -106,7 +106,7 @@ const AddRecipePlanModal = ({ isOpen, onOpenChange }) => {
                                         recipe={recipe}
                                         from="Recipes"
                                         fromPath="/recipes"
-                                        showChooseButton={true}
+                                        showSwapButton={true}
                                     />
                                 ))
                             )}
@@ -126,4 +126,4 @@ const AddRecipePlanModal = ({ isOpen, onOpenChange }) => {
     );
 };
 
-export default AddRecipePlanModal;
+export default SwapRecipePlanModal;

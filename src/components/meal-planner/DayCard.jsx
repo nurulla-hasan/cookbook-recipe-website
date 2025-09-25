@@ -2,7 +2,7 @@ import { Badge } from "../ui/badge";
 import MealCard from "./MealCard";
 import { Plus } from "lucide-react";
 
-const DayCard = ({ day, meals, nutritionalTotals, onAddRecipeClick, handleRemoveRecipe}) => {
+const DayCard = ({ day, meals, nutritionalTotals, onAddRecipeClick}) => {
 
     return (
         <div className="border p-4 rounded-lg">
@@ -28,7 +28,7 @@ const DayCard = ({ day, meals, nutritionalTotals, onAddRecipeClick, handleRemove
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {meals.map((meal, index) => (
                     <div key={index}>
-                        <MealCard meal={meal.recipe} handleRemoveRecipe={handleRemoveRecipe} />
+                        <MealCard meal={meal.recipe} day={day}/>
                     </div>
                 ))}
                 <div 
@@ -38,10 +38,7 @@ const DayCard = ({ day, meals, nutritionalTotals, onAddRecipeClick, handleRemove
                         <Plus />
                     </button>
                     <p className="text-muted-foreground text-center">
-                        Drag and drop a recipe here, or click to add.
-                    </p>
-                    <p className="font-medium">
-                        Add Recipe
+                        Click to add a recipe to this day.
                     </p>
                 </div>
             </div>

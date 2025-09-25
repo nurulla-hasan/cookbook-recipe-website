@@ -102,7 +102,6 @@ const AddToPlanModal = ({ isOpen, onClose }) => {
             ErrorToast("Failed to add recipe to meal plan");
         } finally {
             dispatch(SetCardModalClose());
-            dispatch(SetPlanId(null));
             dispatch(SetRecipeId(null));
             dispatch(SetSelectedDay(null));
             onClose(); // Close the modal
