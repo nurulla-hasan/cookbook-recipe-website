@@ -1,11 +1,12 @@
 
 import { Input } from "@/components/ui/input";
+import { getImageUrl } from "@/lib/utils";
 
 const GroceryRecipeCard = ({ image, title, subtitle, ingredients }) => {
     return (
         <div className="flex flex-col md:flex-row items-start gap-4 mb-8">
             <div className="flex-shrink-0">
-                <img src={image} alt={title} className="w-full md:w-96 h-auto object-cover rounded-r-4xl border" />
+                <img src={getImageUrl(image)} alt={title} className="w-full md:w-96 h-auto object-cover rounded-r-4xl border" />
                 <h3 className="font-semibold mt-2 text-foreground">{title}</h3>
                 <p className="text-sm text-muted-foreground">{subtitle}</p>
             </div>

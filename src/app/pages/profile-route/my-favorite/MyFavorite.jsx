@@ -17,7 +17,6 @@ const MyFavorite = () => {
         isLoading,
         isError,
     } = useSmartFetchHook(useGetUserFavoriteRecipesQuery, { resultsKey: "recipes", limit: 1 });
-    console.log(recipes)
 
     return (
         <div>

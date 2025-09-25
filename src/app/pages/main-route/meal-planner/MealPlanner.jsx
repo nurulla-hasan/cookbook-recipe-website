@@ -20,7 +20,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { SetMealPlannerModalOpen, SetMealPlannerSwapModalOpen, SetPlanId, SetSelectedDay } from "@/redux/feature/meal-plan/addMealPlanSlice";
 import AddRecipePlanModal from "@/components/meal-planner/AddRecipePlanModal";
 import SwapRecipePlanModal from "@/components/meal-planner/SwapRecipePlanModal";
-// import { SuccessToast, ErrorToast } from "@/lib/utils";
 
 const MealPlanner = () => {
     const dispatch = useDispatch();

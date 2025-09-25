@@ -1,118 +1,88 @@
 {
     "statusCode": 200,
     "success": true,
-    "message": "Add Successfully!",
+    "message": "Get Successfully!",
     "data": {
-        "_id": "68d28a35ca0377c13d6bfe4b",
+        "_id": "68d2495a58c79bf727659007",
         "user": "68ce7049f1bf8e744f9a534e",
-        "name": "My Plan",
         "data": [
             {
                 "day": "Day-1",
                 "recipes": [
                     {
                         "recipe": {
-                            "_id": "6860f8e2b888c25bf564d340",
-                            "image": "/images/image/1751185634322-scaled_18.jpg",
-                            "name": "Recipe1",
-                            "nutritional": {
-                                "calories": 10,
-                                "protein": 20,
-                                "carbs": 10,
-                                "fat": 10,
-                                "fiber": 35,
-                                "_id": "6860f8e2b888c25bf564d341"
-                            },
-                            "category": "breakfast",
-                            "ratting": 3
+                            "_id": "680f15968f34c7fa92f8c327",
+                            "image": "/images/image/1745827120030-chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
+                            "name": "New Update",
+                            "category": "breakfast"
                         },
-                        "_id": "68d2949eca0377c13d6bff84"
+                        "ingredients": [
+                            {
+                                "ingredient": "2 (15-oz) cans chickpeas drained & rinsed (≈3 cups)",
+                                "buy": true,
+                                "_id": "68d4d803ca0377c13d6c2202"
+                            },
+                            {
+                                "ingredient": "1⁄2 cup packed fresh parsley",
+                                "buy": false,
+                                "_id": "68d4d803ca0377c13d6c2203"
+                            },
+                            {
+                                "ingredient": "3 tablespoons fresh lemon juice",
+                                "buy": false,
+                                "_id": "68d4d803ca0377c13d6c2204"
+                            },
+                            {
+                                "ingredient": "1⁄2 teaspoon garlic powder",
+                                "buy": false,
+                                "_id": "68d4d803ca0377c13d6c2205"
+                            },
+                            {
+                                "ingredient": "freshly ground black pepper",
+                                "buy": false,
+                                "_id": "68d4d803ca0377c13d6c2206"
+                            },
+                            {
+                                "ingredient": "1⁄4 teaspoon ground cinnamon",
+                                "buy": false,
+                                "_id": "68d4d803ca0377c13d6c2207"
+                            }
+                        ],
+                        "_id": "68d3c4ddca0377c13d6c0df1"
                     }
                 ],
-                "_id": "68d28a35ca0377c13d6bfe4c",
-                "nutritionalTotals": {
-                    "calories": 10,
-                    "protein": 20,
-                    "carbs": 10,
-                    "fat": 10,
-                    "fiber": 35
-                }
+                "_id": "68d2495a58c79bf727659008"
             },
             {
                 "day": "Day-2",
                 "recipes": [],
-                "_id": "68d28a35ca0377c13d6bfe4d",
-                "nutritionalTotals": {
-                    "calories": 0,
-                    "protein": 0,
-                    "carbs": 0,
-                    "fat": 0,
-                    "fiber": 0
-                }
+                "_id": "68d2495a58c79bf727659009"
             },
             {
                 "day": "Day-3",
                 "recipes": [],
-                "_id": "68d28a35ca0377c13d6bfe4e",
-                "nutritionalTotals": {
-                    "calories": 0,
-                    "protein": 0,
-                    "carbs": 0,
-                    "fat": 0,
-                    "fiber": 0
-                }
+                "_id": "68d2495a58c79bf72765900a"
             },
             {
                 "day": "Day-4",
                 "recipes": [],
-                "_id": "68d28a35ca0377c13d6bfe4f",
-                "nutritionalTotals": {
-                    "calories": 0,
-                    "protein": 0,
-                    "carbs": 0,
-                    "fat": 0,
-                    "fiber": 0
-                }
+                "_id": "68d2495a58c79bf72765900b"
             },
             {
                 "day": "Day-5",
                 "recipes": [],
-                "_id": "68d28a35ca0377c13d6bfe50",
-                "nutritionalTotals": {
-                    "calories": 0,
-                    "protein": 0,
-                    "carbs": 0,
-                    "fat": 0,
-                    "fiber": 0
-                }
+                "_id": "68d2495a58c79bf72765900c"
             },
             {
                 "day": "Day-6",
                 "recipes": [],
-                "_id": "68d28a35ca0377c13d6bfe51",
-                "nutritionalTotals": {
-                    "calories": 0,
-                    "protein": 0,
-                    "carbs": 0,
-                    "fat": 0,
-                    "fiber": 0
-                }
+                "_id": "68d2495a58c79bf72765900d"
             },
             {
                 "day": "Day-7",
                 "recipes": [],
-                "_id": "68d28a35ca0377c13d6bfe52",
-                "nutritionalTotals": {
-                    "calories": 0,
-                    "protein": 0,
-                    "carbs": 0,
-                    "fat": 0,
-                    "fiber": 0
-                }
+                "_id": "68d2495a58c79bf72765900e"
             }
-        ],
-        "types": "custom",
-        "createdAt": "2025-09-23T11:53:25.957Z",
-        "__v": 1
+        ]
     }
 }

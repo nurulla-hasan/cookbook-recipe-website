@@ -1,11 +1,80 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PageLayout from "@/app/layout/PageLayout";
 import PageHeader from "@/components/common/page-header/PageHeader";
+import PlanTypeFilter from "@/components/meal-planner/PlanTypeFilter";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    useGetCustomMealPlanQuery,
+    useGetFeaturedMealPlanQuery,
+    useGetWeeklyMealPlanQuery
+} from "@/redux/feature/meal-plan/mealPlanApi";
+import { useGetGroceryListQuery } from "@/redux/feature/grocery/groceryApi";
+import { Button } from "@/components/ui/button";
 import GroceryRecipeCard from "@/components/grocery/GroceryRecipeCard";
-import { groceryRecipes } from "@/lib/mockData";
+import { SetPlanId } from "@/redux/feature/meal-plan/addMealPlanSlice";
 
 const Grocery = () => {
+    const dispatch = useDispatch();
+    useGetWeeklyMealPlanQuery()
+    useGetFeaturedMealPlanQuery()
+    useGetCustomMealPlanQuery()
+    const weekDropDown = useSelector((state) => state.mealPlan.weeklyDropDown);
+    const featuredDropDown = useSelector((state) => state.mealPlan.featuredDropDown);
+    const customDropDown = useSelector((state) => state.mealPlan.customDropDown);
+    const { planId } = useSelector((state) => state.addMealPlan);
+
+    const [activeTab, setActiveTab] = useState("my-weeks");
+    const [selectedWeek, setSelectedWeek] = useState();
+    const [selectedPlan, setSelectedPlan] = useState();
+    const [selectedCustomPlan, setSelectedCustomPlan] = useState();
+    // const [activeMealPlanId, setActiveMealPlanId] = useState();
+
+    const { data: groceryData, isLoading: isGroceryLoading } = useGetGroceryListQuery(planId, { skip: !planId });
+
+    useEffect(() => {
+        if (activeTab === 'my-weeks') {
+            // setActiveMealPlanId(selectedWeek?._id);
+            dispatch(SetPlanId(selectedWeek?._id));
+        } else if (activeTab === 'featured-plans') {
+            // setActiveMealPlanId(selectedPlan?._id);
+            dispatch(SetPlanId(selectedPlan?._id));
+        } else if (activeTab === 'custom-plans') {
+            // setActiveMealPlanId(selectedCustomPlan?._id);
+            dispatch(SetPlanId(selectedCustomPlan?._id));
+        }
+    }, [activeTab, selectedWeek, selectedPlan, selectedCustomPlan, dispatch]);
+
+    useEffect(() => {
+        if (weekDropDown && weekDropDown.length > 0 && !selectedWeek) {
+            setSelectedWeek(weekDropDown[0]);
+        }
+    }, [weekDropDown, selectedWeek]);
+
+    useEffect(() => {
+        if (featuredDropDown && featuredDropDown.length > 0 && !selectedPlan) {
+            setSelectedPlan(featuredDropDown[0]);
+        }
+    }, [featuredDropDown, selectedPlan]);
+
+    useEffect(() => {
+        if (customDropDown && customDropDown.length > 0 && !selectedCustomPlan) {
+            setSelectedCustomPlan(customDropDown[0]);
+        }
+    }, [customDropDown, selectedCustomPlan]);
+
+    const recipes = groceryData?.data?.data.flatMap(day =>
+        day.recipes
+            .filter(r => r.ingredients && r.ingredients.length > 0)
+            .map(r => ({
+                id: r.recipe._id,
+                image: r.recipe.image,
+                title: r.recipe.name,
+                subtitle: r.recipe.category,
+                ingredients: r.ingredients.map(i => i.ingredient)
+            }))
+    );
+
     const breadcrumbs = [
         { name: "Home", href: "/" },
         { name: "Grocery" },
@@ -15,7 +84,48 @@ const Grocery = () => {
         <>
             <PageHeader breadcrumbs={breadcrumbs} title="Grocery" />
             <PageLayout>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <Tabs value={activeTab} onValueChange={setActiveTab}>
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <TabsList className="grid grid-cols-3">
+                            <TabsTrigger value="my-weeks">My Weeks</TabsTrigger>
+                            <TabsTrigger value="featured-plans">Featured Plans</TabsTrigger>
+                            <TabsTrigger value="custom-plans">Custom Plans</TabsTrigger>
+                        </TabsList>
+                    </div>
+
+                    <TabsContent value="my-weeks">
+                        <div className="mt-4">
+                            <PlanTypeFilter
+                                title="Select Week"
+                                items={weekDropDown || []}
+                                value={selectedWeek}
+                                onValueChange={setSelectedWeek}
+                            />
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="featured-plans">
+                        <div className="mt-4">
+                            <PlanTypeFilter
+                                title="Select Featured Plan"
+                                items={featuredDropDown || []}
+                                value={selectedPlan}
+                                onValueChange={setSelectedPlan}
+                            />
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="custom-plans">
+                        <div className="flex items-center gap-4 mt-4">
+                            <PlanTypeFilter
+                                title="Select Custom Plan"
+                                items={customDropDown || []}
+                                value={selectedCustomPlan}
+                                onValueChange={setSelectedCustomPlan}
+                            />
+                        </div>
+                    </TabsContent>
+                </Tabs>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
                     {/* Left Section */}
                     <div className="md:col-span-2">
                         <Tabs defaultValue="aisle" className="w-full">
@@ -35,27 +145,27 @@ const Grocery = () => {
                             </TabsList>
 
                             <TabsContent value="aisle" className="space-y-8">
-                                {groceryRecipes.map((recipe, index) => (
+                                {isGroceryLoading ? <div>Loading...</div> : recipes?.length > 0 ? recipes.map((recipe) => (
                                     <GroceryRecipeCard
-                                        key={`aisle-${index}`}
+                                        key={`aisle-${recipe.id}`}
                                         image={recipe.image}
                                         title={recipe.title}
                                         subtitle={recipe.subtitle}
                                         ingredients={recipe.ingredients}
                                     />
-                                ))}
+                                )) : <div>No recipes found for this plan.</div>}
                             </TabsContent>
 
                             <TabsContent value="recipe" className="space-y-8">
-                                {groceryRecipes.map((recipe, index) => (
+                                {isGroceryLoading ? <div>Loading...</div> : recipes?.length > 0 ? recipes.map((recipe) => (
                                     <GroceryRecipeCard
-                                        key={`recipe-${index}`}
+                                        key={`recipe-${recipe.id}`}
                                         image={recipe.image}
                                         title={recipe.title}
                                         subtitle={recipe.subtitle}
                                         ingredients={recipe.ingredients}
                                     />
-                                ))}
+                                )) : <div>No recipes found for this plan.</div>}
                             </TabsContent>
                         </Tabs>
                     </div>

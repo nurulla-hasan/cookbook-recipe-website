@@ -52,7 +52,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "diat-gols/:slug",
-                element: withErrorAndSuspense(DiatGoals, <div>Loading...</div>),
+                element: withErrorAndSuspense(DiatGoals, <CategoryPageSkeleton />),
             },
             {
                 path: "recipes/recipe-details/:id",
