@@ -1,12 +1,16 @@
 import RecipeCard from "@/components/Recipes/recipe-card/RecipeCard";
-import { useGetMyRecipesQuery } from "@/redux/feature/recipe/recipeApi";
+import { useDeleteRecipeMutation, useGetMyRecipesQuery } from "@/redux/feature/recipe/recipeApi";
 import CustomPagination from "@/components/common/custom-pagination/CustomPagination";
 import useSmartFetchHook from "@/hooks/useSmartFetchHook";
 import NoData from "@/components/common/no-data/NoData";
 import Error from "@/components/common/error/Error";
 import RecipeCardSkeleton from "@/components/skeleton/recipe/RecipeCardSkeleton";
+import { ErrorToast, SuccessToast } from "@/lib/utils";
+import ConfirmationModal from "@/components/common/modal/ConfirmationModal";
+import { useState } from "react";
 const MyRecipe = () => {
-
+ const [confirmModal, setConfirmModal] = useState(false);
+ const [recipeId, setRecipeId] = useState(null);
     const {
         // searchTerm,
         // setSearchTerm,
@@ -22,6 +26,18 @@ const MyRecipe = () => {
 
     const {data} = useGetMyRecipesQuery();
     console.log(data);
+
+    const [deleteRecipe, { isLoading: deleteLoading }] = useDeleteRecipeMutation();
+
+    const handleDelete = async () => {
+        try {
+            await deleteRecipe(recipeId).unwrap();
+            SuccessToast("Recipe deleted successfully");
+            setConfirmModal(false);
+        } catch (error) {
+            ErrorToast(error.data?.message || "Failed to delete recipe");
+        }
+    };
 
 
 
@@ -43,6 +59,8 @@ const MyRecipe = () => {
                         fromPath="/profile/my-recipes"
                         isMyRecipe={true} 
                         favorite={false}
+                        // onEdit={() => handleEdit(recipe._id)}
+                        onDelete={() => {setConfirmModal(true), setRecipeId(recipe._id)}}
                         />
                 )))}
             </div>
@@ -51,6 +69,16 @@ const MyRecipe = () => {
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
                 totalPages={totalPages}
+            />
+
+            <ConfirmationModal 
+                isOpen={confirmModal}
+                onOpenChange={() => setConfirmModal(false)}
+                title="Delete Recipe"
+                description="Are you sure you want to delete this recipe?"
+                onConfirm={handleDelete}
+                confirmText="Delete"
+                loading={deleteLoading}
             />
         </>
     );
