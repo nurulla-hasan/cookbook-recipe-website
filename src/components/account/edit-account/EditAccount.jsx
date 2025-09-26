@@ -23,6 +23,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
+import { useEffect } from "react";
 
 const accountSchema = z.object({
     name: z.string().min(1, { message: "Name is required." }),
@@ -33,43 +34,49 @@ const accountSchema = z.object({
     }),
 });
 
-const userData = {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "1234567890",
-    dateOfBirth: new Date("1990-01-01"),
-}
 
-const EditAccount = () => {
-    // TODO: Fetch user data and populate defaultValues
+const EditAccount = ({ formData, setFormData }) => {
     const form = useForm({
         resolver: zodResolver(accountSchema),
         defaultValues: {
-            name: userData.name,
-            email: userData.email,
-            phone: userData.phone,
-            dateOfBirth: userData.dateOfBirth,
+            name: formData?.name || "",
+            email: formData?.email || "",
+            phone: formData?.phone_number || "",
+            dateOfBirth: formData?.dateOfBirth ? new Date(formData.dateOfBirth) : null,
+            // language: formData?.language || "",
+            // timezone: formData?.timezone || ""
         },
     });
+
+    useEffect(() => {
+        if (formData) {
+            form.reset({
+                name: formData.name || "",
+                email: formData.email || "",
+                phone: formData.phone_number || "",
+                dateOfBirth: formData.dateOfBirth ? new Date(formData.dateOfBirth) : null,
+                // language: formData.language || "",
+                // timezone: formData.timezone || ""
+            });
+        }
+    }, [formData, form]);
 
     const onSubmit = (data) => {
         const formattedData = {
             ...data,
-            dateOfBirth: format(data.dateOfBirth, "yyyy-MM-dd"),
+            dateOfBirth: data.dateOfBirth ? format(new Date(data.dateOfBirth), "yyyy-MM-dd") : null,
         };
-        console.log(formattedData);
+        setFormData(formattedData);
+        console.log("Form submitted:", formattedData);
     };
 
-    const handleCalendarChange = (
-        _value,
-        _e
-    ) => {
-        const _event = {
+    const handleCalendarChange = (value, e) => {
+        const event = {
             target: {
-                value: String(_value),
+                value: String(value),
             },
         }
-        _e(_event)
+        e(event)
     }
 
     return (

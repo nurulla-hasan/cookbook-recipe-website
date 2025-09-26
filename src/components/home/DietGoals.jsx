@@ -26,18 +26,18 @@ const DietGoals = () => {
     return (
         <PageLayout>
             <div className="text-center mb-12">
-                <Title title="Our Top Categories" />
+                <Title title="Diet Goals" />
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
                 {diatGoals.map((goal, i) => (
                     <Link
-                        to={`/diat-gols/${goal.category.toLowerCase()}`}
+                        to={`/diet-goals/${goal.category.toLowerCase()}`}
                         className="group"
                         key={i}
                     >
-                        <div className="group-hover:scale-95 transition-all duration-300 bg-secondary rounded-2xl p-6 flex flex-col items-center justify-center shadow-sm aspect-square">
-                            <div className="bg-card p-6 rounded-lg flex-grow flex items-center justify-center w-full">
+                        <div className="bg-secondary rounded-2xl p-6 flex flex-col items-center justify-center shadow-sm aspect-video">
+                            <div className="group-hover:scale-95 transition-all duration-300 bg-card p-6 rounded-lg flex-grow flex items-center justify-center w-full">
                                 {goal.icon}
                             </div>
                             <p className="mt-4 text-lg font-semibold text-primary dark:text-foreground">{goal.name}</p>

@@ -51,7 +51,7 @@ const router = createBrowserRouter([
                 element: withErrorAndSuspense(Category, <CategoryPageSkeleton />),
             },
             {
-                path: "diat-gols/:slug",
+                path: "diet-goals/:slug",
                 element: withErrorAndSuspense(DiatGoals, <CategoryPageSkeleton />),
             },
             {

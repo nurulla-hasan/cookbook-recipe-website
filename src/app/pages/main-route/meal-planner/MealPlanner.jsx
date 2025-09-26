@@ -108,10 +108,10 @@ const MealPlanner = () => {
                 <div className="space-y-8">
                     <Tabs value={activeTab} onValueChange={setActiveTab}>
                         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                            <TabsList className="grid grid-cols-3">
-                                <TabsTrigger value="my-weeks">My Weeks</TabsTrigger>
-                                <TabsTrigger value="featured-plans">Featured Plans</TabsTrigger>
-                                <TabsTrigger value="custom-plans">Custom Plans</TabsTrigger>
+                            <TabsList className="flex gap-3">
+                                <TabsTrigger value="my-weeks" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">My Weeks</TabsTrigger>
+                                <TabsTrigger value="featured-plans" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Featured Plans</TabsTrigger>
+                                <TabsTrigger value="custom-plans" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Custom Plans</TabsTrigger>
                             </TabsList>
                         </div>
 

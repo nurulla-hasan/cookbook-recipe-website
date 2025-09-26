@@ -1,22 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import EditAccount from "@/components/account/edit-account/EditAccount";
 import ChangePassword from "@/components/account/chagePassword/ChangePassword";
+import { useGetUserProfileQuery } from "@/redux/feature/profile/profileApi";
+import { useSelector } from "react-redux";
+import { getInitials } from "@/lib/utils";
 
 const MyAccount = () => {
     const [activeTab, setActiveTab] = useState("account");
 
+    const { isLoading } = useGetUserProfileQuery();
+    console.log(isLoading);
+    const user = useSelector((state) => state.profile.userProfile);
+
     const [formData, setFormData] = useState({
-        name: "Mr. Mike",
-        email: "mike@example.com",
-        phone: "+1 234 567 890",
-        dateOfBirth: new Date(1990, 0, 1),
-        language: "English",
-        timezone: "(GMT-12:00) International Date Line West"
+        name: user?.name || "",
+        email: user?.email || "",
+        phone: user?.phone_number || "",
+        dateOfBirth: user?.dateOfBirth || "",
+        // language: user?.language || "",
+        // timezone: user?.timezone || ""
     });
+
+    useEffect(() => {
+        if (user) {
+            setFormData({
+                name: user.name || "",
+                email: user.email || "",
+                phone: user.phone_number || "",
+                dateOfBirth: user.dateOfBirth || null,
+                // language: user.language || "",
+                // timezone: user.timezone || ""
+            });
+        }
+    }, [user]);
 
     return (
         <div className="lg:py-8">
@@ -27,12 +47,12 @@ const MyAccount = () => {
                         <CardContent className="p-6">
                             <div className="flex flex-col items-center space-y-4">
                                 <Avatar className="h-24 w-24">
-                                    <AvatarImage src="https://github.com/shadcn.png" />
-                                    <AvatarFallback>JD</AvatarFallback>
+                                    <AvatarImage src={user?.profile_image} />
+                                    <AvatarFallback>{getInitials(user?.name)}</AvatarFallback>
                                 </Avatar>
                                 <div className="text-center">
-                                    <h2 className="text-xl font-semibold">{formData.name}</h2>
-                                    <p className="text-sm font-normal">{formData.email}</p>
+                                    <h2 className="text-xl font-semibold">{user?.name}</h2>
+                                    <p className="text-sm font-normal">{user?.email}</p>
                                 </div>
                                 <Button variant="outline" className="w-full">
                                     Change Photo
