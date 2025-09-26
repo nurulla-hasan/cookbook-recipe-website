@@ -25,6 +25,26 @@ const recipeApi = baseApi.injectEndpoints({
             providesTags: ["RECIPE"],
         }),
 
+        // GET MY RECIPES
+        getMyRecipes: builder.query({
+            query: (args) => {
+                const params = new URLSearchParams();
+                if (args) {
+                    Object.entries(args).forEach(([key, value]) => {
+                        if (value) {
+                            params.append(key, value);
+                        }
+                    });
+                }
+                return {
+                    url: "/dashboard/my_all_recipe",
+                    method: "GET",
+                    params,
+                };
+            },
+            providesTags: ["RECIPE"],
+        }),
+
         // GET RECIPE REVIEWS
         getRecipeReviews: builder.query({
             query: ({ id, ...args }) => {
@@ -140,6 +160,7 @@ const recipeApi = baseApi.injectEndpoints({
 
 export const {
     useGetRecipesQuery,
+    useGetMyRecipesQuery,
     useGetRecipeReviewsQuery,
     useGetRecipeByIdQuery,
     useCreateRecipeMutation,

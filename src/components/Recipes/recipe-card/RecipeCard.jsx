@@ -17,6 +17,7 @@ const RecipeCard = (
         isMyRecipe = false,
         showChooseButton = false,
         showSwapButton = false,
+        favorite = true,
         onDelete,
         onEdit
     }) => {
@@ -50,14 +51,14 @@ const RecipeCard = (
             const result = await swapRecipe({ planId, day: selectedDay, removeId: recipeId, newId });
             console.log('Swap API response:', result);
             SuccessToast("Recipe swapped successfully");
-            
+
             // Log before dispatching resets
             console.log('Before reset - State:', { planId, selectedDay, recipeId });
-            
+
             // Reset states
             dispatch(SetRecipeId(null));
             dispatch(SetSelectedDay(null));
-            
+
             // Log after dispatching resets (note: this won't reflect in the same render)
             console.log('After reset - State should be null');
         } catch (error) {
@@ -105,20 +106,22 @@ const RecipeCard = (
                         </span>
 
                         {/* Favorite Button */}
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="rounded-full bg-primary/20"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                onFavoriteToggle(recipe._id)
-                            }}
-                        >
-                            <Heart
-                                className={`${isFavorite ? 'fill-red-500 text-red-500' : 'text-white'}`}
-                            />
-                        </Button>
+                        {favorite && (
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="rounded-full bg-primary/20"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    onFavoriteToggle(recipe._id)
+                                }}
+                            >
+                                <Heart
+                                    className={`${isFavorite ? 'fill-red-500 text-red-500' : 'text-white'}`}
+                                />
+                            </Button>
+                        )}
 
                         {/* Edit and Delete Buttons */}
                         {isMyRecipe && (
