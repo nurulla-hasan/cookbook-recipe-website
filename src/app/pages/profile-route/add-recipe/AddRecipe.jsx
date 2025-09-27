@@ -17,29 +17,29 @@ import { ErrorToast, SuccessToast } from "@/lib/utils";
 
 const recipeSchema = z.object({
   name: z.string().min(1, "Recipe name is required."),
-  ingredients: z.array(z.string().min(1, "Ingredient cannot be empty.")).min(1, "At least one ingredient is required."),
+  ingredients: z.array(z.object({ value: z.string().min(1, "Ingredient cannot be empty.") })).min(1, "At least one ingredient is required."),
   instructions: z.string().min(1, "Instructions are required."),
   nutritional: z.object({
-    calories: z.string().min(1, "Calories are required."),
-    protein: z.string().min(1, "Protein is required."),
-    carbs: z.string().min(1, "Carbs are required."),
-    fat: z.string().min(1, "Fat is required."),
-    fiber: z.string().min(1, "Fiber is required."),
+    calories: z.string().min(1, "Calories are required.").pipe(z.coerce.number().min(0, "Calories must be a positive number.")),
+    protein: z.string().min(1, "Protein is required.").pipe(z.coerce.number().min(0, "Protein must be a positive number.")),
+    carbs: z.string().min(1, "Carbs are required.").pipe(z.coerce.number().min(0, "Carbs must be a positive number.")),
+    fat: z.string().min(1, "Fat is required.").pipe(z.coerce.number().min(0, "Fat must be a positive number.")),
+    fiber: z.string().min(1, "Fiber is required.").pipe(z.coerce.number().min(0, "Fiber must be a positive number.")),
   }),
   category: z.string().min(1, "Category is required."),
   holiday_recipes: z.string().min(1, "Holiday recipe type is required."),
-  oils: z.string(),
-  servingTemperature: z.string(),
-  flavor: z.string(),
-  weight_and_muscle: z.string(),
-  whole_food_type: z.string(),
-  servingSize: z.string().min(1, "Serving size is required."),
-  prepTime: z.string().min(1, "Prep time is required."),
-  recipeTips: z.string().optional(),
-  kidApproved: z.string(),
-  noWeekendPrep: z.string(),
-  prep: z.string().optional(),
-  image: z.any().optional(),
+  oils: z.string().min(1, "Oils selection is required."),
+  serving_temperature: z.string().min(1, "Serving temperature is required."),
+  flavor: z.string().min(1, "Flavor is required."),
+  weight_and_muscle: z.string().min(1, "Weight & muscle selection is required."),
+  whole_food_type: z.string().min(1, "Whole food type is required."),
+  serving_size: z.string().min(1, "Serving size is required.").pipe(z.coerce.number().min(1, "Serving size must be at least 1.")),
+  prep_time: z.string().min(1, "Prep time is required.").pipe(z.coerce.number().min(1, "Prep time must be at least 1.")),
+  recipe_tips: z.string().min(1, "Recipe tips are required."),
+  kid_approved: z.string().min(1, "Kid approved selection is required."),
+  no_weekend_prep: z.string().min(1, "No weekend prep selection is required."),
+  prep: z.string().min(1, "Prep details are required."),
+  image: z.any().refine((file) => file, "Image is required."),
 });
 
 const AddRecipe = () => {
@@ -51,21 +51,21 @@ const AddRecipe = () => {
     resolver: zodResolver(recipeSchema),
     defaultValues: {
       name: "",
-      ingredients: [""],
+      ingredients: [{ value: "" }],
       instructions: "",
       nutritional: { calories: "", protein: "", carbs: "", fat: "", fiber: "" },
       category: "breakfast",
       holiday_recipes: "African",
       oils: "oil_free",
-      servingTemperature: "Cold",
+      serving_temperature: "Cold",
       flavor: "Savory",
       weight_and_muscle: "maintain_weight",
       whole_food_type: "plant_based",
-      servingSize: "4",
-      prepTime: "45",
-      recipeTips: "",
-      kidApproved: "true",
-      noWeekendPrep: "false",
+      serving_size: "4",
+      prep_time: "45",
+      recipe_tips: "",
+      kid_approved: "true",
+      no_weekend_prep: "false",
       prep: "",
       image: null,
     },
@@ -78,7 +78,12 @@ const AddRecipe = () => {
 
   const onSubmit = async (values) => {
     const formData = new FormData();
-    Object.entries(values).forEach(([key, value]) => {
+    const newValues = {
+      ...values,
+      ingredients: values.ingredients.map(item => item.value)
+    };
+
+    Object.entries(newValues).forEach(([key, value]) => {
       if (key === 'image' && value) {
         formData.append(key, value);
       } else if (typeof value === 'object' && value !== null) {
@@ -96,6 +101,7 @@ const AddRecipe = () => {
       console.log(error)
       ErrorToast(error?.data?.message || "Failed to create new recipe.");
     }
+
   }
 
   const handleFileDrop = (e, field) => {
@@ -197,7 +203,7 @@ const AddRecipe = () => {
                   <div key={item.id} className="flex items-center gap-2">
                     <FormField
                       control={form.control}
-                      name={`ingredients.${index}`}
+                      name={`ingredients.${index}.value`}
                       render={({ field }) => (
                         <FormItem className="w-full">
                           <FormControl>
@@ -213,7 +219,7 @@ const AddRecipe = () => {
                   </div>
                 ))}
               </div>
-              <Button type="button" variant="outline" size="sm" className="mt-2" onClick={() => append("")}>
+              <Button type="button" variant="outline" size="sm" className="mt-2" onClick={() => append({ value: "" })}>
                 <PlusCircle className="w-4 h-4 mr-2" /> Add Ingredient
               </Button>
             </div>
@@ -383,7 +389,7 @@ const AddRecipe = () => {
 
             <FormField
               control={form.control}
-              name="servingTemperature"
+              name="serving_temperature"
               render={({ field }) => (
                 <FormItem className="space-y-2">
                   <FormLabel>Serving Temperature</FormLabel>
@@ -498,7 +504,7 @@ const AddRecipe = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FormField
                 control={form.control}
-                name="servingSize"
+                name="serving_size"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Serving Size</FormLabel>
@@ -511,7 +517,7 @@ const AddRecipe = () => {
               />
               <FormField
                 control={form.control}
-                name="prepTime"
+                name="prep_time"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Prep Time (in minutes)</FormLabel>
@@ -526,7 +532,7 @@ const AddRecipe = () => {
 
             <FormField
               control={form.control}
-              name="recipeTips"
+              name="recipe_tips"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Recipe Tips</FormLabel>
@@ -554,7 +560,7 @@ const AddRecipe = () => {
 
             <FormField
               control={form.control}
-              name="kidApproved"
+              name="kid_approved"
               render={({ field }) => (
                 <FormItem className="space-y-2">
                   <FormLabel>Kid Approved</FormLabel>
@@ -581,7 +587,7 @@ const AddRecipe = () => {
 
             <FormField
               control={form.control}
-              name="noWeekendPrep"
+              name="no_weekend_prep"
               render={({ field }) => (
                 <FormItem className="space-y-2">
                   <FormLabel>No Weekend Prep</FormLabel>
