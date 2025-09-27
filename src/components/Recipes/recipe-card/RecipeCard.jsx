@@ -7,6 +7,7 @@ import useFavorite from '@/hooks/useFavorite';
 import { useDispatch, useSelector } from "react-redux";
 import { SetCardModalOpen, SetMealPlannerModalOpen, SetMealPlannerSwapModalOpen, SetRecipeId, SetSelectedDay } from "@/redux/feature/meal-plan/addMealPlanSlice";
 import { useAddMealPlanRecipesMutation, useSwapRecipeMutation } from "@/redux/feature/meal-plan/mealPlanApi";
+import { Badge } from "@/components/ui/badge";
 
 const RecipeCard = (
     {
@@ -101,9 +102,9 @@ const RecipeCard = (
                 {/* Content - Right Side */}
                 <div className="p-5 flex-grow flex flex-col md:w-2/3">
                     <div className="flex justify-between items-start mb-3">
-                        <span className="inline-block text-xs font-medium px-3 py-1 rounded-full bg-primary/30 text-foreground">
+                        <Badge className="capitalize rounded-full bg-black/40">
                             {recipe.category}
-                        </span>
+                        </Badge>
 
                         {/* Favorite Button */}
                         {favorite && (
@@ -130,7 +131,7 @@ const RecipeCard = (
                                     onClick={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();
-                                        onEdit(recipe._id)
+                                        onEdit(recipe)
                                     }}
                                     variant="outline">
                                     <SquarePen />

@@ -45,8 +45,10 @@ const MyRecipe = () => {
         }
     };
 
-    const handleEdit = async (id) => {
-        console.log(id)
+    const handleEdit = (recipe) => {
+        navigate(`/profile/edit-recipe/${recipe._id}`, {
+            state: { recipe }  // Pass the recipe data in route state
+        });
     };
 
 
@@ -67,7 +69,7 @@ const MyRecipe = () => {
                                 onClick={() => navigate("/profile/add-recipe")}
                                 className="mt-6"
                             >
-                                <Plus/> Add Recipe
+                                <Plus /> Add Recipe
                             </Button>
                         </NoData>
                     </>
@@ -80,7 +82,7 @@ const MyRecipe = () => {
                             fromPath="/profile/my-recipes"
                             isMyRecipe={true}
                             favorite={false}
-                            onEdit={() => handleEdit(recipe._id)}
+                            onEdit={() => handleEdit(recipe)}
                             onDelete={() => { setConfirmModal(true), setRecipeId(recipe._id) }}
                         />
                     )))}

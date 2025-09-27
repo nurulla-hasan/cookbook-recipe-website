@@ -96,7 +96,7 @@ const AddRecipe = () => {
     try {
       await createRecipe(formData).unwrap();
       SuccessToast("Recipe created successfully.");
-      // form.reset();
+      form.reset();
     } catch (error) {
       console.log(error)
       ErrorToast(error?.data?.message || "Failed to create new recipe.");

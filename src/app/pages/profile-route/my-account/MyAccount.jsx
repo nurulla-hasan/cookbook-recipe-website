@@ -46,7 +46,7 @@ const MyAccount = () => {
                     <Card className="shadow-none bg-transparent border">
                         <CardContent className="p-6">
                             <div className="flex flex-col items-center space-y-4">
-                                <Avatar className="h-24 w-24">
+                                <Avatar className="h-24 w-24 border">
                                     <AvatarImage src={user?.profile_image} />
                                     <AvatarFallback>{getInitials(user?.name)}</AvatarFallback>
                                 </Avatar>

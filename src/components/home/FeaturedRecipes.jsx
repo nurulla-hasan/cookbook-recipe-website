@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { useGetFeaturedRecipesQuery } from '@/redux/feature/home/homeApi';
 import { getImageUrl } from '@/lib/utils';
 import useFavorite from '@/hooks/useFavorite';
+import { Badge } from '../ui/badge';
 
 const FeaturedRecipeCard = ({ recipe }) => {
     const { isFavorite, onFavoriteToggle } = useFavorite(recipe.favorite);
@@ -20,11 +21,11 @@ const FeaturedRecipeCard = ({ recipe }) => {
                 state={{ from: 'Featured', fromPath: '/#featured-recipes' }}
                 className="h-full group transition-all duration-300 hover:-translate-y-1 block"
             >
-                <Card className="overflow-hidden group rounded-2xl">
+                <Card className="overflow-hidden group rounded-2xl gap-2">
                     <CardHeader className="p-0 relative">
                         <img
                             src={getImageUrl(recipe.image)}
-                            alt={recipe.title}
+                            alt={recipe.name}
                             className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                             onError={(e) => {
                                 e.target.src = `https://placehold.co/400?text=${recipe.name}&font=roboto`;
@@ -38,28 +39,28 @@ const FeaturedRecipeCard = ({ recipe }) => {
                             }}
                             variant="ghost"
                             size="icon"
-                            className="absolute top-3 right-3 bg-secondary/80 hover:bg-secondary rounded-full h-9 w-9"
+                            className="absolute top-3 right-3 bg-white/20 hover:bg-white/60 backdrop-blur-sm rounded-full h-9 w-9"
                         >
                             <Heart className={isFavorite ? 'fill-red-500 text-red-500' : 'text-white'} />
                         </Button>
                     </CardHeader>
                     <CardContent className="px-4">
-                        <p className="text-sm text-muted-foreground mb-1">{recipe.category}</p>
+                        <Badge variant="secondary" className="capitalize">{recipe.category}</Badge>
                         <h3
-                            title={recipe.title}
-                            className="text-lg font-semibold mt-1 text-primary dark:text-foreground line-clamp-1"
+                            title={recipe.name}
+                            className="text-lg font-medium mt-1 line-clamp-1"
                         >
-                            {recipe.title}
+                            {recipe.name}
                         </h3>
                     </CardContent>
                     <CardFooter className="p-4 pt-0 flex justify-between items-center text-muted-foreground">
                         <div className="flex items-center gap-2 text-sm">
                             <Clock className="w-4 h-4" />
-                            <span>{recipe.duration}</span>
+                            <span>{recipe.prep_time}</span>
                         </div>
                         <div className="flex items-center gap-1 text-sm">
                             <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                            <span className="font-medium">{recipe.rating}</span>
+                            <span className="font-medium">{recipe.ratting}</span>
                         </div>
                     </CardFooter>
                 </Card>

@@ -91,8 +91,8 @@ const recipeApi = baseApi.injectEndpoints({
 
         // UPDATE RECIPE
         updateRecipe: builder.mutation({
-            query: (data) => ({
-                url: `/dashboard/update_recipe/${data.id}`,
+            query: ({ id, data }) => ({
+                url: `/dashboard/update_recipe/${id}`,
                 method: "PATCH",
                 body: data
             }),
