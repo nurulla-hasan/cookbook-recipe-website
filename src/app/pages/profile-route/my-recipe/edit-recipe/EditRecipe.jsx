@@ -45,7 +45,6 @@ const recipeSchema = z.object({
 const EditRecipe = () => {
   const location = useLocation();
   const recipe = location.state?.recipe;
-  console.log(recipe);
   const [imagePreview, setImagePreview] = useState(recipe?.image ? getImageUrl(recipe.image) : null);
   const fileInputRef = useRef(null);
   const [updateRecipe, { isLoading }] = useUpdateRecipeMutation();
@@ -79,6 +78,17 @@ const EditRecipe = () => {
       form.reset({
         ...recipe,
         ingredients: recipe.ingredients.map(ing => ({ value: ing })),
+        nutritional: {
+          calories: String(recipe.nutritional.calories),
+          protein: String(recipe.nutritional.protein),
+          carbs: String(recipe.nutritional.carbs),
+          fat: String(recipe.nutritional.fat),
+          fiber: String(recipe.nutritional.fiber),
+        },
+        serving_size: String(recipe.serving_size),
+        prep_time: String(recipe.prep_time),
+        kid_approved: String(recipe.kid_approved),
+        no_weekend_prep: String(recipe.no_weekend_prep),
         image: recipe.image || null,
       });
       setImagePreview(recipe.image ? getImageUrl(recipe.image) : null);
