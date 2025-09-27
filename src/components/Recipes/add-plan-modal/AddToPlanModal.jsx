@@ -113,11 +113,11 @@ const AddToPlanModal = ({ isOpen, onClose }) => {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogTitle>Add to Plan</DialogTitle>
-            <DialogDescription>
-                Select a plan and day to add the recipe to your meal plan.
-            </DialogDescription>
             <DialogContent className="max-w-lg">
+                <DialogTitle>Add to Plan</DialogTitle>
+                <DialogDescription>
+                    Select a plan and day to add the recipe to your meal plan.
+                </DialogDescription>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 py-4">
                         <FormField
