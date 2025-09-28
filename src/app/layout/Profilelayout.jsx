@@ -1,7 +1,7 @@
-
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import ProfileSidebar from '@/components/common/sidebar/ProfileSidebar';
+import WarningModal from '@/components/common/modal/WarningModal';
 
 const Profilelayout = () => {
     const breadcrumbs = [
@@ -10,6 +10,7 @@ const Profilelayout = () => {
     ];
     return (
         <>
+            <WarningModal />
             <div className='body-height'>
                 <PageHeader
                     title="My Profile"

@@ -17,16 +17,32 @@ const authApi = baseApi.injectEndpoints({
                 try {
                     const { data } = await queryFulfilled;
                     const accessToken = data?.data?.accessToken;
+                    const user = data?.data?.user;
+
+                    if (!accessToken || !user) {
+                        ErrorToast("Invalid login response.");
+                        return;
+                    }
+
                     const decoded = jwtDecode(accessToken);
-                    if (decoded?.role === "USER") {
-                        if (accessToken) {
-                            dispatch(SetAccessToken(accessToken));
-                        }
-                        SuccessToast("Login successful!");
-                        window.location.href = "/";
-                    } else {
+                    if (decoded?.role !== "USER") {
                         ErrorToast("You are not authorized to login.");
                         return;
+                    }
+
+                    // Set access token first
+                    dispatch(SetAccessToken(accessToken));
+
+                    // Check for incomplete profile
+                    const relevantDielaryMissing = !user.relevant_dielary || user.relevant_dielary.length === 0;
+                    const mailTypesMissing = !user.mail_types || user.mail_types.length === 0 || (user.mail_types.length === 1 && user.mail_types[0] === 'none');
+
+                    if (relevantDielaryMissing || mailTypesMissing) {
+                        window.location.href = "/profile";
+                        sessionStorage.setItem("showWarningModal", "true");
+                    } else {
+                        SuccessToast("Login successful!");
+                        window.location.href = "/";
                     }
                 } catch (error) {
                     ErrorToast(error?.error?.data?.message || "Login failed.");

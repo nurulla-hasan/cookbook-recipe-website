@@ -29,7 +29,7 @@ const LoginForm = () => {
     });
 
     const onSubmit = (data) => {
-        login(data)
+        login(data);
     };
 
     return (

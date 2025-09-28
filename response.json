@@ -1,0 +1,44 @@
+{
+    "statusCode": 200,
+    "success": true,
+    "message": "User retrieved successfully",
+    "data": {
+        "_id": "68ce7049f1bf8e744f9a5350",
+        "authId": {
+            "_id": "68ce7049f1bf8e744f9a534e",
+            "name": "Golap hasan",
+            "email": "golaphasan379@gmail.com",
+            "role": "USER",
+            "codeVerify": false,
+            "activationCode": "887045",
+            "expirationTime": "2025-09-20T09:16:45.519Z",
+            "is_block": false,
+            "isActive": true,
+            "createdAt": "2025-09-20T09:13:45.533Z",
+            "updatedAt": "2025-09-20T09:14:09.180Z",
+            "__v": 0
+        },
+        "name": "Golap hasan",
+        "email": "golaphasan379@gmail.com",
+        "profile_image": null,
+        "phone_number": null,
+        "isPhoneNumberVerified": false,
+        "street": null,
+        "neighborhood": null,
+        "mail_types": [
+            "none"
+        ],
+        "relevant_dielary": null,
+        "age": null,
+        "location": "",
+        "gender": "Male",
+        "date_of_birth": "2025-09-20T09:13:45.000Z",
+        "amount": 0,
+        "subscription_status": "None",
+        "subscription_free": false,
+        "status": "active",
+        "createdAt": "2025-09-20T09:13:45.808Z",
+        "updatedAt": "2025-09-20T09:13:45.808Z",
+        "__v": 0
+    }
+}
