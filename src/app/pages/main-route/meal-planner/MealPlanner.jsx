@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SetMealPlannerModalOpen, SetMealPlannerSwapModalOpen, SetPlanId, SetRecipeId, SetSelectedDay } from "@/redux/feature/meal-plan/addMealPlanSlice";
 import AddRecipePlanModal from "@/components/meal-planner/AddRecipePlanModal";
 import SwapRecipePlanModal from "@/components/meal-planner/SwapRecipePlanModal";
+import Preparation from "@/components/meal-planner/Preparation";
 
 const MealPlanner = () => {
     const dispatch = useDispatch();
@@ -184,7 +185,7 @@ const MealPlanner = () => {
                         <TabsContent value="preparation">
                             {/* <Preparation /> */}
                             <div className="mt-8">
-                                from preparation tab
+                                <Preparation mealPlan={mealPlanDetails || {}} />
                             </div>
                         </TabsContent>
                     </Tabs>
