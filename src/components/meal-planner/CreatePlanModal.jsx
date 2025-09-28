@@ -29,7 +29,7 @@ const CreatePlanModal = ({ isOpen, setIsOpen }) => {
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogContent>
+            <DialogContent className="max-w-md">
                 <DialogHeader>
                     <DialogTitle>Create Custom Meal Plan</DialogTitle>
                     <DialogDescription>

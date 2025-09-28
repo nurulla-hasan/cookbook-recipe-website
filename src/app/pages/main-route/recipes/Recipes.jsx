@@ -14,7 +14,7 @@ import NoData from "@/components/common/no-data/NoData";
 import CustomPagination from "@/components/common/custom-pagination/CustomPagination";
 import { useDispatch, useSelector } from "react-redux";
 import AddToPlanModal from "@/components/Recipes/add-plan-modal/AddToPlanModal";
-import { SetCardModalClose } from "@/redux/feature/meal-plan/addMealPlanSlice";
+import { SetCardModalClose, SetRecipeId } from "@/redux/feature/meal-plan/addMealPlanSlice";
 
 const Recipes = () => { 
     const dispatch = useDispatch();
@@ -130,7 +130,10 @@ const Recipes = () => {
             {/* Add to Plan Modal */}
             <AddToPlanModal
                 isOpen={cardModalOpen}
-                onClose={() => dispatch(SetCardModalClose())}
+                onClose={() => {
+                    dispatch(SetCardModalClose());
+                    dispatch(SetRecipeId(null));
+                }}
             />
         </>
     );

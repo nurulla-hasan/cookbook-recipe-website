@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import ConfirmationModal from "@/components/common/modal/ConfirmationModal";
 import { useDispatch, useSelector } from "react-redux";
-import { SetMealPlannerModalOpen, SetMealPlannerSwapModalOpen, SetPlanId, SetSelectedDay } from "@/redux/feature/meal-plan/addMealPlanSlice";
+import { SetMealPlannerModalOpen, SetMealPlannerSwapModalOpen, SetPlanId, SetRecipeId, SetSelectedDay } from "@/redux/feature/meal-plan/addMealPlanSlice";
 import AddRecipePlanModal from "@/components/meal-planner/AddRecipePlanModal";
 import SwapRecipePlanModal from "@/components/meal-planner/SwapRecipePlanModal";
 
@@ -113,6 +113,10 @@ const MealPlanner = () => {
                                 <TabsTrigger value="featured-plans" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Featured Plans</TabsTrigger>
                                 <TabsTrigger value="custom-plans" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Custom Plans</TabsTrigger>
                             </TabsList>
+
+                            <TabsList>
+                                <TabsTrigger value="preparation">Preparation</TabsTrigger>
+                            </TabsList>
                         </div>
 
                         <TabsContent value="my-weeks">
@@ -177,6 +181,12 @@ const MealPlanner = () => {
                                 />
                             </div>
                         </TabsContent>
+                        <TabsContent value="preparation">
+                            {/* <Preparation /> */}
+                            <div className="mt-8">
+                                from preparation tab
+                            </div>
+                        </TabsContent>
                     </Tabs>
                 </div>
             </PageLayout>
@@ -198,12 +208,19 @@ const MealPlanner = () => {
             />
             <AddRecipePlanModal
                 isOpen={mealPlannerModalOpen}
-                onOpenChange={(isOpen) => dispatch(SetMealPlannerModalOpen(isOpen))}
+                onOpenChange={(isOpen) => {
+                    dispatch(SetMealPlannerModalOpen(isOpen));
+                    dispatch(SetSelectedDay(null));
+                }}
             />
 
             <SwapRecipePlanModal
                 isOpen={mealPlannerSwapModalOpen}
-                onOpenChange={(isOpen) => dispatch(SetMealPlannerSwapModalOpen(isOpen))}
+                onOpenChange={(isOpen) => {
+                    dispatch(SetMealPlannerSwapModalOpen(isOpen));
+                    dispatch(SetSelectedDay(null));
+                    dispatch(SetRecipeId(null));
+                }}
             />
         </>
     );

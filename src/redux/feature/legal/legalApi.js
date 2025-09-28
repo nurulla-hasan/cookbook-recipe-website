@@ -119,5 +119,6 @@ export const {
     useGetPrivacyPolicyQuery,
     useGetFaqQuery,
     useSendMessageMutation,
-    useGetHelpQuery
+    useGetHelpQuery,
+    useGetAboutQuery,
 } = legalApi

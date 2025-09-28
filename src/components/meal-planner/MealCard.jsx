@@ -103,7 +103,11 @@ const MealCard = ({ meal, day }) => {
             {/* Confirmation Modal */}
             <ConfirmationModal
                 isOpen={confirmationModalOpen}
-                onOpenChange={setConfirmationModalOpen}
+                onOpenChange={() =>{
+                    setConfirmationModalOpen(false);
+                    dispatch(SetRecipeId(null));
+                    dispatch(SetSelectedDay(null));
+                }}
                 title="Remove Recipe"
                 description={`Are you sure you want to remove this recipe from your meal plan?`}
                 onConfirm={handleRemoveConfirm}

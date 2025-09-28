@@ -16,10 +16,10 @@ const DetailsTabs = ({ recipe }) => {
     return (
         <>
             <Tabs defaultValue="description" className="w-full mt-8">
-                <TabsList className="border-b justify-start gap-4 rounded-none bg-transparent p-0">
-                    <TabsTrigger value="description" className="border-0 data-[state=active]:border-b data-[state=active]:border-primary data-[state=active]:text-primary text-muted-foreground h-auto rounded-none px-4 py-2 text-sm">Description</TabsTrigger>
-                    <TabsTrigger value="reviews" className="border-0 data-[state=active]:border-b data-[state=active]:border-primary data-[state=active]:text-primary text-muted-foreground h-auto rounded-none px-4 py-2 text-sm">Reviews</TabsTrigger>
-                    <TabsTrigger value="satiety-score" className="border-0 data-[state=active]:border-b data-[state=active]:border-primary data-[state=active]:text-primary text-muted-foreground h-auto rounded-none px-4 py-2 text-sm">Satiety Score</TabsTrigger>
+                <TabsList className="justify-start gap-4 bg-transparent">
+                    <TabsTrigger value="description" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Description</TabsTrigger>
+                    <TabsTrigger value="reviews" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Reviews</TabsTrigger>
+                    <TabsTrigger value="satiety-score" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Satiety Score</TabsTrigger>
                 </TabsList>
                 <TabsContent value="description" className="mt-6">
                     {/* Ingredients */}

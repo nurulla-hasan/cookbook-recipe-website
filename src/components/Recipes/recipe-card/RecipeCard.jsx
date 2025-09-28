@@ -47,26 +47,16 @@ const RecipeCard = (
     };
 
     const handleSwapClick = async (newId) => {
-        console.log('Before swap - State:', { planId, selectedDay, recipeId });
         try {
-            const result = await swapRecipe({ planId, day: selectedDay, removeId: recipeId, newId });
-            console.log('Swap API response:', result);
+            await swapRecipe({ planId, day: selectedDay, removeId: recipeId, newId });
             SuccessToast("Recipe swapped successfully");
 
-            // Log before dispatching resets
-            console.log('Before reset - State:', { planId, selectedDay, recipeId });
-
-            // Reset states
             dispatch(SetRecipeId(null));
             dispatch(SetSelectedDay(null));
-
-            // Log after dispatching resets (note: this won't reflect in the same render)
-            console.log('After reset - State should be null');
         } catch (error) {
             console.error('Swap error:', error);
             ErrorToast(error.data?.message || "Failed to swap recipe");
         } finally {
-            console.log('Closing swap modal');
             dispatch(SetMealPlannerSwapModalOpen(false));
         }
     };
