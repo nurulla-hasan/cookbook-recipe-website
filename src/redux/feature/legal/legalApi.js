@@ -72,6 +72,18 @@ const legalApi = baseApi.injectEndpoints({
             invalidatesTags: ["LEGAL"],
         }),
 
+        // SEND SUBSCRIBE
+        sendSubscribe: builder.mutation({
+            query: (data) => ({
+                url: "/dashboard/send-subscribe-mail",
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: ["LEGAL"],
+        }),
+
+
+
         // // ADD ABOUT
         // addAbout: builder.mutation({
         //     query: (data) => ({
@@ -121,4 +133,5 @@ export const {
     useSendMessageMutation,
     useGetHelpQuery,
     useGetAboutQuery,
+    useSendSubscribeMutation,
 } = legalApi
