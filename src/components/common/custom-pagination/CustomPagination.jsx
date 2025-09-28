@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import {
     Pagination,
@@ -11,7 +9,7 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination";
 
-export const usePagination = ({ totalPages, currentPage, siblingCount = 1 }) => {
+ const usePagination = ({ totalPages, currentPage, siblingCount = 1 }) => {
     const paginationRange = React.useMemo(() => {
         const totalPageNumbers = siblingCount + 5;
 

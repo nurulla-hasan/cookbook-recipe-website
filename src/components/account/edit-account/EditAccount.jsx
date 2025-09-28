@@ -103,7 +103,7 @@ const EditAccount = ({ formData, setFormData }) => {
                                     <FormItem>
                                         <FormLabel>Name</FormLabel>
                                         <FormControl>
-                                            <Input {...field} />
+                                            <Input placeholder="eg: John Doe" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -132,7 +132,7 @@ const EditAccount = ({ formData, setFormData }) => {
                                     <FormItem>
                                         <FormLabel>Phone Number</FormLabel>
                                         <FormControl>
-                                            <Input {...field} />
+                                            <Input placeholder="eg: +880123456789" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
