@@ -46,16 +46,18 @@ const Navbar = () => {
         };
     }, [lastScrollY]);
 
-    const { isLoading } = useGetUserProfileQuery();
-    const user = useSelector((state) => state.profile.userProfile);
     const token = useSelector((state) => state.auth.accessToken);
+    const { isLoading } = useGetUserProfileQuery(undefined, {
+        skip: !token // Skip the query if there's no token
+    });
+    const user = useSelector((state) => state.profile.userProfile);
     const isLoggedIn = !!token;
 
 
     // Mock logout function
     const handleLogout = () => {
         dispatch(Logout());
-        window.location.href = "/auth/login";
+        window.location.href = "/";
     };
 
     return (

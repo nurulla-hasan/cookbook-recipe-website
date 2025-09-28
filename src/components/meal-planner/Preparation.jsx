@@ -5,6 +5,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import NoData from "@/components/common/no-data/NoData";
+import { Separator } from "../ui/separator";
 
 const Preparation = ({ mealPlan }) => {
     const daysWithRecipes = mealPlan?.data?.filter(day => day.recipes && day.recipes.length > 0) || [];
@@ -23,7 +24,7 @@ const Preparation = ({ mealPlan }) => {
                         </AccordionTrigger>
                         <AccordionContent className="p-4">
                             {day.recipes.map((recipeItem) => (
-                                <div key={recipeItem._id} className="py-4 border-b last:border-b-0">
+                                <div key={recipeItem._id} className="last:border-b-0">
                                     <h4 className="text-xl font-bold text-primary mb-2">{recipeItem.recipe.name}</h4>
                                     
                                     {recipeItem.recipe.ingredients && recipeItem.recipe.ingredients.length > 0 && (
@@ -41,6 +42,7 @@ const Preparation = ({ mealPlan }) => {
                                         <h5 className="font-semibold text-sm mb-1">Preparation:</h5>
                                         <p className="text-sm text-muted-foreground">{recipeItem.recipe.prep}</p>
                                     </div>
+                                    <Separator className="my-4" />
                                 </div>
                             ))}
                         </AccordionContent>
