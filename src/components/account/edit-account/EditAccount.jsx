@@ -10,29 +10,19 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox";
-import { CalendarIcon, Lock } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { cn } from "@/lib/utils";
+import { cn, ErrorToast, SuccessToast } from "@/lib/utils";
 import { useEffect } from "react";
+import { useUpdateUserProfileMutation } from "@/redux/feature/profile/profileApi";
 
-const MEAL_TYPES = ['breakfast', 'lunches-and-dinners', 'appetizers', 'salads', 'soups', 'desserts', 'smoothies/shakes', 'salad-dressings', 'jams/marmalades', 'sides'];
+const MEAL_TYPES = ['breakfast', 'lunches-and-dinners', 'desserts', 'snacks', 'sides'];
 const DIETARY_OPTIONS = ['Gluten-Free', 'Vegan', 'Vegetarian', 'Keto', 'Paleo'];
-const HEALTH_GOALS = [
-    { value: "weight_loss", label: "Weight Loss" },
-    { value: "muscle_gain", label: "Muscle Gain" },
-    { value: "maintain_weight", label: "Maintain Weight" },
-];
+const HEALTH_GOALS = ['Weight Loss', 'Muscle Gain', 'Maintain Weight'];
 
 const accountSchema = z.object({
     name: z.string().min(1, { message: "Name is required." }),
@@ -40,14 +30,14 @@ const accountSchema = z.object({
     phone: z.string().min(10, { message: "Phone number must be at least 10 digits." }),
     dateOfBirth: z.date({
         required_error: "A date of birth is required.",
-    }),
-    mail_types: z.array(z.string()).refine(value => value.length > 0, { message: "Please select at least one meal type." }),
+    }).nullable(),
+    mail_types: z.array(z.string()).min(1, { message: "Please select at least one meal type." }),
     relevant_dielary: z.array(z.string()).optional(),
-    helgth_goal: z.string().optional(),
+    helgth_goal: z.array(z.string()).min(1, { message: "Please select at least one health goal." }),
 });
 
 
-const EditAccount = ({ formData, setFormData }) => {
+const EditAccount = ({ user, newProfileImage }) => {
     const form = useForm({
         resolver: zodResolver(accountSchema),
         defaultValues: {
@@ -57,31 +47,75 @@ const EditAccount = ({ formData, setFormData }) => {
             dateOfBirth: null,
             mail_types: [],
             relevant_dielary: [],
-            helgth_goal: "",
+            helgth_goal: [],
         },
     });
 
     useEffect(() => {
-        if (formData) {
+        if (user) {
+            const ensureArray = (value) => {
+                if (!value) return [];
+                if (Array.isArray(value)) return value;
+                if (typeof value === 'string') {
+                    try {
+                        const parsed = JSON.parse(value);
+                        return Array.isArray(parsed) ? parsed : [value];
+                    } catch (e) {
+                        console.log(e);
+                        return [value];
+                    }
+                }
+                return [];
+            };
+
             form.reset({
-                name: formData.name || "",
-                email: formData.email || "",
-                phone: formData.phone_number || "",
-                dateOfBirth: formData.date_of_birth ? new Date(formData.date_of_birth) : null,
-                mail_types: formData.mail_types || [],
-                relevant_dielary: formData.relevant_dielary || [],
-                helgth_goal: formData.helgth_goal || "",
+                name: user.name || "",
+                email: user.email || "",
+                phone: user.phone_number || "",
+                dateOfBirth: user.date_of_birth ? new Date(user.date_of_birth) : null,
+                mail_types: ensureArray(user.mail_types),
+                relevant_dielary: ensureArray(user.relevant_dielary),
+                helgth_goal: ensureArray(user.helgth_goal),
             });
         }
-    }, [formData, form]);
+    }, [user, form]);
 
-    const onSubmit = (data) => {
-        const formattedData = {
-            ...data,
-            dateOfBirth: data.dateOfBirth ? format(new Date(data.dateOfBirth), "yyyy-MM-dd") : null,
-        };
-        setFormData(formattedData);
-        console.log("Form submitted:", formattedData);
+    const [updateUserProfile, { isLoading }] = useUpdateUserProfileMutation();
+
+    const onSubmit = async (data) => {
+        const formData = new FormData();
+
+        formData.append("name", data.name);
+        formData.append("email", data.email);
+        formData.append("phone_number", data.phone);
+
+        if (data.dateOfBirth) {
+            formData.append("date_of_birth", format(new Date(data.dateOfBirth), "yyyy-MM-dd"));
+        }
+
+        if (data.mail_types && Array.isArray(data.mail_types)) {
+            formData.append('mail_types', JSON.stringify(data.mail_types));
+        }
+
+        if (data.relevant_dielary && Array.isArray(data.relevant_dielary)) {
+            formData.append('relevant_dielary', JSON.stringify(data.relevant_dielary));
+        }
+
+        if (data.helgth_goal && Array.isArray(data.helgth_goal)) {
+            formData.append('helgth_goal', JSON.stringify(data.helgth_goal));
+        }
+
+        if (newProfileImage) {
+            formData.append('profile_image', newProfileImage);
+        }
+
+        try {
+            await updateUserProfile(formData).unwrap();
+            SuccessToast("Profile updated successfully");
+        } catch (error) {
+            ErrorToast("Error updating profile");
+            console.log(error);
+        }
     };
 
     return (
@@ -116,10 +150,7 @@ const EditAccount = ({ formData, setFormData }) => {
                                     <FormItem>
                                         <FormLabel>Email</FormLabel>
                                         <FormControl>
-                                            <div className="relative">
-                                                <Input disabled {...field} />
-                                                <Lock size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                                            </div>
+                                            <Input disabled {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -168,14 +199,14 @@ const EditAccount = ({ formData, setFormData }) => {
                                                     mode="single"
                                                     selected={field.value}
                                                     onSelect={field.onChange}
+                                                    className="rounded-md border shadow-sm"
+                                                    captionLayout="dropdown"
                                                     disabled={(date) =>
                                                         date > new Date() || date < new Date("1900-01-01")
                                                     }
                                                     defaultMonth={field.value || new Date()}
                                                     fromYear={1900}
                                                     toYear={new Date().getFullYear()}
-                                                    captionLayout="dropdown-buttons"
-                                                    initialFocus
                                                 />
                                             </PopoverContent>
                                         </Popover>
@@ -191,18 +222,27 @@ const EditAccount = ({ formData, setFormData }) => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Health Goal</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                        <FormControl>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select your health goal" />
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                            {HEALTH_GOALS.map(goal => (
-                                                <SelectItem key={goal.value} value={goal.value}>{goal.label}</SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 border rounded-md">
+                                        {HEALTH_GOALS.map((item) => (
+                                            <div key={item} className="flex flex-row items-start space-x-3 space-y-0">
+                                                <FormControl>
+                                                    <Checkbox
+                                                        checked={field.value?.includes(item)}
+                                                        onCheckedChange={(checked) => {
+                                                            return checked
+                                                                ? field.onChange([...(field.value || []), item])
+                                                                : field.onChange(
+                                                                    field.value?.filter(
+                                                                        (value) => value !== item
+                                                                    )
+                                                                );
+                                                        }}
+                                                    />
+                                                </FormControl>
+                                                <FormLabel className="font-normal capitalize">{item.replace(/[-_]/g, ' ')}</FormLabel>
+                                            </div>
+                                        ))}
+                                    </div>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -273,7 +313,7 @@ const EditAccount = ({ formData, setFormData }) => {
                         />
 
                         <div className="flex justify-end">
-                            <Button type="submit">Save Changes</Button>
+                            <Button loading={isLoading} type="submit">Save Changes</Button>
                         </div>
                     </form>
                 </Form>

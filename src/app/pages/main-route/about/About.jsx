@@ -1,4 +1,4 @@
-import PageLayout from "@/app/layout/PageLayout";
+import PageLayout from "@/tools/PageLayout";
 import Error from "@/components/common/error/Error";
 import PageHeader from "@/components/common/page-header/PageHeader";
 import LegalSkeleton from "@/components/skeleton/legal/LegalSkeleton";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PageLayout from "@/app/layout/PageLayout";
+import PageLayout from "@/tools/PageLayout";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, SlidersHorizontal } from "lucide-react";

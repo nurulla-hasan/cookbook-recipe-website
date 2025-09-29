@@ -1,4 +1,4 @@
-import PageLayout from "@/app/layout/PageLayout";
+import PageLayout from "@/tools/PageLayout";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const LegalSkeleton = () => {

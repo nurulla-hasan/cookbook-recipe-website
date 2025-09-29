@@ -1,5 +1,5 @@
 import React from 'react';
-import PageLayout from '@/app/layout/PageLayout';
+import PageLayout from '@/tools/PageLayout';
 import { Card } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

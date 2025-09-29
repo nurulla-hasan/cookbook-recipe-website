@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PageLayout from "@/app/layout/PageLayout";
+import PageLayout from "@/tools/PageLayout";
 import PageHeader from "@/components/common/page-header/PageHeader";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,6 @@ const Recipes = () => {
     const dispatch = useDispatch();
     const { cardModalOpen } = useSelector((state) => state.addMealPlan);
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-    const [appliedFilters, setAppliedFilters] = useState({});
 
     const {
         searchTerm,
@@ -32,16 +31,14 @@ const Recipes = () => {
         isLoading,
         isError,
         setFilterParams,
-    } = useSmartFetchHook(useGetRecipesQuery, { resultsKey: "result" }, appliedFilters);
+    } = useSmartFetchHook(useGetRecipesQuery, { resultsKey: "result"});
 
 
     const handleApplyFilters = (filters) => {
-        setAppliedFilters(filters);
         setFilterParams(filters);
     };
 
     const handleClearFilters = () => {
-        setAppliedFilters({});
         setFilterParams({});
     };
 

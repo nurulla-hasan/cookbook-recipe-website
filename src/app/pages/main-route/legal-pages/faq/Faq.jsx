@@ -1,4 +1,4 @@
-import PageLayout from "@/app/layout/PageLayout";
+import PageLayout from "@/tools/PageLayout";
 import PageHeader from "@/components/common/page-header/PageHeader";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { useGetFaqQuery } from "@/redux/feature/legal/legalApi";

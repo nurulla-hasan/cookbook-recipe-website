@@ -1,5 +1,5 @@
 import React from 'react';
-import PageLayout from '@/app/layout/PageLayout';
+import PageLayout from '@/tools/PageLayout';
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Button } from '@/components/ui/button';

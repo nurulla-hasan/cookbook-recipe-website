@@ -1,6 +1,5 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import { withErrorAndSuspense } from "@/tools/withErrorAndSuspense";
 import MainLayout from "../layout/MainLayout";
 import AuthLayout from "../layout/AuthLayout";
 import Profilelayout from "../layout/Profilelayout";
@@ -8,6 +7,8 @@ import RecipeDetailsSkeleton from "@/components/skeleton/recipe-details/RecipeDe
 import CategoryPageSkeleton from "@/components/skeleton/category/CategoryPageSkeleton";
 import LegalSkeleton from "@/components/skeleton/legal/LegalSkeleton";
 import ContactPageSkeleton from "@/components/skeleton/legal/ContactPageSkeleton";
+import RecipeCardSkeleton from "@/components/skeleton/recipe/RecipeCardSkeleton";
+import { ErrorAndSuspense } from "@/tools/ErrorAndSuspense";
 
 const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
 const EditRecipe = lazy(() => import("../pages/profile-route/my-recipe/edit-recipe/EditRecipe"));
@@ -44,79 +45,79 @@ const router = createBrowserRouter([
             },
             {
                 path: "recipes",
-                element: withErrorAndSuspense(Recipes, <CategoryPageSkeleton />),
+                element: ErrorAndSuspense(Recipes, <CategoryPageSkeleton />),
             },
             {
                 path: "category/:slug",
-                element: withErrorAndSuspense(Category, <CategoryPageSkeleton />),
+                element: ErrorAndSuspense(Category, <CategoryPageSkeleton />),
             },
             {
                 path: "diet-goals/:slug",
-                element: withErrorAndSuspense(DiatGoals, <CategoryPageSkeleton />),
+                element: ErrorAndSuspense(DiatGoals, <CategoryPageSkeleton />),
             },
             {
                 path: "recipes/recipe-details/:id",
-                element: withErrorAndSuspense(RecipeDetails, <RecipeDetailsSkeleton />),
+                element: ErrorAndSuspense(RecipeDetails, <RecipeDetailsSkeleton />),
             },
             {
                 path: "meal-planner",
-                element: withErrorAndSuspense(MealPlanner, <div>Loading...</div>),
+                element: ErrorAndSuspense(MealPlanner, <div>Loading...</div>),
             },
             {
                 path: "grocery",
-                element: withErrorAndSuspense(Grocery, <div>Loading...</div>),
+                element: ErrorAndSuspense(Grocery, <div>Loading...</div>),
             },
             {
                 path: "featured",
-                element: withErrorAndSuspense(Featured, <div>Loading...</div>),
+                element: ErrorAndSuspense(Featured, <div>Loading...</div>),
             },
             {
                 path: "about",
-                element: withErrorAndSuspense(About, <LegalSkeleton />),
+                element: ErrorAndSuspense(About, <LegalSkeleton />),
             },
             {
                 path: "contact",
-                element: withErrorAndSuspense(Contact, <ContactPageSkeleton />),
+                element: ErrorAndSuspense(Contact, <ContactPageSkeleton />),
             },
             {
                 path: "legal/help",
-                element: withErrorAndSuspense(Help, <LegalSkeleton />),
+                element: ErrorAndSuspense(Help, <LegalSkeleton />),
             },
             {
                 path: "legal/faq",
-                element: withErrorAndSuspense(Faq, <LegalSkeleton />),
+                element: ErrorAndSuspense(Faq, <LegalSkeleton />),
             },
             {
                 path: "legal/privacy",
-                element: withErrorAndSuspense(Privacy, <LegalSkeleton />),
+                element: ErrorAndSuspense(Privacy, <LegalSkeleton />),
             },
             {
                 path: "legal/terms",
-                element: withErrorAndSuspense(Terms, <LegalSkeleton />),
+                element: ErrorAndSuspense(Terms, <LegalSkeleton />),
             },
             {
                 path: "profile",
-                element: withErrorAndSuspense(Profilelayout, <div>Loading...</div>),
+                element: ErrorAndSuspense(Profilelayout, <div>Loading...</div>),
                 children: [
                     {
                         index: true,
-                        element: withErrorAndSuspense(MyAccount, <div>Loading...</div>),
+                        element: ErrorAndSuspense(MyAccount, <div>Loading...</div>),
                     },
                     {
                         path: "my-favourite",
-                        element: withErrorAndSuspense(Favorite, <div>Loading...</div>),
+                        element: ErrorAndSuspense(Favorite, <div className="grid gap-6 grid-cols-1"><RecipeCardSkeleton count={3} /></div>),
                     },
                     {
                         path: "my-recipes",
-                        element: withErrorAndSuspense(MyRecipe, <div>Loading...</div>),
+                        element: ErrorAndSuspense(MyRecipe, <div className="grid gap-6 grid-cols-1"><RecipeCardSkeleton count={3} /></div>),
                     },
                     {
                         path: "add-recipe",
-                        element: withErrorAndSuspense(AddRecipe, <div>Loading...</div>),
+                        element: ErrorAndSuspense(AddRecipe, <div>Loading...</div>),
                     },
                     {
                         path: "edit-recipe/:id",
-                        element: withErrorAndSuspense(EditRecipe, <div>Loading...</div>),
+                        element: ErrorAndSuspense(EditRecipe, <div>Loading...</div>),
                     },
                 ]
             },

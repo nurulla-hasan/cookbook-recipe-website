@@ -3,42 +3,46 @@
     "success": true,
     "message": "User retrieved successfully",
     "data": {
-        "_id": "68ce7049f1bf8e744f9a5350",
+        "location": "",
+        "gender": "Male",
+        "subscription_free": false,
+        "_id": "6803bcec583df695bfa56cb1",
         "authId": {
-            "_id": "68ce7049f1bf8e744f9a534e",
-            "name": "Golap hasan",
-            "email": "golaphasan379@gmail.com",
+            "_id": "6803bcec583df695bfa56caf",
+            "name": "Tayebur Rahman",
+            "email": "tayebrayhan101@gmail.com",
             "role": "USER",
             "codeVerify": false,
-            "activationCode": "887045",
-            "expirationTime": "2025-09-20T09:16:45.519Z",
+            "activationCode": "592364",
+            "expirationTime": "2025-04-19T15:13:36.713Z",
             "is_block": false,
             "isActive": true,
-            "createdAt": "2025-09-20T09:13:45.533Z",
-            "updatedAt": "2025-09-20T09:14:09.180Z",
-            "__v": 0
+            "createdAt": "2025-04-19T15:10:36.725Z",
+            "updatedAt": "2025-07-27T05:16:19.885Z",
+            "__v": 0,
+            "verifyExpire": "2025-07-27T05:31:19.884Z",
+            "verifyCode": "563884"
         },
-        "name": "Golap hasan",
-        "email": "golaphasan379@gmail.com",
+        "name": "Tayebur Rahman",
+        "email": "tayebrayhan101@gmail.com",
         "profile_image": null,
-        "phone_number": null,
+        "phone_number": "1234567890",
         "isPhoneNumberVerified": false,
         "street": null,
         "neighborhood": null,
         "mail_types": [
-            "none"
+            "breakfast"
         ],
-        "relevant_dielary": null,
+        "relevant_dielary": [
+            "Vegan"
+        ],
         "age": null,
-        "location": "",
-        "gender": "Male",
-        "date_of_birth": "2025-09-20T09:13:45.000Z",
+        "date_of_birth": "2025-10-11T18:00:00.000Z",
         "amount": 0,
         "subscription_status": "None",
-        "subscription_free": false,
         "status": "active",
-        "createdAt": "2025-09-20T09:13:45.808Z",
-        "updatedAt": "2025-09-20T09:13:45.808Z",
+        "createdAt": "2025-04-19T15:10:36.973Z",
+        "updatedAt": "2025-04-19T15:10:36.973Z",
         "__v": 0
     }
 }

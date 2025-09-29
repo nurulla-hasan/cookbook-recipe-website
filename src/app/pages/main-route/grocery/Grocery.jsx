@@ -1,6 +1,6 @@
 // import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import PageLayout from "@/app/layout/PageLayout";
+import PageLayout from "@/tools/PageLayout";
 import PageHeader from "@/components/common/page-header/PageHeader";
 // import PlanTypeFilter from "@/components/meal-planner/PlanTypeFilter";
 import { useSelector } from "react-redux";

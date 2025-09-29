@@ -1,4 +1,4 @@
-import PageLayout from "@/app/layout/PageLayout";
+import PageLayout from "@/tools/PageLayout";
 import PageHeader from "@/components/common/page-header/PageHeader";
 import { replaceWhiteBackground } from "@/lib/utils";
 import { useGetHelpQuery } from "@/redux/feature/legal/legalApi";

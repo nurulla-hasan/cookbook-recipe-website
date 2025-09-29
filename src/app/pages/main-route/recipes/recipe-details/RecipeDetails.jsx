@@ -1,7 +1,7 @@
 import { useParams, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Clock, Star, ShoppingCart, Heart } from 'lucide-react';
-import PageLayout from '@/app/layout/PageLayout';
+import PageLayout from '@/tools/PageLayout';
 import NutritionalInfo from '@/components/recipe-details/nutritional-info/NutritionalInfo';
 import DetailsTabs from '@/components/recipe-details/details-tabs/DetailsTabs';
 import { Separator } from '@/components/ui/separator';

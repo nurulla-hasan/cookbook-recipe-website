@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import PageLayout from "@/app/layout/PageLayout";
+import PageLayout from "@/tools/PageLayout";
 import { Separator } from "@/components/ui/separator";
 
 const RecipeDetailsSkeleton = () => {

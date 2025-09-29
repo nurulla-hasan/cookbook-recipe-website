@@ -1,4 +1,4 @@
-import PageLayout from '@/app/layout/PageLayout';
+import PageLayout from '@/tools/PageLayout';
 import Title from '../ui/Title';
 import { Link } from 'react-router-dom';
 import { Slice, UtensilsCrossed, Cake, Wine, Leaf } from 'lucide-react';

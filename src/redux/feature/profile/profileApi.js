@@ -15,7 +15,7 @@ const profileApi = baseApi.injectEndpoints({
                 try {
                     const { data } = await queryFulfilled;
                     if (data?.data) {
-                        dispatch(SetUserProfile(data.data));
+                        dispatch(SetUserProfile(data?.data));
                     }
                 } catch {
                     // silently ignore; UI can read error from hook if needed
@@ -25,6 +25,16 @@ const profileApi = baseApi.injectEndpoints({
 
         // UPDATE USER PROFILE
         updateUserProfile: builder.mutation({
+            query: (data) => ({
+                url: "/auth/edit-profile",
+                method: "PATCH",
+                body: data,
+            }),
+            invalidatesTags: ["PROFILE"],
+        }),
+
+        // UPDATE USER PROFILE PICTURE
+        updateProfilePicture: builder.mutation({
             query: (data) => ({
                 url: "/auth/edit-profile",
                 method: "PATCH",
@@ -88,6 +98,7 @@ const profileApi = baseApi.injectEndpoints({
 export const {
     useGetUserProfileQuery,
     useUpdateUserProfileMutation,
+    useUpdateProfilePictureMutation,
     useGetUserFavoriteRecipesQuery,
     useGetMyRecipesQuery
 } = profileApi

@@ -1,4 +1,4 @@
-import PageLayout from "@/app/layout/PageLayout";
+import PageLayout from "@/tools/PageLayout";
 import PageHeader from "@/components/common/page-header/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
