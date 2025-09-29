@@ -15,6 +15,7 @@ import image2 from "../../../assets/slider/image2.png";
 import image3 from "../../../assets/slider/image3.png";
 import image4 from "../../../assets/slider/image4.png";
 import image5 from "../../../assets/slider/image5.png";
+import { Link } from "react-router-dom";
 
 
 const slides = [
@@ -75,7 +76,9 @@ const HeroCarousel = () => {
           </h1>
           <p className="mt-6 mx-auto md:mx-0 max-w-sm md:max-w-md text-center md:text-start text-sm md:text-lg text-white/90">Your Personalized Nutrition & Fitness Companion—Now on iPhone & Android</p>
           <div className="flex justify-center md:justify-start mt-8 w-full">
-            <Button className="md:py-6 md:px-8">Start Learning</Button>
+            <Link to="/featured">
+              <Button className="md:py-6 md:px-8">Start Learning</Button>
+            </Link>
           </div>
         </div>
 

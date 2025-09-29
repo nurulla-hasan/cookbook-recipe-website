@@ -169,7 +169,7 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
                 onSelect={setCategory} 
               />
               <FilterDropdown 
-                label="Intermittent Fasting" 
+                label="Hot or Cold" 
                 options={intermittentFastingOptions} 
                 selected={intermittentFasting} 
                 onSelect={setIntermittentFasting} 
