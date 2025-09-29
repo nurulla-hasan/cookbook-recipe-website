@@ -12,9 +12,14 @@ import { getImageUrl } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import RecipeDetailsSkeleton from '@/components/skeleton/recipe-details/RecipeDetailsSkeleton';
 import Error from '@/components/common/error/Error';
+import { SetCardModalClose, SetCardModalOpen, SetRecipeId } from '@/redux/feature/meal-plan/addMealPlanSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import AddToPlanModal from '@/components/Recipes/add-plan-modal/AddToPlanModal';
 
 const RecipeDetails = () => {
     const { id } = useParams();
+    const { cardModalOpen } = useSelector((state) => state.addMealPlan);
+    const dispatch = useDispatch();
     const location = useLocation();
     const { from, fromPath } = location.state || { from: 'Recipes', fromPath: '/recipes' };
 
@@ -22,6 +27,10 @@ const RecipeDetails = () => {
     const recipe = data?.data || {};
     const { isFavorite, onFavoriteToggle } = useFavorite(recipe.favorite);
 
+    const handleAddToPlan = () => {
+        dispatch(SetRecipeId(recipe._id));
+        dispatch(SetCardModalOpen(true));
+    };
 
     const breadcrumbs = [
         { name: 'Home', href: '/' },
@@ -50,6 +59,7 @@ const RecipeDetails = () => {
         );
     };
 
+
     if (isLoading) {
         return <RecipeDetailsSkeleton />;
     }
@@ -58,81 +68,93 @@ const RecipeDetails = () => {
         return <Error size="full" msg="Failed to load recipe details. Please try again later." />;
     }
 
+
     return (
-        <PageLayout paddingSize="compact">
-            <CustomBreadcrumb links={breadcrumbs} />
+        <>
+            <PageLayout paddingSize="compact">
+                <CustomBreadcrumb links={breadcrumbs} />
 
-            {/* Top Image */}
-            <div className="w-full h-64 md:h-[500px] bg-cover bg-center rounded-lg">
-                <img
-                    src={getImageUrl(recipe?.image) || `https://placehold.co/600x400?text=${recipe?.name}&font=poppins`}
-                    alt={recipe?.name}
-                    className="w-full h-full object-cover rounded-lg"
-                    onError={(e) => e.target.src = `https://placehold.co/600x400?text=${recipe?.name}&font=poppins`}
-                />
-            </div>
+                {/* Top Image */}
+                <div className="w-full h-64 md:h-[500px] bg-cover bg-center rounded-lg">
+                    <img
+                        src={getImageUrl(recipe?.image) || `https://placehold.co/600x400?text=${recipe?.name}&font=poppins`}
+                        alt={recipe?.name}
+                        className="w-full h-full object-cover rounded-lg"
+                        onError={(e) => e.target.src = `https://placehold.co/600x400?text=${recipe?.name}&font=poppins`}
+                    />
+                </div>
 
-            {/* Main Content Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
-                {/* Left Column */}
-                <div className="md:col-span-2">
-                    {/* Recipe Header */}
-                    <div className="flex flex-col md:flex-row justify-between md:items-start mb-6">
-                        <div className="mb-4 md:mb-0 space-y-3">
-                            <h1 className="text-2xl md:text-3xl font-bold">{recipe?.name}</h1>
-                            {recipe?.prep && <p className="text-muted-foreground">{recipe.prep}</p>}
-                            <div className="flex items-center gap-4 text-muted-foreground">
-                                <div className="flex items-center gap-1">
-                                    <Star size={20} className="text-yellow-400 fill-yellow-400" />
-                                    <span className="font-semibold">{Math.floor(recipe?.ratting) || 'N/A'}</span>
+                {/* Main Content Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6">
+                    {/* Left Column */}
+                    <div className="md:col-span-2">
+                        {/* Recipe Header */}
+                        <div className="flex flex-col md:flex-row justify-between md:items-start mb-6">
+                            <div className="mb-4 md:mb-0 space-y-3">
+                                <h1 className="text-2xl md:text-3xl font-bold">{recipe?.name}</h1>
+                                {recipe?.prep && <p className="text-muted-foreground">{recipe.prep}</p>}
+                                <div className="flex items-center gap-4 text-muted-foreground">
+                                    <div className="flex items-center gap-1">
+                                        <Star size={20} className="text-yellow-400 fill-yellow-400" />
+                                        <span className="font-semibold">{Math.floor(recipe?.ratting) || 'N/A'}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1 text-sm">
+                                        <Clock size={16} />
+                                        <span>{recipe?.prep_time} mins</span>
+                                    </div>
+                                    <div className="flex items-center gap-1 text-sm">
+                                        <span>•</span>
+                                        <span>{recipe?.serving_size} servings</span>
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-1 text-sm">
-                                    <Clock size={16} />
-                                    <span>{recipe?.prep_time} mins</span>
-                                </div>
-                                <div className="flex items-center gap-1 text-sm">
-                                    <span>•</span>
-                                    <span>{recipe?.serving_size} servings</span>
-                                </div>
+                                {renderBadges()}
                             </div>
-                            {renderBadges()}
+                            <div className="flex items-center gap-2">
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => onFavoriteToggle(recipe._id)}
+                                >
+                                    <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} />
+                                </Button>
+                                <Button onClick={handleAddToPlan}>
+                                    <ShoppingCart className="w-4 h-4 mr-2" />
+                                    Add to Meal Plan
+                                </Button>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <Button
-                                variant="outline"
-                                size="icon"
-                                onClick={() => onFavoriteToggle(recipe._id)}
-                            >
-                                <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} />
-                            </Button>
-                            <Button>
-                                <ShoppingCart className="w-4 h-4 mr-2" />
-                                Add to Meal Plan
-                            </Button>
+                        <Separator className="my-4" />
+
+                        {/* Recipe Content */}
+                        <div className="space-y-6">
+                            <DetailsTabs
+                                recipe={recipe}
+                            />
                         </div>
                     </div>
-                    <Separator className="my-4" />
 
-                    {/* Recipe Content */}
+                    {/* Right Column */}
                     <div className="space-y-6">
-                        <DetailsTabs
-                            recipe={recipe}
+                        <NutritionalInfo
+                            calories={recipe?.nutritional?.calories}
+                            protein={recipe?.nutritional?.protein}
+                            carbs={recipe?.nutritional?.carbs}
+                            fat={recipe?.nutritional?.fat}
+                            fiber={recipe?.nutritional?.fiber}
                         />
                     </div>
                 </div>
+            </PageLayout>
 
-                {/* Right Column */}
-                <div className="space-y-6">
-                    <NutritionalInfo
-                        calories={recipe?.nutritional?.calories}
-                        protein={recipe?.nutritional?.protein}
-                        carbs={recipe?.nutritional?.carbs}
-                        fat={recipe?.nutritional?.fat}
-                        fiber={recipe?.nutritional?.fiber}
-                    />
-                </div>
-            </div>
-        </PageLayout>
+            {/* Add to Plan Modal */}
+            <AddToPlanModal
+                isOpen={cardModalOpen}
+                onClose={() => {
+                    dispatch(SetCardModalClose());
+                    dispatch(SetRecipeId(null));
+                }}
+            />
+        </>
     );
 };
 
