@@ -15,7 +15,7 @@ const MyAccount = () => {
     const fileInputRef = useRef(null);
     const [selectedImage, setSelectedImage] = useState(null);
 
-    const { isLoading, isFetching } = useGetUserProfileQuery();
+    const { isLoading } = useGetUserProfileQuery();
     const user = useSelector((state) => state.profile.userProfile);
 
     const handleFileChange = (event) => {
@@ -30,7 +30,7 @@ const MyAccount = () => {
     };
 
     const avatarSource = selectedImage ? URL.createObjectURL(selectedImage) : getImageUrl(user?.profile_image);
-    const isDataLoading = isLoading || isFetching;
+    const isDataLoading = isLoading;
 
     return (
         <div>
