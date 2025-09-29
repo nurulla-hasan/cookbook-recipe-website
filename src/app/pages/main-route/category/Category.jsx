@@ -8,13 +8,18 @@ import CustomPagination from '@/components/common/custom-pagination/CustomPagina
 import Error from '@/components/common/error/Error';
 import NoData from '@/components/common/no-data/NoData';
 import CategoryPageSkeleton from '@/components/skeleton/category/CategoryPageSkeleton';
+import AddToPlanModal from '@/components/Recipes/add-plan-modal/AddToPlanModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { SetCardModalClose, SetRecipeId } from '@/redux/feature/meal-plan/addMealPlanSlice';
 
 const Category = () => {
+    const dispatch = useDispatch();
+    const { cardModalOpen } = useSelector((state) => state.addMealPlan);
     const { slug: category } = useParams();
     const formattedSlug = category
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 
     const {
         currentPage,
@@ -73,6 +78,15 @@ const Category = () => {
                     )}
                 </div>
             </PageLayout>
+
+            {/* Add to Plan Modal */}
+            <AddToPlanModal
+                isOpen={cardModalOpen}
+                onClose={() => {
+                    dispatch(SetCardModalClose());
+                    dispatch(SetRecipeId(null));
+                }}
+            />
         </>
     );
 };

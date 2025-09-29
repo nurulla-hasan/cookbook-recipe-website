@@ -1,10 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import useDebounce from './useDebounce';
 
-const useSmartFetchHook = (queryHook, options = {}) => {
+const useSmartFetchHook = (queryHook, options = {}, initialParams = {}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterParams, setFilterParams] = useState({});
+  const [filterParams, setFilterParams] = useState(initialParams);
   
   // Debounce search term and search params
   const debouncedSearchTerm = useDebounce(searchTerm);
