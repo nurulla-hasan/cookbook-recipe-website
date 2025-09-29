@@ -51,6 +51,8 @@ const EditAccount = ({ user, newProfileImage }) => {
         },
     });
 
+    console.log(user);
+
     useEffect(() => {
         if (user) {
             const ensureArray = (value) => {

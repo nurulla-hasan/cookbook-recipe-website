@@ -9,6 +9,7 @@ import LegalSkeleton from "@/components/skeleton/legal/LegalSkeleton";
 import ContactPageSkeleton from "@/components/skeleton/legal/ContactPageSkeleton";
 import RecipeCardSkeleton from "@/components/skeleton/recipe/RecipeCardSkeleton";
 import { ErrorAndSuspense } from "@/tools/ErrorAndSuspense";
+import ProfileSkeleton from "@/components/skeleton/profile/ProfileSkeleton";
 
 const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
 const EditRecipe = lazy(() => import("../pages/profile-route/my-recipe/edit-recipe/EditRecipe"));
@@ -97,11 +98,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "profile",
-                element: ErrorAndSuspense(Profilelayout, <div>Loading...</div>),
+                element: ErrorAndSuspense(Profilelayout, <ProfileSkeleton />),
                 children: [
                     {
                         index: true,
-                        element: ErrorAndSuspense(MyAccount, <div>Loading...</div>),
+                        element: ErrorAndSuspense(MyAccount, <ProfileSkeleton />),
                     },
                     {
                         path: "my-favourite",

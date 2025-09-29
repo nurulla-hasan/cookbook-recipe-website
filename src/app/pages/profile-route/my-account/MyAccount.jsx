@@ -30,7 +30,6 @@ const MyAccount = () => {
     };
 
     const avatarSource = selectedImage ? URL.createObjectURL(selectedImage) : getImageUrl(user?.profile_image);
-    const isDataLoading = isLoading;
 
     return (
         <div>
@@ -46,14 +45,14 @@ const MyAccount = () => {
                 <div className="w-full lg:w-64 space-y-4">
                     <Card className="shadow-none bg-transparent border">
                         <CardContent className="p-6">
-                            {isDataLoading ? (
+                            {isLoading ? (
                                 <div className="flex flex-col items-center space-y-4">
                                     <Skeleton className="h-24 w-24 rounded-full" />
-                                    <div className="text-center space-y-2">
+                                    <div className="flex flex-col items-center space-y-2">
                                         <Skeleton className="h-6 w-32" />
                                         <Skeleton className="h-4 w-40" />
                                     </div>
-                                    <Skeleton className="h-10 w-full" />
+                                    <Skeleton className="h-9 w-full" />
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center space-y-4">
@@ -103,7 +102,7 @@ const MyAccount = () => {
                 {/* Right Content */}
                 <div className="flex-1">
                     <Tabs value={activeTab} className="w-full">
-                        {isDataLoading ? (
+                        {isLoading ? (
                             <Card className="py-6 bg-transparent border">
                                 <CardHeader>
                                     <Skeleton className="h-8 w-48" />
@@ -111,13 +110,34 @@ const MyAccount = () => {
                                 </CardHeader>
                                 <CardContent className="space-y-6">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div className="space-y-2"><Skeleton className="h-4 w-16" /><Skeleton className="h-10 w-full" /></div>
-                                        <div className="space-y-2"><Skeleton className="h-4 w-16" /><Skeleton className="h-10 w-full" /></div>
-                                        <div className="space-y-2"><Skeleton className="h-4 w-16" /><Skeleton className="h-10 w-full" /></div>
-                                        <div className="space-y-2"><Skeleton className="h-4 w-16" /><Skeleton className="h-10 w-full" /></div>
+                                        <div className="space-y-2">
+                                            <Skeleton className="h-4 w-16" />
+                                            <Skeleton className="h-10 w-full" />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Skeleton className="h-4 w-16" />
+                                            <Skeleton className="h-10 w-full" />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Skeleton className="h-4 w-16" />
+                                            <Skeleton className="h-10 w-full" />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Skeleton className="h-4 w-16" />
+                                            <Skeleton className="h-10 w-full" />
+                                        </div>
                                     </div>
-                                    <div className="space-y-2"><Skeleton className="h-4 w-16" /><Skeleton className="h-24 w-full" /></div>
-                                    <div className="space-y-2"><Skeleton className="h-4 w-16" /><Skeleton className="h-24 w-full" /></div>
+                                    <div className="space-y-2">
+                                        <Skeleton className="h-4 w-16" />
+                                        <Skeleton className="h-18 w-full" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Skeleton className="h-4 w-16" />
+                                        <Skeleton className="h-24 w-full" /></div>
+                                    <div className="space-y-2">
+                                        <Skeleton className="h-4 w-16" />
+                                        <Skeleton className="h-24 w-full" />
+                                    </div>
                                 </CardContent>
                             </Card>
                         ) : (
