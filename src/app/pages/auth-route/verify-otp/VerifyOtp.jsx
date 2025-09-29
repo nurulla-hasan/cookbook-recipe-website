@@ -51,7 +51,7 @@ const VerifyOtp = () => {
         try {
             if (type === 'forget-password') {
                 await verifyOTPForResetPassword({ code: OTP, email }).unwrap();
-                navigate("/auth/reset-password");
+                navigate(`/auth/reset-password?email=${encodeURIComponent(email)}`);
             }
             else if (type === 'signup') {
                 await verifyOTPForSignup({ activation_code: OTP, userEmail: email }).unwrap();
