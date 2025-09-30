@@ -10,6 +10,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
@@ -20,10 +21,6 @@ import { cn, ErrorToast, SuccessToast } from "@/lib/utils";
 import { useEffect } from "react";
 import { useUpdateUserProfileMutation } from "@/redux/feature/profile/profileApi";
 
-const MEAL_TYPES = ['breakfast', 'lunches-and-dinners', 'desserts', 'snacks', 'sides'];
-const DIETARY_OPTIONS = ['Gluten-Free', 'Vegan', 'Vegetarian', 'Keto', 'Paleo'];
-const HEALTH_GOALS = ['Weight Loss', 'Muscle Gain', 'Maintain Weight'];
-
 const accountSchema = z.object({
     name: z.string().min(1, { message: "Name is required." }),
     email: z.string().email(),
@@ -31,9 +28,9 @@ const accountSchema = z.object({
     dateOfBirth: z.date({
         required_error: "A date of birth is required.",
     }).nullable(),
-    mail_types: z.array(z.string()).min(1, { message: "Please select at least one meal type." }),
+    mail_types: z.array(z.string()).optional(),
     relevant_dielary: z.array(z.string()).optional(),
-    helgth_goal: z.array(z.string()).min(1, { message: "Please select at least one health goal." }),
+    helgth_goal: z.string().optional(),
 });
 
 
@@ -47,11 +44,9 @@ const EditAccount = ({ user, newProfileImage }) => {
             dateOfBirth: null,
             mail_types: [],
             relevant_dielary: [],
-            helgth_goal: [],
+            helgth_goal: "",
         },
     });
-
-    // console.log(user);
 
     useEffect(() => {
         if (user) {
@@ -61,14 +56,32 @@ const EditAccount = ({ user, newProfileImage }) => {
                 if (typeof value === 'string') {
                     try {
                         const parsed = JSON.parse(value);
-                        return Array.isArray(parsed) ? parsed : [value];
+                        return Array.isArray(parsed) ? parsed : [parsed];
                     } catch (e) {
                         console.log(e);
                         return [value];
                     }
                 }
-                return [];
+                return [value];
             };
+
+            const ensureSingleString = (value) => {
+                if (Array.isArray(value)) {
+                    return value[0] || "";
+                }
+                if (typeof value === 'string') {
+                    try {
+                        const parsed = JSON.parse(value);
+                        if (Array.isArray(parsed)) {
+                            return parsed[0] || "";
+                        }
+                    } catch(e) {
+                        console.log(e);
+                        return value;
+                    }
+                }
+                return value || "";
+            }
 
             form.reset({
                 name: user.name || "",
@@ -77,7 +90,7 @@ const EditAccount = ({ user, newProfileImage }) => {
                 dateOfBirth: user.date_of_birth ? new Date(user.date_of_birth) : null,
                 mail_types: ensureArray(user.mail_types),
                 relevant_dielary: ensureArray(user.relevant_dielary),
-                helgth_goal: ensureArray(user.helgth_goal),
+                helgth_goal: ensureSingleString(user.helgth_goal),
             });
         }
     }, [user, form]);
@@ -104,17 +117,13 @@ const EditAccount = ({ user, newProfileImage }) => {
             formData.append('relevant_dielary', JSON.stringify(data.relevant_dielary));
         }
 
-        if (data.helgth_goal && Array.isArray(data.helgth_goal)) {
-            formData.append('helgth_goal', JSON.stringify(data.helgth_goal));
+        if (data.helgth_goal) {
+            formData.append('helgth_goal', data.helgth_goal);
         }
 
         if (newProfileImage) {
             formData.append('profile_image', newProfileImage);
         }
-
-        // for (const [key, value] of Object.entries(formData)) {
-        //     console.log(key, value);
-        // }
 
         try {
             await updateUserProfile(formData).unwrap();
@@ -227,29 +236,34 @@ const EditAccount = ({ user, newProfileImage }) => {
                             control={form.control}
                             name="helgth_goal"
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className="space-y-3">
                                     <FormLabel>Health Goal</FormLabel>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 border rounded-md">
-                                        {HEALTH_GOALS.map((item) => (
-                                            <div key={item} className="flex flex-row items-start space-x-3 space-y-0">
+                                    <FormControl>
+                                        <RadioGroup
+                                            onValueChange={field.onChange}
+                                            value={field.value}
+                                            className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 border rounded-md"
+                                        >
+                                            <FormItem className="flex items-center space-x-3 space-y-0">
                                                 <FormControl>
-                                                    <Checkbox
-                                                        checked={field.value?.includes(item)}
-                                                        onCheckedChange={(checked) => {
-                                                            return checked
-                                                                ? field.onChange([...(field.value || []), item])
-                                                                : field.onChange(
-                                                                    field.value?.filter(
-                                                                        (value) => value !== item
-                                                                    )
-                                                                );
-                                                        }}
-                                                    />
+                                                    <RadioGroupItem value="weight_loss" />
                                                 </FormControl>
-                                                <FormLabel className="font-normal capitalize">{item.replace(/[-_]/g, ' ')}</FormLabel>
-                                            </div>
-                                        ))}
-                                    </div>
+                                                <FormLabel className="font-normal">Weight Loss</FormLabel>
+                                            </FormItem>
+                                            <FormItem className="flex items-center space-x-3 space-y-0">
+                                                <FormControl>
+                                                    <RadioGroupItem value="muscle_gain" />
+                                                </FormControl>
+                                                <FormLabel className="font-normal">Muscle Gain</FormLabel>
+                                            </FormItem>
+                                            <FormItem className="flex items-center space-x-3 space-y-0">
+                                                <FormControl>
+                                                    <RadioGroupItem value="maintain_weight" />
+                                                </FormControl>
+                                                <FormLabel className="font-normal">Maintain Weight</FormLabel>
+                                            </FormItem>
+                                        </RadioGroup>
+                                    </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -262,25 +276,196 @@ const EditAccount = ({ user, newProfileImage }) => {
                                 <FormItem>
                                     <FormLabel>Meal Types</FormLabel>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 border rounded-md">
-                                        {MEAL_TYPES.map((item) => (
-                                            <div key={item} className="flex flex-row items-start space-x-3 space-y-0">
-                                                <FormControl>
-                                                    <Checkbox
-                                                        checked={field.value?.includes(item)}
-                                                        onCheckedChange={(checked) => {
-                                                            return checked
-                                                                ? field.onChange([...(field.value || []), item])
-                                                                : field.onChange(
-                                                                    field.value?.filter(
-                                                                        (value) => value !== item
-                                                                    )
-                                                                );
-                                                        }}
-                                                    />
-                                                </FormControl>
-                                                <FormLabel className="font-normal capitalize">{item.replace(/[-_]/g, ' ')}</FormLabel>
-                                            </div>
-                                        ))}
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('breakfast')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        let newValues;
+                                                        if (checked) {
+                                                            const withoutNone = currentValues.filter(v => v !== 'none');
+                                                            newValues = [...withoutNone, 'breakfast'];
+                                                        } else {
+                                                            newValues = currentValues.filter((value) => value !== 'breakfast');
+                                                        }
+                                                        field.onChange(newValues);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Breakfast</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('lunches-and-dinners')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        let newValues;
+                                                        if (checked) {
+                                                            const withoutNone = currentValues.filter(v => v !== 'none');
+                                                            newValues = [...withoutNone, 'lunches-and-dinners'];
+                                                        } else {
+                                                            newValues = currentValues.filter((value) => value !== 'lunches-and-dinners');
+                                                        }
+                                                        field.onChange(newValues);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Lunches and Dinners</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('appetizers')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        let newValues;
+                                                        if (checked) {
+                                                            const withoutNone = currentValues.filter(v => v !== 'none');
+                                                            newValues = [...withoutNone, 'appetizers'];
+                                                        } else {
+                                                            newValues = currentValues.filter((value) => value !== 'appetizers');
+                                                        }
+                                                        field.onChange(newValues);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Appetizers</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('salads')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        let newValues;
+                                                        if (checked) {
+                                                            const withoutNone = currentValues.filter(v => v !== 'none');
+                                                            newValues = [...withoutNone, 'salads'];
+                                                        } else {
+                                                            newValues = currentValues.filter((value) => value !== 'salads');
+                                                        }
+                                                        field.onChange(newValues);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Salads</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('soups')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        let newValues;
+                                                        if (checked) {
+                                                            const withoutNone = currentValues.filter(v => v !== 'none');
+                                                            newValues = [...withoutNone, 'soups'];
+                                                        } else {
+                                                            newValues = currentValues.filter((value) => value !== 'soups');
+                                                        }
+                                                        field.onChange(newValues);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Soups</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('desserts')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        let newValues;
+                                                        if (checked) {
+                                                            const withoutNone = currentValues.filter(v => v !== 'none');
+                                                            newValues = [...withoutNone, 'desserts'];
+                                                        } else {
+                                                            newValues = currentValues.filter((value) => value !== 'desserts');
+                                                        }
+                                                        field.onChange(newValues);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Desserts</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('smoothies/shakes')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        let newValues;
+                                                        if (checked) {
+                                                            const withoutNone = currentValues.filter(v => v !== 'none');
+                                                            newValues = [...withoutNone, 'smoothies/shakes'];
+                                                        } else {
+                                                            newValues = currentValues.filter((value) => value !== 'smoothies/shakes');
+                                                        }
+                                                        field.onChange(newValues);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Smoothies/Shakes</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('salad-dressings')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        let newValues;
+                                                        if (checked) {
+                                                            const withoutNone = currentValues.filter(v => v !== 'none');
+                                                            newValues = [...withoutNone, 'salad-dressings'];
+                                                        } else {
+                                                            newValues = currentValues.filter((value) => value !== 'salad-dressings');
+                                                        }
+                                                        field.onChange(newValues);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Salad Dressings</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('jams/marmalades')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        let newValues;
+                                                        if (checked) {
+                                                            const withoutNone = currentValues.filter(v => v !== 'none');
+                                                            newValues = [...withoutNone, 'jams/marmalades'];
+                                                        } else {
+                                                            newValues = currentValues.filter((value) => value !== 'jams/marmalades');
+                                                        }
+                                                        field.onChange(newValues);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Jams/Marmalades</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('sides')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        let newValues;
+                                                        if (checked) {
+                                                            const withoutNone = currentValues.filter(v => v !== 'none');
+                                                            newValues = [...withoutNone, 'sides'];
+                                                        } else {
+                                                            newValues = currentValues.filter((value) => value !== 'sides');
+                                                        }
+                                                        field.onChange(newValues);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Sides</FormLabel>
+                                        </div>
                                     </div>
                                     <FormMessage />
                                 </FormItem>
@@ -294,25 +479,76 @@ const EditAccount = ({ user, newProfileImage }) => {
                                 <FormItem>
                                     <FormLabel>Dietary Preferences</FormLabel>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 border rounded-md">
-                                        {DIETARY_OPTIONS.map((item) => (
-                                            <div key={item} className="flex flex-row items-start space-x-3 space-y-0">
-                                                <FormControl>
-                                                    <Checkbox
-                                                        checked={field.value?.includes(item)}
-                                                        onCheckedChange={(checked) => {
-                                                            return checked
-                                                                ? field.onChange([...(field.value || []), item])
-                                                                : field.onChange(
-                                                                    field.value?.filter(
-                                                                        (value) => value !== item
-                                                                    )
-                                                                );
-                                                        }}
-                                                    />
-                                                </FormControl>
-                                                <FormLabel className="font-normal capitalize">{item.replace(/[-_]/g, ' ')}</FormLabel>
-                                            </div>
-                                        ))}
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('Gluten-Free')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        return checked
+                                                            ? field.onChange([...currentValues, 'Gluten-Free'])
+                                                            : field.onChange(currentValues.filter((value) => value !== 'Gluten-Free'));
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Gluten-Free</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('Vegan')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        return checked
+                                                            ? field.onChange([...currentValues, 'Vegan'])
+                                                            : field.onChange(currentValues.filter((value) => value !== 'Vegan'));
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Vegan</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('Vegetarian')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        return checked
+                                                            ? field.onChange([...currentValues, 'Vegetarian'])
+                                                            : field.onChange(currentValues.filter((value) => value !== 'Vegetarian'));
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Vegetarian</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('Keto')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        return checked
+                                                            ? field.onChange([...currentValues, 'Keto'])
+                                                            : field.onChange(currentValues.filter((value) => value !== 'Keto'));
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Keto</FormLabel>
+                                        </div>
+                                        <div className="flex flex-row items-start space-x-3 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes('Paleo')}
+                                                    onCheckedChange={(checked) => {
+                                                        const currentValues = field.value || [];
+                                                        return checked
+                                                            ? field.onChange([...currentValues, 'Paleo'])
+                                                            : field.onChange(currentValues.filter((value) => value !== 'Paleo'));
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal capitalize">Paleo</FormLabel>
+                                        </div>
                                     </div>
                                     <FormMessage />
                                 </FormItem>

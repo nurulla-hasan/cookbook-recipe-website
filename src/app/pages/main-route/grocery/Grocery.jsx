@@ -14,6 +14,9 @@ import { Button } from "@/components/ui/button";
 import GroceryRecipeCard from "@/components/grocery/GroceryRecipeCard";
 import { useEffect, useRef } from "react";
 import { InfoToast } from "@/lib/utils";
+import GroceryCardListSkeleton from "@/components/skeleton/grocery/GroceryCardListSkeleton";
+import Error from "@/components/common/error/Error";
+import NoData from "@/components/common/no-data/NoData";
 // import { SetPlanId } from "@/redux/feature/meal-plan/addMealPlanSlice";
 // import { useDispatch } from "react-redux";
 // import { useEffect, useState } from "react";
@@ -34,7 +37,7 @@ const Grocery = () => {
     // const [selectedPlan, setSelectedPlan] = useState();
     // const [selectedCustomPlan, setSelectedCustomPlan] = useState();
 
-    const { data: groceryData, isLoading: isGroceryLoading } = useGetGroceryListQuery(planId, { skip: !planId });
+    const { data: groceryData, isLoading: isGroceryLoading, isError: isGroceryError } = useGetGroceryListQuery(planId, { skip: !planId });
 
     // useEffect(() => {
     //     if (activeTab === 'my-weeks') {
@@ -165,27 +168,47 @@ const Grocery = () => {
                             </TabsList>
 
                             <TabsContent value="aisle" className="space-y-8">
-                                {isGroceryLoading ? <div>Loading...</div> : aisleRecipes?.length > 0 ? aisleRecipes.map((recipe) => (
-                                    <GroceryRecipeCard
-                                        key={`aisle-${recipe.id}`}
-                                        image={recipe.image}
-                                        title={recipe.title}
-                                        subtitle={recipe.subtitle}
-                                        ingredients={recipe.ingredients}
-                                    />
-                                )) : <div>No recipes found for this plan.</div>}
+                                {isGroceryLoading ? (
+                                    <GroceryCardListSkeleton />
+                                ) : isGroceryError ? (
+                                    <Error msg="Something went wrong" />
+                                ) : aisleRecipes?.length === 0 ? (
+                                    <NoData msg="No recipes found for this plan." />
+                                ) : !planId ?(
+                                    <NoData msg="Please select a plan from Meal Planner" />
+                                ) : (
+                                    aisleRecipes?.map((recipe) => (
+                                        <GroceryRecipeCard
+                                            key={`aisle-${recipe.id}`}
+                                            image={recipe.image}
+                                            title={recipe.title}
+                                            subtitle={recipe.subtitle}
+                                            ingredients={recipe.ingredients}
+                                        />
+                                    ))
+                                )}
                             </TabsContent>
 
                             <TabsContent value="recipe" className="space-y-8">
-                                {isGroceryLoading ? <div>Loading...</div> : recipeTabRecipes?.length > 0 ? recipeTabRecipes.map((recipe) => (
-                                    <GroceryRecipeCard
-                                        key={`recipe-${recipe.id}`}
-                                        image={recipe.image}
-                                        title={recipe.title}
-                                        subtitle={recipe.subtitle}
-                                        ingredients={recipe.ingredients}
-                                    />
-                                )) : <div>No recipes found for this plan.</div>}
+                            {isGroceryLoading ? (
+                                    <GroceryCardListSkeleton />
+                                ) : isGroceryError ? (
+                                    <Error msg="Something went wrong" />
+                                ) : recipeTabRecipes?.length === 0 ? (
+                                    <NoData msg="No recipes found for this plan." />
+                                ) : !planId ?(
+                                    <NoData msg="Please select a plan from Meal Planner" />
+                                ) : (
+                                    recipeTabRecipes?.map((recipe) => (
+                                        <GroceryRecipeCard
+                                            key={`recipe-${recipe.id}`}
+                                            image={recipe.image}
+                                            title={recipe.title}
+                                            subtitle={recipe.subtitle}
+                                            ingredients={recipe.ingredients}
+                                        />
+                                    ))
+                                )}
                             </TabsContent>
                         </Tabs>
                     </div>

@@ -10,10 +10,16 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactInfo } from "@/lib/mockData";
+// import { contactInfo } from "@/lib/mockData";
 import { useSendMessageMutation } from "@/redux/feature/legal/legalApi";
 import { useSelector } from "react-redux";
 import { ErrorToast, SuccessToast } from "@/lib/utils";
+
+const contactInfo = {
+    address: "123 Main St, Anytown, USA",
+    email: "contact@example.com",
+    phone: "123-456-7890",
+}
 
 const formSchema = z.object({
     email: z.string().min(1, { message: "Email is required" }).email({

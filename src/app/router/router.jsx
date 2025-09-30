@@ -10,6 +10,7 @@ import ContactPageSkeleton from "@/components/skeleton/legal/ContactPageSkeleton
 import RecipeCardSkeleton from "@/components/skeleton/recipe/RecipeCardSkeleton";
 import { ErrorAndSuspense } from "@/tools/ErrorAndSuspense";
 import ProfileSkeleton from "@/components/skeleton/profile/ProfileSkeleton";
+import MealPlannerSkeleton from "@/components/skeleton/meal-planner/MealPlannerSkeleton";
 
 const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
 const EditRecipe = lazy(() => import("../pages/profile-route/my-recipe/edit-recipe/EditRecipe"));
@@ -62,11 +63,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "meal-planner",
-                element: ErrorAndSuspense(MealPlanner, <div>Loading...</div>),
+                element: ErrorAndSuspense(MealPlanner, <MealPlannerSkeleton />),
             },
             {
                 path: "grocery",
-                element: ErrorAndSuspense(Grocery, <div>Loading...</div>),
+                element: ErrorAndSuspense(Grocery, <Grocery />),
             },
             {
                 path: "featured",
@@ -114,7 +115,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "add-recipe",
-                        element: ErrorAndSuspense(AddRecipe, <AddRecipe/>),
+                        element: ErrorAndSuspense(AddRecipe, <AddRecipe />),
                     },
                     {
                         path: "edit-recipe/:id",
