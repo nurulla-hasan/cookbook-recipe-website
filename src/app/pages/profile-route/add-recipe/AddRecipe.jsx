@@ -55,7 +55,7 @@ const AddRecipe = () => {
       instructions: "",
       nutritional: { calories: "", protein: "", carbs: "", fat: "", fiber: "" },
       category: "breakfast",
-      holiday_recipes: "African",
+      holiday_recipes: "Chinese",
       oils: "oil_free",
       serving_temperature: "Cold",
       flavor: "Savory",
@@ -93,10 +93,14 @@ const AddRecipe = () => {
       }
     });
 
+    for(const [key, value] of Object.entries(formData)) {
+      console.log(key, value);
+    }
+
     try {
       await createRecipe(formData).unwrap();
       SuccessToast("Recipe created successfully.");
-      form.reset();
+      // form.reset();
     } catch (error) {
       console.log(error)
       ErrorToast(error?.data?.message || "Failed to create new recipe.");
@@ -324,8 +328,15 @@ const AddRecipe = () => {
                       </FormControl>
                       <SelectContent>
                         <SelectItem value="breakfast">Breakfast</SelectItem>
-                        <SelectItem value="lunch">Lunch</SelectItem>
-                        <SelectItem value="dinner">Dinner</SelectItem>
+                        <SelectItem value="lunches-and-dinners">Lunch & Dinner</SelectItem>
+                        <SelectItem value="appetizers">Appetizers</SelectItem>
+                        <SelectItem value="salads">Salads</SelectItem>
+                        <SelectItem value="soups">Soups</SelectItem>
+                        <SelectItem value="desserts">Desserts</SelectItem>
+                        <SelectItem value="smoothies/shakes">Smoothies/Shakes</SelectItem>
+                        <SelectItem value="salad-dressings">Salad Dressings</SelectItem>
+                        <SelectItem value="jams/marmalades">Jams/Marmalades</SelectItem>
+                        <SelectItem value="sides">Sides</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -345,11 +356,17 @@ const AddRecipe = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="African">African</SelectItem>
+                        <SelectItem value="Chinese">Chinese</SelectItem>
+                        <SelectItem value="Japanese">Japanese</SelectItem>
+                        <SelectItem value="French">French</SelectItem>
+                        <SelectItem value="Greek">Greek</SelectItem>
                         <SelectItem value="Italian">Italian</SelectItem>
                         <SelectItem value="Mexican">Mexican</SelectItem>
-                        <SelectItem value="Chinese">Chinese</SelectItem>
                         <SelectItem value="Indian">Indian</SelectItem>
+                        <SelectItem value="Arabic">Arabic</SelectItem>
+                        <SelectItem value="Thai">Thai</SelectItem>
+                        <SelectItem value="Southern Comfort">Southern Comfort</SelectItem>
+                        <SelectItem value="Backyard BBQ">Backyard BBQ</SelectItem>
                         <SelectItem value="Christmas">Christmas</SelectItem>
                         <SelectItem value="Thanksgiving">Thanksgiving</SelectItem>
                       </SelectContent>
@@ -376,7 +393,7 @@ const AddRecipe = () => {
                       </FormItem>
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
-                          <RadioGroupItem value="with-oil" />
+                          <RadioGroupItem value="with_oil" />
                         </FormControl>
                         <FormLabel className="font-normal">With Oil</FormLabel>
                       </FormItem>
@@ -490,9 +507,15 @@ const AddRecipe = () => {
                       </FormItem>
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
-                          <RadioGroupItem value="weeklt_based" />
+                          <RadioGroupItem value="whole_food" />
                         </FormControl>
-                        <FormLabel className="font-normal">Weekly Based</FormLabel>
+                        <FormLabel className="font-normal">Whole Food</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2">
+                        <FormControl>
+                          <RadioGroupItem value="paleo" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Paleo</FormLabel>
                       </FormItem>
                     </RadioGroup>
                   </FormControl>

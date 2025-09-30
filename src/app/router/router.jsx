@@ -70,7 +70,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "featured",
-                element: ErrorAndSuspense(Featured, <div>Loading...</div>),
+                element: ErrorAndSuspense(Featured, <Featured />),
             },
             {
                 path: "about",
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "profile",
-                element: ErrorAndSuspense(Profilelayout, <ProfileSkeleton />),
+                element: ErrorAndSuspense(Profilelayout, <div>Loading...</div>),
                 children: [
                     {
                         index: true,
@@ -114,11 +114,11 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "add-recipe",
-                        element: ErrorAndSuspense(AddRecipe, <div>Loading...</div>),
+                        element: ErrorAndSuspense(AddRecipe, <AddRecipe/>),
                     },
                     {
                         path: "edit-recipe/:id",
-                        element: ErrorAndSuspense(EditRecipe, <div>Loading...</div>),
+                        element: ErrorAndSuspense(EditRecipe, <EditRecipe />),
                     },
                 ]
             },
