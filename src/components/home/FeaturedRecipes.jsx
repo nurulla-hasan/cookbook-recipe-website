@@ -72,6 +72,7 @@ const FeaturedRecipeCard = ({ recipe }) => {
 const FeaturedRecipes = () => {
 
     const { data: recipes, isLoading, isError } = useGetFeaturedRecipesQuery();
+    // console.log(recipes);
     const [api, setApi] = React.useState(null);
 
     return (
@@ -100,7 +101,7 @@ const FeaturedRecipes = () => {
                         ) : recipes?.data?.length === 0 ? (
                             <p>No recipes found</p>
                         ) : (
-                            recipes?.data?.result?.slice(0, 6).map((recipe) => (
+                            recipes?.data?.slice(0, 10).map((recipe) => (
                                 <FeaturedRecipeCard key={recipe._id} recipe={recipe} />
                             ))
                         )}

@@ -6,7 +6,7 @@ const homeApi = baseApi.injectEndpoints({
         // GET FEATURED RECIPES
         getFeaturedRecipes: builder.query({
             query: () => ({
-                url: "/dashboard/get_all_recipe",
+                url: "/dashboard/recipe_for_you",
                 method: "GET",
             }),
             providesTags: ["FEATURED"],
