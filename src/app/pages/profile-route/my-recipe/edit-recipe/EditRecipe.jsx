@@ -184,7 +184,7 @@ const EditRecipe = () => {
                               e.stopPropagation();
                               field.onChange(null);
                               setImagePreview(null);
-                              if(fileInputRef.current) fileInputRef.current.value = "";
+                              if (fileInputRef.current) fileInputRef.current.value = "";
                             }}
                           >
                             <Trash2 className="h-4 w-4" />
@@ -348,8 +348,15 @@ const EditRecipe = () => {
                       </FormControl>
                       <SelectContent>
                         <SelectItem value="breakfast">Breakfast</SelectItem>
-                        <SelectItem value="lunch">Lunch</SelectItem>
-                        <SelectItem value="dinner">Dinner</SelectItem>
+                        <SelectItem value="lunches-and-dinners">Lunch & Dinner</SelectItem>
+                        <SelectItem value="appetizers">Appetizers</SelectItem>
+                        <SelectItem value="salads">Salads</SelectItem>
+                        <SelectItem value="soups">Soups</SelectItem>
+                        <SelectItem value="desserts">Desserts</SelectItem>
+                        <SelectItem value="smoothies/shakes">Smoothies/Shakes</SelectItem>
+                        <SelectItem value="salad-dressings">Salad Dressings</SelectItem>
+                        <SelectItem value="jams/marmalades">Jams/Marmalades</SelectItem>
+                        <SelectItem value="sides">Sides</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -369,11 +376,17 @@ const EditRecipe = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="African">African</SelectItem>
+                        <SelectItem value="Chinese">Chinese</SelectItem>
+                        <SelectItem value="Japanese">Japanese</SelectItem>
+                        <SelectItem value="French">French</SelectItem>
+                        <SelectItem value="Greek">Greek</SelectItem>
                         <SelectItem value="Italian">Italian</SelectItem>
                         <SelectItem value="Mexican">Mexican</SelectItem>
-                        <SelectItem value="Chinese">Chinese</SelectItem>
                         <SelectItem value="Indian">Indian</SelectItem>
+                        <SelectItem value="Arabic">Arabic</SelectItem>
+                        <SelectItem value="Thai">Thai</SelectItem>
+                        <SelectItem value="Southern Comfort">Southern Comfort</SelectItem>
+                        <SelectItem value="Backyard BBQ">Backyard BBQ</SelectItem>
                         <SelectItem value="Christmas">Christmas</SelectItem>
                         <SelectItem value="Thanksgiving">Thanksgiving</SelectItem>
                       </SelectContent>
@@ -400,7 +413,7 @@ const EditRecipe = () => {
                       </FormItem>
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
-                          <RadioGroupItem value="with-oil" />
+                          <RadioGroupItem value="with_oil" />
                         </FormControl>
                         <FormLabel className="font-normal">With Oil</FormLabel>
                       </FormItem>
@@ -514,9 +527,15 @@ const EditRecipe = () => {
                       </FormItem>
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
-                          <RadioGroupItem value="weeklt_based" />
+                          <RadioGroupItem value="whole_food" />
                         </FormControl>
-                        <FormLabel className="font-normal">Weekly Based</FormLabel>
+                        <FormLabel className="font-normal">Whole Food</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2">
+                        <FormControl>
+                          <RadioGroupItem value="paleo" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Paleo</FormLabel>
                       </FormItem>
                     </RadioGroup>
                   </FormControl>

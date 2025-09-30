@@ -51,7 +51,7 @@ const EditAccount = ({ user, newProfileImage }) => {
         },
     });
 
-    console.log(user);
+    // console.log(user);
 
     useEffect(() => {
         if (user) {
@@ -111,6 +111,10 @@ const EditAccount = ({ user, newProfileImage }) => {
         if (newProfileImage) {
             formData.append('profile_image', newProfileImage);
         }
+
+        // for (const [key, value] of Object.entries(formData)) {
+        //     console.log(key, value);
+        // }
 
         try {
             await updateUserProfile(formData).unwrap();
