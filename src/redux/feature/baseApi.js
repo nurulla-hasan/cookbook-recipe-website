@@ -2,10 +2,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { SetAccessToken } from './auth/authSlice';
 import { SetUserProfile } from './profile/profileSlice';
 
-export const IMAGE_BASE_URL = 'http://10.10.20.11:5005';
+export const IMAGE_BASE_URL = 'https://backend.koumanisdietapp.com';
 
 const rawBaseQuery = fetchBaseQuery({
-    baseUrl: 'http://10.10.20.11:5005',
+    baseUrl: 'https://backend.koumanisdietapp.com',
 
     prepareHeaders: (headers, { getState }) => {
         const token = getState()?.auth.accessToken;
