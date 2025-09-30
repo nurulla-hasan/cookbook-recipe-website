@@ -5,18 +5,18 @@ import DietGoals from "@/components/home/DietGoals";
 import FeaturedRecipes from "@/components/home/FeaturedRecipes";
 // import GetApp from "@/components/home/GetApp";
 import TopCategories from "@/components/home/TopCategories";
-import { useState } from "react";
 import Featured from "../featured/Featured";
+import { useSelector } from "react-redux";
 
 
 const Home = () => {
 
-    const [isLoggedIn] = useState(false);
+    const { accessToken } = useSelector((state) => state.auth);
 
     return (
         <>
             {
-                isLoggedIn ? (
+                accessToken ? (
                     <>
                         <HeroCarousel />
                         <TopCategories />
@@ -26,9 +26,7 @@ const Home = () => {
                         {/* <GetApp /> */}
                     </>
                 ) : (
-                    <>
                     <Featured />
-                    </>
                 )
             }
         </>

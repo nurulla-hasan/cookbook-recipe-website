@@ -1,4 +1,4 @@
-import PageLayout from '@/app/layout/PageLayout';
+import PageLayout from '@/tools/PageLayout';
 import FeatureSection from '@/components/featured/feature-section/FeatureSection';
 import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';

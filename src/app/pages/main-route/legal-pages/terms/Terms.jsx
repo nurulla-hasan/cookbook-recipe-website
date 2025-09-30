@@ -1,14 +1,23 @@
-import PageLayout from "@/app/layout/PageLayout";
+import PageLayout from "@/tools/PageLayout";
 import PageHeader from "@/components/common/page-header/PageHeader";
+import LegalSkeleton from "@/components/skeleton/legal/LegalSkeleton";
+import Error from "@/components/common/error/Error";
 import { replaceWhiteBackground } from "@/lib/utils";
+import { useGetTermsQuery } from "@/redux/feature/legal/legalApi";
 
 const Terms = () => {
+    const { data, isLoading, isError } = useGetTermsQuery()
+    const terms = data?.data?.description
+
     const breadcrumb = [
         { name: 'Home', href: '/' },
         { name: 'Terms' },
     ];
 
-    const terms = "<h2>You can add any text from your dashboard.</h2>";
+    if (isLoading) {
+        return <LegalSkeleton />;
+    }
+
     return (
         <div>
             <PageHeader
@@ -17,6 +26,7 @@ const Terms = () => {
             />
             <PageLayout paddingSize="compact">
                 <div dangerouslySetInnerHTML={{ __html: replaceWhiteBackground(terms) }} />
+                {isError && <Error msg="Something went wrong" />}
             </PageLayout>
         </div>
     );

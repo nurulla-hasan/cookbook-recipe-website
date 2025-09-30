@@ -21,7 +21,7 @@ const ForgetPassword = () => {
         },
     });
 
-    const [forgetPassword] = useForgetPasswordMutation()
+    const [forgetPassword, { isLoading }] = useForgetPasswordMutation()
 
     const onSubmit = (data) => {
         forgetPassword(data)
@@ -60,7 +60,7 @@ const ForgetPassword = () => {
                                     )}
                                 />
 
-                                <Button type="submit" className="w-full">
+                                <Button type="submit" className="w-full" loading={isLoading}>
                                     Get Code
                                 </Button>
                             </div>

@@ -6,8 +6,39 @@ import Logo from '../../../assets/Logo.png';
 import { Link } from "react-router-dom";
 import apple from '../../../assets/apple.png'
 import google from '../../../assets/google.png'
+import { Form, FormField, FormItem, FormControl, FormMessage } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useSendSubscribeMutation } from "@/redux/feature/legal/legalApi";
+import { ErrorToast, SuccessToast } from "@/lib/utils";
+
+const formSchema = z.object({
+  email: z.string().email(),
+})
 
 const Footer = () => {
+
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: '',
+    },
+  })
+
+  const [sendSubscribe, { isLoading }] = useSendSubscribeMutation()
+
+  const onSubmit = async (data) => {
+    try {
+      await sendSubscribe(data)
+      SuccessToast("Subscribe successfully")
+      form.reset()
+    } catch (error) {
+      console.log(error)
+      ErrorToast("Subscribe failed")
+    }
+  }
+
   return (
     <footer className="bg-gradient-to-b from-secondary to-secondary/50 text-foreground">
       {/* Newsletter Section */}
@@ -17,14 +48,23 @@ const Footer = () => {
             <div className="flex flex-1 w-full max-w-md">
               <h3 className="text-xl md:text-2xl lg:text-4xl font-medium text-foreground font-caladea">Subscribe to our Newsletter</h3>
             </div>
-            <div className="flex flex-1 w-full max-w-md space-x-2">
-              <Input
-                type="email"
-                placeholder="Your email"
-                className="bg-background"
-              />
-              <Button>Subscribe</Button>
-            </div>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 w-full max-w-md space-x-2">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Enter your email" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button loading={isLoading} type="submit">Subscribe</Button>
+              </form>
+            </Form>
           </div>
         </div>
       </div>

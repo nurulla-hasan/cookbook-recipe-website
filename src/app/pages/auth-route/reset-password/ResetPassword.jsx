@@ -19,6 +19,7 @@ const resetPasswordSchema = z.object({
 });
 
 const ResetPassword = () => {
+    const email = new URLSearchParams(window.location.search).get("email");
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
     const toggleNewPasswordVisibility = () => setShowNewPassword(!showNewPassword);
@@ -35,12 +36,12 @@ const ResetPassword = () => {
     });
 
     const onSubmit = (data) => {
-        resetPassword(
-            {
-                newPassword: data.newPassword,
-                confirmPassword: data.confirmNewPassword
-            }
-        )
+        const payload = {
+            newPassword: data.newPassword,
+            confirmPassword: data.confirmNewPassword,
+            email
+        }
+        resetPassword(payload)
     };
 
     return (

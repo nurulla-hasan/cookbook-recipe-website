@@ -1,9 +1,15 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import { withErrorAndSuspense } from "@/tools/withErrorAndSuspense";
 import MainLayout from "../layout/MainLayout";
 import AuthLayout from "../layout/AuthLayout";
 import Profilelayout from "../layout/Profilelayout";
+import RecipeDetailsSkeleton from "@/components/skeleton/recipe-details/RecipeDetailsSkeleton";
+import CategoryPageSkeleton from "@/components/skeleton/category/CategoryPageSkeleton";
+import LegalSkeleton from "@/components/skeleton/legal/LegalSkeleton";
+import ContactPageSkeleton from "@/components/skeleton/legal/ContactPageSkeleton";
+import RecipeCardSkeleton from "@/components/skeleton/recipe/RecipeCardSkeleton";
+import { ErrorAndSuspense } from "@/tools/ErrorAndSuspense";
+import ProfileSkeleton from "@/components/skeleton/profile/ProfileSkeleton";
 
 const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
 const EditRecipe = lazy(() => import("../pages/profile-route/my-recipe/edit-recipe/EditRecipe"));
@@ -28,6 +34,7 @@ const ForgetPassword = lazy(() => import("../pages/auth-route/forgot-password/Fo
 const VerifyOtp = lazy(() => import("../pages/auth-route/verify-otp/VerifyOtp"));
 const ResetPassword = lazy(() => import("../pages/auth-route/reset-password/ResetPassword"));
 const Category = lazy(() => import("../pages/main-route/category/Category"));
+const DiatGoals = lazy(() => import("../pages/main-route/diat-gols/DiatGoals"));
 const router = createBrowserRouter([
     {
         path: "/",
@@ -39,75 +46,79 @@ const router = createBrowserRouter([
             },
             {
                 path: "recipes",
-                element: withErrorAndSuspense(Recipes, <div>Loading...</div>),
+                element: ErrorAndSuspense(Recipes, <CategoryPageSkeleton />),
             },
             {
                 path: "category/:slug",
-                element: withErrorAndSuspense(Category, <div>Loading...</div>),
+                element: ErrorAndSuspense(Category, <CategoryPageSkeleton />),
+            },
+            {
+                path: "diet-goals/:slug",
+                element: ErrorAndSuspense(DiatGoals, <CategoryPageSkeleton />),
             },
             {
                 path: "recipes/recipe-details/:id",
-                element: withErrorAndSuspense(RecipeDetails, <div>Loading...</div>),
+                element: ErrorAndSuspense(RecipeDetails, <RecipeDetailsSkeleton />),
             },
             {
                 path: "meal-planner",
-                element: withErrorAndSuspense(MealPlanner, <div>Loading...</div>),
+                element: ErrorAndSuspense(MealPlanner, <div>Loading...</div>),
             },
             {
                 path: "grocery",
-                element: withErrorAndSuspense(Grocery, <div>Loading...</div>),
+                element: ErrorAndSuspense(Grocery, <div>Loading...</div>),
             },
             {
                 path: "featured",
-                element: withErrorAndSuspense(Featured, <div>Loading...</div>),
+                element: ErrorAndSuspense(Featured, <Featured />),
             },
             {
                 path: "about",
-                element: withErrorAndSuspense(About, <div>Loading...</div>),
+                element: ErrorAndSuspense(About, <LegalSkeleton />),
             },
             {
                 path: "contact",
-                element: withErrorAndSuspense(Contact, <div>Loading...</div>),
+                element: ErrorAndSuspense(Contact, <ContactPageSkeleton />),
             },
             {
                 path: "legal/help",
-                element: withErrorAndSuspense(Help, <div>Loading...</div>),
+                element: ErrorAndSuspense(Help, <LegalSkeleton />),
             },
             {
                 path: "legal/faq",
-                element: withErrorAndSuspense(Faq, <div>Loading...</div>),
+                element: ErrorAndSuspense(Faq, <LegalSkeleton />),
             },
             {
                 path: "legal/privacy",
-                element: withErrorAndSuspense(Privacy, <div>Loading...</div>),
+                element: ErrorAndSuspense(Privacy, <LegalSkeleton />),
             },
             {
                 path: "legal/terms",
-                element: withErrorAndSuspense(Terms, <div>Loading...</div>),
+                element: ErrorAndSuspense(Terms, <LegalSkeleton />),
             },
             {
                 path: "profile",
-                element: withErrorAndSuspense(Profilelayout, <div>Loading...</div>),
+                element: ErrorAndSuspense(Profilelayout, <div>Loading...</div>),
                 children: [
                     {
                         index: true,
-                        element: withErrorAndSuspense(MyAccount, <div>Loading...</div>),
+                        element: ErrorAndSuspense(MyAccount, <ProfileSkeleton />),
                     },
                     {
                         path: "my-favourite",
-                        element: withErrorAndSuspense(Favorite, <div>Loading...</div>),
+                        element: ErrorAndSuspense(Favorite, <div className="grid gap-6 grid-cols-1"><RecipeCardSkeleton count={3} /></div>),
                     },
                     {
                         path: "my-recipes",
-                        element: withErrorAndSuspense(MyRecipe, <div>Loading...</div>),
+                        element: ErrorAndSuspense(MyRecipe, <div className="grid gap-6 grid-cols-1"><RecipeCardSkeleton count={3} /></div>),
                     },
                     {
                         path: "add-recipe",
-                        element: withErrorAndSuspense(AddRecipe, <div>Loading...</div>),
+                        element: ErrorAndSuspense(AddRecipe, <AddRecipe/>),
                     },
                     {
                         path: "edit-recipe/:id",
-                        element: withErrorAndSuspense(EditRecipe, <div>Loading...</div>),
+                        element: ErrorAndSuspense(EditRecipe, <EditRecipe />),
                     },
                 ]
             },

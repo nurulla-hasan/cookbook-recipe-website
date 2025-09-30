@@ -1,12 +1,11 @@
-import PageLayout from "@/app/layout/PageLayout";
+import PageLayout from "@/tools/PageLayout";
 import PageHeader from "@/components/common/page-header/PageHeader";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { mockFAQs } from "@/lib/mockData";
-import { useState } from "react";
+import { useGetFaqQuery } from "@/redux/feature/legal/legalApi";
 import { Link } from "react-router-dom";
 
 const Faq = () => {
-    const [FAQs] = useState(mockFAQs);
+    const { data: faqs } = useGetFaqQuery()
 
     const breadcrumb = [
         { name: 'Home', href: '/' },
@@ -30,14 +29,14 @@ const Faq = () => {
                         collapsible
                         className="w-full space-y-2"
                     >
-                        {FAQs.map((item, index) => (
+                        {faqs?.data?.map((item, index) => (
                             <AccordionItem
                                 value={`item-${index}`}
                                 key={index}
                                 className="bg-background has-focus-visible:border-ring has-focus-visible:ring-ring/50 rounded-md border p-4 outline-none last:border-b has-focus-visible:ring-[3px]"
                             >
                                 <AccordionTrigger className="py-2 text-[15px] leading-6 hover:no-underline focus-visible:ring-0">
-                                    {item.question}
+                                    {item.questions}
                                 </AccordionTrigger>
                                 <AccordionContent className="text-muted-foreground pb-2">
                                     {item.answer}

@@ -1,4 +1,4 @@
-import { Cake, Leaf, Slice, UtensilsCrossed, Wine } from "lucide-react";
+import { Dumbbell, Scale, Zap } from "lucide-react";
 import featured1 from '../assets/featured/featured (1).png';
 import featured2 from '../assets/featured/featured (6).png';
 import featured3 from '../assets/featured/featured (5).png';
@@ -57,26 +57,27 @@ export const mockRecipes = [
     },
 ];
 
-export const categories = [
+
+export const diatGoals = [
     {
-        name: 'Breakfast',
-        icon: <Slice className="w-12 h-12" />
+        name: 'Weight Loss',
+        icon: <Dumbbell className="w-16 h-16 text-primary" />,
     },
     {
-        name: 'Lunches',
-        icon: <UtensilsCrossed className="w-12 h-12" />
+        name: 'Muscle Gain',
+        icon: <Zap className="w-16 h-16 text-primary" />,
     },
     {
-        name: 'Desserts',
-        icon: <Cake className="w-12 h-12" />
+        name: 'Maintain Weight',
+        icon: <Scale className="w-16 h-16 text-primary" />,
     },
     {
-        name: 'Appetizer',
-        icon: <Wine className="w-12 h-12" />
+        name: 'Improve Endurance',
+        icon: <Dumbbell className="w-16 h-16 text-primary" />,
     },
     {
-        name: 'Salads',
-        icon: <Leaf className="w-12 h-12" />
+        name: 'Weight Gain',
+        icon: <Dumbbell className="w-16 h-16 text-primary" />,
     },
 ];
 
@@ -225,181 +226,6 @@ export const contactInfo = {
     email: "contact@example.com",
     phone: "123-456-7890",
 }
-
-export const weeklyPlans = [
-    "This Week",
-    "Next week",
-    "2nd Week",
-    "3rd Week",
-    "4th Week",
-    "5th Week",
-    "6th Week",
-];
-export const simpleStarterPlans = [
-    "Budget $3 a Meal",
-    "Budget $5 a Meal",
-];
-export const preparations = [
-    "Breakfast",
-    "Lunch",
-    "Dinner",
-    "Dessert",
-    "Salad",
-    "Snacks",
-];
-
-const weeklyMealPlan_this_week = {
-    "DAY 1": [
-        { type: "Breakfast", recipe: mockRecipes[2] },
-        { type: "Lunch", recipe: mockRecipes[0] },
-        { type: "Dinner", recipe: mockRecipes[3] },
-        { type: "Dessert", recipe: mockRecipes[1] },
-    ],
-    "DAY 2": [
-        { type: "Breakfast", recipe: mockRecipes[2] },
-        { type: "Lunch", recipe: mockRecipes[0] },
-        { type: "Dinner", recipe: mockRecipes[4] },
-    ],
-    "DAY 3": [
-        { type: "Lunch", recipe: mockRecipes[0] },
-        { type: "Dinner", recipe: mockRecipes[4] },
-        { type: "Dessert", recipe: mockRecipes[2] },
-        { type: "Snacks", recipe: mockRecipes[0] },
-    ],
-    "DAY 4": [
-        { type: "Breakfast", recipe: mockRecipes[2] },
-        { type: "Lunch", recipe: mockRecipes[3] },
-    ],
-    "DAY 5": [
-        { type: "Breakfast", recipe: mockRecipes[2] },
-        { type: "Dinner", recipe: mockRecipes[4] },
-    ],
-    "DAY 6": [
-        { type: "Lunch", recipe: mockRecipes[3] },
-        { type: "Dinner", recipe: mockRecipes[0] },
-    ],
-    "DAY 7": [
-        { type: "Breakfast", recipe: mockRecipes[2] },
-    ],
-};
-
-const weeklyMealPlan_next_week = {
-    "DAY 1": [
-        { type: "Breakfast", recipe: mockRecipes[3] },
-        { type: "Lunch", recipe: mockRecipes[1] },
-        { type: "Dinner", recipe: mockRecipes[5] },
-    ],
-    "DAY 2": [
-        { type: "Lunch", recipe: mockRecipes[2] },
-        { type: "Dinner", recipe: mockRecipes[0] },
-    ],
-    "DAY 3": [
-        { type: "Breakfast", recipe: mockRecipes[3] },
-    ],
-    "DAY 4": [
-        { type: "Breakfast", recipe: mockRecipes[1] },
-        { type: "Lunch", recipe: mockRecipes[2] },
-        { type: "Dinner", recipe: mockRecipes[5] },
-    ],
-    "DAY 5": [
-        { type: "Lunch", recipe: mockRecipes[0] },
-    ],
-    "DAY 6": [
-        { type: "Breakfast", recipe: mockRecipes[3] },
-        { type: "Lunch", recipe: mockRecipes[1] },
-        { type: "Dinner", recipe: mockRecipes[4] },
-    ],
-    "DAY 7": [
-        { type: "Breakfast", recipe: mockRecipes[2] },
-        { type: "Dinner", recipe: mockRecipes[5] },
-    ],
-};
-
-const starterPlan_budget_3 = {
-    "DAY 1": [
-        { type: "Breakfast", recipe: mockRecipes[0] },
-        { type: "Lunch", recipe: mockRecipes[1] },
-        { type: "Dinner", recipe: mockRecipes[2] },
-    ],
-    "DAY 2": [
-        { type: "Breakfast", recipe: mockRecipes[3] },
-        { type: "Lunch", recipe: mockRecipes[4] },
-        { type: "Dinner", recipe: mockRecipes[5] },
-    ],
-    "DAY 3": [
-        { type: "Breakfast", recipe: mockRecipes[0] },
-        { type: "Lunch", recipe: mockRecipes[2] },
-        { type: "Dinner", recipe: mockRecipes[4] },
-    ],
-    "DAY 4": [
-        { type: "Breakfast", recipe: mockRecipes[1] },
-        { type: "Lunch", recipe: mockRecipes[3] },
-        { type: "Dinner", recipe: mockRecipes[5] },
-    ],
-    "DAY 5": [
-        { type: "Breakfast", recipe: mockRecipes[0] },
-        { type: "Lunch", recipe: mockRecipes[4] },
-    ],
-    "DAY 6": [
-        { type: "Breakfast", recipe: mockRecipes[1] },
-    ],
-    "DAY 7": [
-        { type: "Breakfast", recipe: mockRecipes[3] },
-    ],
-};
-
-const starterPlan_budget_5 = {
-    "DAY 1": [
-        { type: "Breakfast", recipe: mockRecipes[5] },
-        { type: "Lunch", recipe: mockRecipes[4] },
-        { type: "Dinner", recipe: mockRecipes[3] },
-    ],
-    "DAY 2": [
-        { type: "Breakfast", recipe: mockRecipes[2] },
-        { type: "Lunch", recipe: mockRecipes[1] },
-        { type: "Dinner", recipe: mockRecipes[0] },
-    ],
-    "DAY 3": [
-        { type: "Breakfast", recipe: mockRecipes[5] },
-        { type: "Lunch", recipe: mockRecipes[3] },
-        { type: "Dinner", recipe: mockRecipes[1] },
-    ],
-    "DAY 4": [
-        { type: "Breakfast", recipe: mockRecipes[4] },
-        { type: "Lunch", recipe: mockRecipes[2] },
-        { type: "Dinner", recipe: mockRecipes[0] },
-    ],
-    "DAY 5": [
-        { type: "Lunch", recipe: mockRecipes[1] },
-    ],
-    "DAY 6": [
-        { type: "Lunch", recipe: mockRecipes[3] },
-    ],
-    "DAY 7": [
-        { type: "Lunch", recipe: mockRecipes[5] },
-        { type: "Dinner", recipe: mockRecipes[0] },
-    ],
-};
-
-export const allMealPlans = {
-    "my-weeks": {
-        "This Week": weeklyMealPlan_this_week,
-        "Next week": weeklyMealPlan_next_week,
-        "2nd Week": weeklyMealPlan_this_week, // Reusing for demo
-        "3rd Week": weeklyMealPlan_next_week, // Reusing for demo
-        "4th Week": weeklyMealPlan_this_week, // Reusing for demo
-        "5th Week": weeklyMealPlan_next_week, // Reusing for demo
-        "6th Week": weeklyMealPlan_this_week, // Reusing for demo
-    },
-    "starter-plans": {
-        "Budget $3 a Meal": starterPlan_budget_3,
-        "Budget $5 a Meal": starterPlan_budget_5,
-    },
-    "custom-plans": {
-        "My Custom Mean Plan": weeklyMealPlan_next_week, // Reusing for demo
-    }
-};
-
 
 
 export const featureData = [

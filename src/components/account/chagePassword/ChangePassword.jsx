@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useChangePasswordMutation } from "@/redux/feature/auth/authApi";
 
 const passwordSchema = z.object({
     currentPassword: z.string().min(6, { message: "Password must be at least 6 characters." }),
@@ -17,7 +18,11 @@ const passwordSchema = z.object({
 }).refine((data) => data.newPassword === data.confirmPassword, {
     message: "Passwords don't match.",
     path: ["confirmPassword"],
+}).refine((data) => data.currentPassword !== data.newPassword, {
+    message: "New password cannot be the same as the current password.",
+    path: ["newPassword"],
 });
+
 
 
 const ChangePassword = () => {
@@ -33,9 +38,15 @@ const ChangePassword = () => {
             confirmPassword: "",
         },
     });
+    const [changePassword, { isLoading }] = useChangePasswordMutation();
 
     const onSubmit = (data) => {
-        console.log(data);
+        const payload = {
+            oldPassword: data.currentPassword,
+            newPassword: data.newPassword,
+            confirmPassword: data.confirmPassword,
+        };
+        changePassword(payload);
     };
 
     return (
@@ -116,7 +127,7 @@ const ChangePassword = () => {
                             )}
                         />
                         <div className="flex justify-end">
-                            <Button type="submit">Update Password</Button>
+                            <Button loading={isLoading} type="submit">Update Password</Button>
                         </div>
                     </form>
                 </Form>
