@@ -5,6 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { StarRating } from '@/tools/StarRating';
 import { useSendReviewMutation } from '@/redux/feature/recipe/recipeApi';
 import { useParams } from 'react-router-dom';
+import { ErrorToast, SuccessToast } from '@/lib/utils';
 
 
 const ReviewModal = ({ isOpen, onClose }) => {
@@ -14,17 +15,23 @@ const ReviewModal = ({ isOpen, onClose }) => {
 
     const [sendReview, { isLoading }] = useSendReviewMutation();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            sendReview({
+            await sendReview({
                 recipeId: id,
                 ratting: rating,
                 feedback: comment,
-            });
+            }).unwrap();
+
+            SuccessToast('Review sent successfully');
+            setRating(0);
+            setComment('');
             onClose(false);
+
         } catch (error) {
-            console.log(error);
+            console.error('Review submission failed:', error);
+            ErrorToast(error?.data?.message || 'Failed to send review');
         }
     };
 

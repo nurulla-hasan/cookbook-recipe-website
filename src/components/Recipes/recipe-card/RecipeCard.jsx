@@ -31,33 +31,32 @@ const RecipeCard = (
     const handleChooseClick = async (recipeId) => {
         dispatch(SetRecipeId(recipeId));
         try {
-            const result = await addMealPlanRecipes({ planId, day: selectedDay, recipeId }).unwrap();
+            await addMealPlanRecipes({
+                planId,
+                day: selectedDay,
+                recipeId
+            }).unwrap();
             SuccessToast("Recipe added to meal plan successfully");
-            // Reset states after successful addition
             dispatch(SetRecipeId(null));
             dispatch(SetSelectedDay(null));
-            return result;
-        } catch (error) {
-            console.error('Error adding recipe to meal plan:', error);
-            ErrorToast(error.data?.message || "Failed to add recipe to meal plan");
-            throw error;
-        } finally {
             dispatch(SetMealPlannerModalOpen(false));
+        } catch (error) {
+            console.error('Error', error);
+            ErrorToast(error.data?.message || "Failed to add recipe to meal plan");
         }
     };
 
     const handleSwapClick = async (newId) => {
         try {
-            await swapRecipe({ planId, day: selectedDay, removeId: recipeId, newId });
+            await swapRecipe({ planId, day: selectedDay, removeId: recipeId, newId }).unwrap();
             SuccessToast("Recipe swapped successfully");
 
             dispatch(SetRecipeId(null));
             dispatch(SetSelectedDay(null));
+            dispatch(SetMealPlannerSwapModalOpen(false));
         } catch (error) {
             console.error('Swap error:', error);
             ErrorToast(error.data?.message || "Failed to swap recipe");
-        } finally {
-            dispatch(SetMealPlannerSwapModalOpen(false));
         }
     };
 

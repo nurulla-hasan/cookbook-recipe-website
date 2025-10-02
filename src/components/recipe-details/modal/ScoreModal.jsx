@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { StarRating } from '@/tools/StarRating';
 import { useSendSatietyReviewMutation } from '@/redux/feature/recipe/recipeApi';
+import { ErrorToast } from '@/lib/utils';
 
 
 const ScoreModal = ({ isOpen, onClose, recipe }) => {
@@ -10,13 +11,18 @@ const ScoreModal = ({ isOpen, onClose, recipe }) => {
 
     const [sendScore, { isLoading }] = useSendSatietyReviewMutation();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            sendScore({ recipeId: recipe._id, ratting: rating });
+            await sendScore({
+                recipeId: recipe._id,
+                ratting: rating
+            }).unwrap();
+            setRating(0);
             onClose(false);
         } catch (error) {
-            console.log(error);
+            console.error('Review submission failed:', error);
+            ErrorToast(error?.data?.message || 'Failed to send review');
         }
     };
 

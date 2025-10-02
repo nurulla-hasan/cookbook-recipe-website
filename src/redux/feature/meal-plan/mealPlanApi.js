@@ -135,7 +135,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                     method: "POST",
                     params,
                 }
-            },
+            },           
             invalidatesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 

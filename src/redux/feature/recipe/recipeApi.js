@@ -1,4 +1,3 @@
-import { ErrorToast, SuccessToast } from "@/lib/utils";
 import { baseApi } from "../baseApi";
 
 
@@ -142,14 +141,6 @@ const recipeApi = baseApi.injectEndpoints({
                     url: "/dashboard/score_review/send",
                     method: "POST",
                     params,
-                }
-            },
-            async onQueryStarted(arg, { queryFulfilled }) {
-                try {
-                    const { data } = await queryFulfilled;
-                    SuccessToast(data?.message);
-                } catch (error) {
-                    ErrorToast(error?.error?.data?.message || "Failed to send new score review.");
                 }
             },
             invalidatesTags: ["RECIPE", "REVIEW"],
