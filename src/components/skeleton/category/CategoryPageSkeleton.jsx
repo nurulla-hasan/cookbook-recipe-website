@@ -21,7 +21,7 @@ const CategoryPageSkeleton = () => {
             <div className="bg-background ">
                 <PageLayout paddingSize="compact">
                     <div className="grid gap-6 grid-cols-1">
-                        <RecipeCardSkeleton count={4} />
+                        <RecipeCardSkeleton count={3} />
                     </div>
                 </PageLayout>
             </div>

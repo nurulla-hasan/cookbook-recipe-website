@@ -23,15 +23,11 @@ const rawBaseQuery = fetchBaseQuery({
 const baseQuery = async (args, api, extraOptions) => {
     const result = await rawBaseQuery(args, api, extraOptions);
     const status = result?.error?.status ?? result?.error?.originalStatus;
+    
     if (status === 401 || status === 403) {
-        // Clear auth state
         api.dispatch(SetAccessToken(null));
         api.dispatch(SetUserProfile(null));
         localStorage.removeItem("accessToken");
-        // Redirect to login
-        if (typeof window !== 'undefined') {
-            window.location.href = '/auth/login';
-        }
     }
 
     return result;

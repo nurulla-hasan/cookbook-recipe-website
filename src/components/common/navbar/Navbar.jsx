@@ -11,21 +11,21 @@ import DesktopDropdown from "./DesktopDropdown"
 import { useDispatch, useSelector } from "react-redux"
 import { useGetUserProfileQuery } from "@/redux/feature/profile/profileApi"
 import { Logout } from "@/redux/feature/auth/authSlice"
+import { InfoToast } from "@/lib/utils";
 
 const navigationItems = [
     { name: "Home", href: "/", icon: Home },
-    { name: "Recipes", href: "/recipes", icon: Book },
-    { name: "Meal Planner", href: "/meal-planner", icon: Calendar },
-    { name: "Grocery", href: "/grocery", icon: ShoppingCart },
-    { name: "Featured", href: "/featured", icon: Star },
-    { name: "About", href: "/about", icon: Info },
-    { name: "Contact", href: "/contact", icon: Mail },
+    { name: "Recipes", href: "/recipes", icon: Book, isProtected: true },
+    { name: "Meal Planner", href: "/meal-planner", icon: Calendar, isProtected: true },
+    { name: "Grocery", href: "/grocery", icon: ShoppingCart, isProtected: true },
+    { name: "Featured", href: "/featured", icon: Star, isProtected: false },
+    { name: "About", href: "/about", icon: Info, isProtected: false },
+    { name: "Contact", href: "/contact", icon: Mail, isProtected: false },
 ]
 
 const Navbar = () => {
     const { setTheme, theme } = useTheme();
     const dispatch = useDispatch();
-
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isVisible, setIsVisible] = useState(true);
 
@@ -53,8 +53,22 @@ const Navbar = () => {
     const user = useSelector((state) => state.profile.userProfile);
     const isLoggedIn = !!token;
 
+    // Filter protected routes
+    const protectedRoutes = navigationItems
+        .filter(item => item.isProtected)
+        .map(item => item.href);
 
-    // Mock logout function
+    // Handle protected navigation
+    const handleProtectedNav = (e, href) => {
+        if (protectedRoutes.includes(href) && !token) {
+            e.preventDefault();
+            InfoToast("Please login to access this page");
+            return false;
+        }
+        return true;
+    };
+
+    // logout function
     const handleLogout = () => {
         dispatch(Logout());
         window.location.href = "/";
@@ -81,6 +95,7 @@ const Navbar = () => {
                                 <NavLink
                                     key={item.name}
                                     to={item.href}
+                                    onClick={(e) => item.isProtected && handleProtectedNav(e, item.href)}
                                     className={({ isActive }) =>
                                         `text-sm font-medium transition-colors hover:text-foreground ${isActive ? 'text-foreground' : 'text-muted-foreground'
                                         }`
@@ -114,7 +129,15 @@ const Navbar = () => {
                             />
                         </Toggle>
                         {/* Heart Icon */}
-                        <Link to="/profile/my-favourite">
+                        <Link
+                            to="/profile/my-favourite"
+                            onClick={(e) => {
+                                if (!token) {
+                                    e.preventDefault();
+                                    InfoToast("Please login to view favorites");
+                                }
+                            }}
+                        >
                             <Button variant="ghost" size="icon" className="hidden rounded-full md:flex">
                                 <Heart className="h-5 w-5" />
                                 <span className="sr-only">Favorites</span>

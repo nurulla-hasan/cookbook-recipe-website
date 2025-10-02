@@ -11,6 +11,8 @@ import RecipeCardSkeleton from "@/components/skeleton/recipe/RecipeCardSkeleton"
 import { ErrorAndSuspense } from "@/tools/ErrorAndSuspense";
 import ProfileSkeleton from "@/components/skeleton/profile/ProfileSkeleton";
 import MealPlannerSkeleton from "@/components/skeleton/meal-planner/MealPlannerSkeleton";
+import PrivateRoute from "@/tools/PrivateRoute";
+import NotFound from "../pages/not-found/NotFound";
 
 const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
 const EditRecipe = lazy(() => import("../pages/profile-route/my-recipe/edit-recipe/EditRecipe"));
@@ -47,31 +49,55 @@ const router = createBrowserRouter([
             },
             {
                 path: "recipes",
-                element: ErrorAndSuspense(Recipes, <CategoryPageSkeleton />),
+                element: (
+                    <PrivateRoute>
+                        {ErrorAndSuspense(Recipes, <CategoryPageSkeleton />)},
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "category/:slug",
-                element: ErrorAndSuspense(Category, <CategoryPageSkeleton />),
+                element: (
+                    <PrivateRoute>
+                        {ErrorAndSuspense(Category, <CategoryPageSkeleton />)},
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "diet-goals/:slug",
-                element: ErrorAndSuspense(DiatGoals, <CategoryPageSkeleton />),
+                element: (
+                    <PrivateRoute>
+                        {ErrorAndSuspense(DiatGoals, <CategoryPageSkeleton />)},
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "recipes/recipe-details/:id",
-                element: ErrorAndSuspense(RecipeDetails, <RecipeDetailsSkeleton />),
+                element: (
+                    <PrivateRoute>
+                        {ErrorAndSuspense(RecipeDetails, <RecipeDetailsSkeleton />)},
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "meal-planner",
-                element: ErrorAndSuspense(MealPlanner, <MealPlannerSkeleton />),
+                element: (
+                    <PrivateRoute>
+                        {ErrorAndSuspense(MealPlanner, <MealPlannerSkeleton />)},
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "grocery",
-                element: ErrorAndSuspense(Grocery, <Grocery />),
+                element: (
+                    <PrivateRoute>
+                        {ErrorAndSuspense(Grocery, <Grocery />)},
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "featured",
-                element: ErrorAndSuspense(Featured, <Featured />),
+                element: ErrorAndSuspense(Featured, <Featured />)
             },
             {
                 path: "about",
@@ -79,7 +105,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "contact",
-                element: ErrorAndSuspense(Contact, <ContactPageSkeleton />),
+                element: ErrorAndSuspense(Contact, <ContactPageSkeleton />)
             },
             {
                 path: "legal/help",
@@ -97,6 +123,8 @@ const router = createBrowserRouter([
                 path: "legal/terms",
                 element: ErrorAndSuspense(Terms, <LegalSkeleton />),
             },
+
+
             {
                 path: "profile",
                 element: ErrorAndSuspense(Profilelayout, <div>Loading...</div>),
@@ -150,6 +178,10 @@ const router = createBrowserRouter([
                 element: <ResetPassword />,
             },
         ]
+    },
+    {
+        path: "*",
+        element: <NotFound />,
     }
 ])
 

@@ -2,6 +2,7 @@ import { Outlet, ScrollRestoration } from 'react-router-dom';
 import PageHeader from '@/components/common/page-header/PageHeader';
 import ProfileSidebar from '@/components/common/sidebar/ProfileSidebar';
 import WarningModal from '@/components/common/modal/WarningModal';
+import PrivateRoute from '@/tools/PrivateRoute';
 
 const Profilelayout = () => {
     const breadcrumbs = [
@@ -25,7 +26,9 @@ const Profilelayout = () => {
 
                         {/* Main Content */}
                         <div className="md:col-span-7 lg:col-span-8 col-span-12 border p-4 rounded-lg">
-                            <Outlet />
+                            <PrivateRoute>
+                                <Outlet />
+                            </PrivateRoute>
                         </div>
                     </div>
                 </div>
