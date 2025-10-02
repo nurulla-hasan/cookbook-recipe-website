@@ -95,17 +95,20 @@ const AddToPlanModal = ({ isOpen, onClose }) => {
         }
 
         try {
-            await addMealPlanRecipes({ planId: values.planId, day: values.selectedDay, recipeId }).unwrap();
+            await addMealPlanRecipes({
+                planId: values.planId,
+                day: values.selectedDay,
+                recipeId
+            }).unwrap();
             SuccessToast("Recipe added to meal plan successfully");
-        } catch (error) {
-            console.error("Failed to add recipe to meal plan", error);
-            ErrorToast("Failed to add recipe to meal plan");
-        } finally {
             dispatch(SetCardModalClose());
             dispatch(SetRecipeId(null));
             dispatch(SetSelectedDay(null));
-            onClose(); // Close the modal
+            onClose();
             form.reset();
+        } catch (error) {
+            console.error("Error", error);
+            ErrorToast(error?.data?.message || "Failed to add recipe to meal plan");
         }
     };
 

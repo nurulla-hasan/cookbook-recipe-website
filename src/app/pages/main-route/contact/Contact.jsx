@@ -63,7 +63,7 @@ const Contact = () => {
         }
         // console.log(payload)
         try {
-            await sendMessage(payload)
+            await sendMessage(payload).unwrap()
             SuccessToast("Message sent successfully")
         } catch (error) {
             console.log(error)

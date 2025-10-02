@@ -47,8 +47,8 @@ const CreatePlanModal = ({ isOpen, setIsOpen }) => {
                     <DialogClose asChild>
                         <Button variant="outline">Cancel</Button>
                     </DialogClose>
-                    <Button onClick={handleCreate} disabled={isLoading || !planName.trim()}>
-                        {isLoading ? "Creating..." : "Create"}
+                    <Button loading={isLoading} onClick={handleCreate} disabled={isLoading || !planName.trim()}>
+                        Create
                     </Button>
                 </DialogFooter>
             </DialogContent>
