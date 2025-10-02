@@ -66,12 +66,15 @@ const Navbar = () => {
                 <div className="flex h-20 items-center justify-between">
                     {/* Logo */}
                     <div className="flex items-center space-x-8">
-                        <Link to="/" className="flex items-center space-x-2">
-                            <div className="h-12 w-12">
-                                <img src={Logo} alt="Logo" className="h-full w-full rounded-full object-contain dark:brightness-150" />
+                        <Link to="/">
+                            <div className="h-12 w-12 rounded-full overflow-hidden shadow-xl">
+                                <img
+                                    src={Logo}
+                                    alt="Logo"
+                                    className="h-full w-full object-contain dark:brightness-150"
+                                />
                             </div>
                         </Link>
-
                         {/* Desktop Navigation */}
                         <div className="hidden lg:flex items-center space-x-8">
                             {navigationItems.map((item) => (

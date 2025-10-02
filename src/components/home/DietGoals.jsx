@@ -2,25 +2,26 @@ import React from 'react';
 import PageLayout from '@/tools/PageLayout';
 import Title from '../ui/Title';
 import { Link } from 'react-router-dom';
-import { Slice, UtensilsCrossed, Cake } from 'lucide-react';
+import { Salad, Dumbbell, Scale } from 'lucide-react';
 
 const diatGoals = [
     {
-        name: 'Weight & Muscle',
-        category: "weight_and_muscle",
-        icon: <Slice className="w-12 h-12" />
+      name: '🥗 Weight Loss',
+      category: "weight_loss",
+      icon: <Salad className="w-20 h-20 text-primary" />
     },
     {
-        name: 'Weight Loss',
-        category: "weight_loss",
-        icon: <UtensilsCrossed className="w-12 h-12" />
+      name: '💪 Muscle Gain',
+      category: "muscle_gain",
+      icon: <Dumbbell className="w-20 h-20 text-primary" />
     },
     {
-        name: 'Muscle Gain',
-        category: "muscle_gain",
-        icon: <Cake className="w-12 h-12" />
-    }
-];
+      name: '⚖️ Maintain Weight',
+      category: "weight_and_muscle",
+      icon: <Scale className="w-20 h-20 text-primary" />
+    },
+  ];
+  
 
 const DietGoals = () => {
     return (
