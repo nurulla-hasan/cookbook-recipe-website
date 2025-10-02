@@ -6,17 +6,17 @@ import { Salad, Dumbbell, Scale } from 'lucide-react';
 
 const diatGoals = [
     {
-      name: '🥗 Weight Loss',
+      name: 'Weight Loss',
       category: "weight_loss",
       icon: <Salad className="w-20 h-20 text-primary" />
     },
     {
-      name: '💪 Muscle Gain',
+      name: 'Muscle Gain',
       category: "muscle_gain",
       icon: <Dumbbell className="w-20 h-20 text-primary" />
     },
     {
-      name: '⚖️ Maintain Weight',
+      name: 'Maintain Weight',
       category: "weight_and_muscle",
       icon: <Scale className="w-20 h-20 text-primary" />
     },

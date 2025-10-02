@@ -9,7 +9,7 @@ import featured6 from '../assets/featured/featured (2).png';
 export const featureData = [
     {
         id: 1,
-        title: '📉 Lose Weight, Build Muscle, Stay Healthy',
+        title: 'Lose Weight, Build Muscle, Stay Healthy',
         description: 'With 7,500+ curated recipes, the Koumanis Diet makes eating well simple, sustainable, and satisfying. Every meal is designed to support your health and fitness goals:',
         features: [
             'Burn fat while staying full and energized',
@@ -23,7 +23,7 @@ export const featureData = [
     },
     {
         id: 2,
-        title: '🍽️ Meal Planning Made Easy',
+        title: 'Meal Planning Made Easy',
         description: 'Your week of healthy eating is just a few taps away. After signing up, you’ll have access to a personalized dashboard where you can:',
         features: [
             'Select daily meals — from breakfast to desserts',
@@ -38,7 +38,7 @@ export const featureData = [
     },
     {
         id: 3,
-        title: '🌿 Recipes for Every Lifestyle',
+        title: 'Recipes for Every Lifestyle',
         description: 'Eating healthy should be enjoyable, not restrictive. Explore a variety of cuisines and dietary styles, including:',
         features: [
             'Vegan and plant-based',
@@ -53,7 +53,7 @@ export const featureData = [
     },
     {
         id: 4,
-        title: '📚 Meal Planning Knowledge Hub',
+        title: 'Meal Planning Knowledge Hub',
         description: 'Access a library of articles and guides from nutritionists and fitness coaches. Empower yourself with knowledge to make lasting changes.',
         features: [
             'Evidence-based articles on nutrition and fitness',
@@ -67,7 +67,7 @@ export const featureData = [
     },
     {
         id: 5,
-        title: '🛒 Automated Grocery Support',
+        title: 'Automated Grocery Support',
         description: 'Turn your weekly meal plan into a ready-to-use shopping list and streamline your grocery experience.',
         features: [
             'Generate shopping lists based on your selected meals',
@@ -82,7 +82,7 @@ export const featureData = [
     },
     {
         id: 6,
-        title: '💪 Your Pocket-Sized Coach',
+        title: 'Your Pocket-Sized Coach',
         description: 'The Koumanis Diet is more than a meal planner—it’s your personal wellness companion, built on science and behavior.',
         features: [
             'Personalized meal recommendations based on your goals',
