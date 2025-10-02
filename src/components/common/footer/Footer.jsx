@@ -56,7 +56,7 @@ const Footer = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input placeholder="Enter your email" {...field} />
+                        <Input className="bg-input" placeholder="Enter your email" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
