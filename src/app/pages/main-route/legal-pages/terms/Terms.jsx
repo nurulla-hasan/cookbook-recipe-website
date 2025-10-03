@@ -4,6 +4,7 @@ import LegalSkeleton from "@/components/skeleton/legal/LegalSkeleton";
 import Error from "@/components/common/error/Error";
 import { replaceWhiteBackground } from "@/lib/utils";
 import { useGetTermsQuery } from "@/redux/feature/legal/legalApi";
+import NoData from "@/components/common/no-data/NoData";
 
 const Terms = () => {
     const { data, isLoading, isError } = useGetTermsQuery()
@@ -17,7 +18,6 @@ const Terms = () => {
     if (isLoading) {
         return <LegalSkeleton />;
     }
-
     return (
         <div>
             <PageHeader
@@ -25,8 +25,15 @@ const Terms = () => {
                 title="Terms"
             />
             <PageLayout paddingSize="compact">
-                <div dangerouslySetInnerHTML={{ __html: replaceWhiteBackground(terms) }} />
-                {isError && <Error msg="Something went wrong" />}
+            {
+                    isError ? (
+                        <Error msg="Something went wrong" />
+                    ) : terms === null || terms === undefined ? (
+                        <NoData msg="No data found" />
+                    ) : (
+                        <div dangerouslySetInnerHTML={{ __html: replaceWhiteBackground(terms) }} />
+                    )
+                }
             </PageLayout>
         </div>
     );

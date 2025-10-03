@@ -4,6 +4,7 @@ import LegalSkeleton from "@/components/skeleton/legal/LegalSkeleton";
 import Error from "@/components/common/error/Error";
 import { replaceWhiteBackground } from "@/lib/utils";
 import { useGetPrivacyPolicyQuery } from "@/redux/feature/legal/legalApi";
+import NoData from "@/components/common/no-data/NoData";
 
 const Privacy = () => {
     const { data, isLoading, isError } = useGetPrivacyPolicyQuery()
@@ -24,8 +25,15 @@ const Privacy = () => {
                 title="Privacy"
             />
             <PageLayout paddingSize="compact">
-                <div dangerouslySetInnerHTML={{ __html: replaceWhiteBackground(privacy) }} />
-                {isError && <Error msg="Something went wrong" />}
+            {
+                    isError ? (
+                        <Error msg="Something went wrong" />
+                    ) : privacy === null || privacy === undefined ? (
+                        <NoData msg="No data found" />
+                    ) : (
+                        <div dangerouslySetInnerHTML={{ __html: replaceWhiteBackground(privacy) }} />
+                    )
+                }
             </PageLayout>
         </div>
     );
