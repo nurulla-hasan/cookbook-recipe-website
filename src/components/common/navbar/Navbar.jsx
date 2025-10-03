@@ -3,7 +3,8 @@ import { Heart, Home, Book, Calendar, ShoppingCart, Star, Info, Moon, Sun, Mail 
 import { Button } from "@/components/ui/button"
 import { Toggle } from "@/components/ui/toggle"
 import { NavLink, Link } from "react-router-dom"
-import Logo from '../../../assets/Logo.png';
+import Logo from '../../../assets/logo2.png';
+// import Logo from '../../../assets/logo1.png';
 import { useTheme } from "@/theme/theme-provider"
 import MobileMenu from "./MobileMenu"
 import MobileDropdown from "./MobileDropdown"
@@ -12,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useGetUserProfileQuery } from "@/redux/feature/profile/profileApi"
 import { Logout } from "@/redux/feature/auth/authSlice"
 import { InfoToast } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 const navigationItems = [
     { name: "Home", href: "/", icon: Home },
@@ -24,6 +26,7 @@ const navigationItems = [
 ]
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const { setTheme, theme } = useTheme();
     const dispatch = useDispatch();
     const [lastScrollY, setLastScrollY] = useState(0);
@@ -71,7 +74,7 @@ const Navbar = () => {
     // logout function
     const handleLogout = () => {
         dispatch(Logout());
-        window.location.href = "/";
+        navigate('/');
     };
 
     return (
@@ -81,7 +84,7 @@ const Navbar = () => {
                     {/* Logo */}
                     <div className="flex items-center space-x-8">
                         <Link to="/">
-                            <div className="h-12 w-12 rounded-full overflow-hidden shadow-xl">
+                            <div className="h-14 w-auto overflow-hidden">
                                 <img
                                     src={Logo}
                                     alt="Logo"

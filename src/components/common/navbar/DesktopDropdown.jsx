@@ -64,7 +64,7 @@ const DesktopDropdown = ({ isLoading, isLoggedIn, user, handleLogout }) => {
             ) : (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full">
+                        <Button variant="ghost" size="icon" className="rounded-full">
                             <User className="h-5 w-5" />
                         </Button>
                     </DropdownMenuTrigger>
