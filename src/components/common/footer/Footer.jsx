@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Facebook, Twitter, Instagram, Linkedin, Phone, Mail, MapPin } from "lucide-react"
-import Logo from '../../../assets/Logo.png';
+import Logo from '../../../assets/logo2.png';
 import { Link } from "react-router-dom";
 import apple from '../../../assets/apple.png'
 import google from '../../../assets/google.png'
