@@ -4,18 +4,20 @@ import PageHeader from "@/components/common/page-header/PageHeader";
 import LegalSkeleton from "@/components/skeleton/legal/LegalSkeleton";
 import { replaceWhiteBackground } from "@/lib/utils";
 import { useGetAboutQuery } from "@/redux/feature/legal/legalApi";
+import NoData from "@/components/common/no-data/NoData";
 
 const About = () => {
     const { data, isLoading, isError } = useGetAboutQuery()
     const about = data?.data?.description
 
-    if (isLoading) {
-        return <LegalSkeleton />;
-    }
     const breadcrumb = [
         { name: 'Home', href: '/' },
         { name: 'About' },
     ];
+    
+    if (isLoading) {
+        return <LegalSkeleton />;
+    }
     return (
         <div>
             <PageHeader
@@ -23,8 +25,15 @@ const About = () => {
                 title="About"
             />
             <PageLayout paddingSize="compact">
-                <div dangerouslySetInnerHTML={{ __html: replaceWhiteBackground(about) }} />
-                {isError && <Error msg="Something went wrong" />}
+                {
+                    isError ? (
+                        <Error msg="Something went wrong" />
+                    ) : about === null || about === undefined ? (
+                        <NoData msg="No data found" />
+                    ) : (
+                        <div dangerouslySetInnerHTML={{ __html: replaceWhiteBackground(about) }} />
+                    )
+                }
             </PageLayout>
         </div>
     );

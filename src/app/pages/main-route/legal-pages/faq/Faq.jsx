@@ -3,14 +3,21 @@ import PageHeader from "@/components/common/page-header/PageHeader";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { useGetFaqQuery } from "@/redux/feature/legal/legalApi";
 import { Link } from "react-router-dom";
+import LegalSkeleton from "@/components/skeleton/legal/LegalSkeleton";
+import Error from "@/components/common/error/Error";
+import NoData from "@/components/common/no-data/NoData";
 
 const Faq = () => {
-    const { data: faqs } = useGetFaqQuery()
+    const { data: faqs, isLoading, isError } = useGetFaqQuery()
 
     const breadcrumb = [
         { name: 'Home', href: '/' },
         { name: 'FAQs' },
     ]
+
+    if (isLoading) {
+        return <LegalSkeleton />;
+    }
     return (
         <>
             <PageHeader
@@ -29,7 +36,11 @@ const Faq = () => {
                         collapsible
                         className="w-full space-y-2"
                     >
-                        {faqs?.data?.map((item, index) => (
+                        {isError ? (
+                            <Error msg="Something went wrong" />
+                        ) : faqs?.data?.length === 0 ? (
+                            <NoData msg="No data found" />
+                        ) : faqs?.data?.map((item, index) => (
                             <AccordionItem
                                 value={`item-${index}`}
                                 key={index}
