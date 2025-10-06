@@ -134,7 +134,7 @@ const AddRecipe = () => {
                   <FormLabel>Photos</FormLabel>
                   <FormControl>
                     <div
-                      className="w-96 aspect-[16/9] border-2 border-dashed rounded-lg flex items-center justify-center text-center cursor-pointer hover:border-gray-400 transition-colors relative"
+                      className="w-full md:w-96 aspect-[16/9] border-2 border-dashed rounded-lg flex items-center justify-center text-center cursor-pointer hover:border-gray-400 transition-colors relative"
                       onClick={() => fileInputRef.current?.click()}
                       onDragOver={(e) => e.preventDefault()}
                       onDrop={(e) => handleFileDrop(e, field)}
