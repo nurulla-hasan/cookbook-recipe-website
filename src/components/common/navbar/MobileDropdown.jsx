@@ -59,7 +59,13 @@ const MobileDropdown = ({isLoading, isLoggedIn, user, handleLogout}) => {
                                 <DropdownMenuItem asChild>
                                     <Link to="/profile/my-recipes" className="w-full flex items-center">
                                         <Heart size={16} className="opacity-60 mr-2" aria-hidden="true" />
-                                        <span>Recipe</span>
+                                        <span>My Recipe</span>
+                                    </Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem asChild>
+                                    <Link to="/profile/add-recipe" className="w-full flex items-center">
+                                        <Heart size={16} className="opacity-60 mr-2" aria-hidden="true" />
+                                        <span>Add Recipe</span>
                                     </Link>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
@@ -76,13 +82,13 @@ const MobileDropdown = ({isLoading, isLoggedIn, user, handleLogout}) => {
                     ) : (
                         <DropdownMenuGroup>
                             <DropdownMenuItem asChild>
-                                <Link to="/login" className="w-full flex items-center">
+                                <Link to="/auth/login" className="w-full flex items-center">
                                     <LogIn size={16} className="opacity-60 mr-2" aria-hidden="true" />
                                     <span>Login</span>
                                 </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem asChild>
-                                <Link to="/register" className="w-full flex items-center">
+                                <Link to="/auth/register" className="w-full flex items-center">
                                     <UserPlus size={16} className="opacity-60 mr-2" aria-hidden="true" />
                                     <span>Register</span>
                                 </Link>
