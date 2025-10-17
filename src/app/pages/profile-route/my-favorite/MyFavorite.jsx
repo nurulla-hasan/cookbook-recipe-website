@@ -20,7 +20,7 @@ const MyFavorite = () => {
         items: recipes,
         isLoading,
         isError,
-    } = useSmartFetchHook(useGetUserFavoriteRecipesQuery, { resultsKey: "recipes", limit: 1 });
+    } = useSmartFetchHook(useGetUserFavoriteRecipesQuery, { resultsKey: "recipes"});
 
     return (
         <>

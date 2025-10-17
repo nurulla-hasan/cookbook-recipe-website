@@ -10,9 +10,12 @@ import { useGetFeaturedRecipesQuery } from '@/redux/feature/home/homeApi';
 import { getImageUrl } from '@/lib/utils';
 import useFavorite from '@/hooks/useFavorite';
 import { Badge } from '../ui/badge';
+import { useGetUserFavoriteRecipesQuery } from '@/redux/feature/profile/profileApi';
 
 const FeaturedRecipeCard = ({ recipe }) => {
-    const { isFavorite, onFavoriteToggle } = useFavorite(recipe.favorite);
+    const {onFavoriteToggle} = useFavorite();
+    const { data } = useGetUserFavoriteRecipesQuery()
+    const favoriteRecipeIds = data?.data?.recipes?.map(r => r._id) || [];
 
     return (
         <CarouselItem key={recipe._id} className="sm:basis-1/2 lg:basis-1/4">
@@ -41,7 +44,7 @@ const FeaturedRecipeCard = ({ recipe }) => {
                             size="icon"
                             className="absolute top-3 right-3 bg-white/20 hover:bg-white/60 backdrop-blur-sm rounded-full h-9 w-9"
                         >
-                            <Heart className={isFavorite ? 'fill-red-500 text-red-500' : 'text-white'} />
+                            <Heart className={favoriteRecipeIds.includes(recipe._id) ? 'w-4 h-4 fill-red-500 text-red-500' : 'w-4 h-4 text-white'} />
                         </Button>
                     </CardHeader>
                     <CardContent className="px-4">

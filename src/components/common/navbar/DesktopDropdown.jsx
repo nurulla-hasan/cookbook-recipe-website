@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { getImageUrl, getInitials } from "@/lib/utils";
 
 const DesktopDropdown = ({ isLoading, isLoggedIn, user, handleLogout }) => {
-    console.log(user)
     return (
         <>
             {isLoggedIn ? (
