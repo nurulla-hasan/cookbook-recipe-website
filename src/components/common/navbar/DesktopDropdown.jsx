@@ -4,9 +4,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { LogIn, LogOutIcon, User, UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { getInitials } from "@/lib/utils";
+import { getImageUrl, getInitials } from "@/lib/utils";
 
 const DesktopDropdown = ({ isLoading, isLoggedIn, user, handleLogout }) => {
+    console.log(user)
     return (
         <>
             {isLoggedIn ? (
@@ -21,7 +22,7 @@ const DesktopDropdown = ({ isLoading, isLoggedIn, user, handleLogout }) => {
                             ) : (
                                 <div className="flex items-center space-x-2 cursor-pointer">
                                     <Avatar className="h-10 w-10 border">
-                                        <AvatarImage src={user?.profile_image} alt={user?.name || "User avatar"} />
+                                        <AvatarImage src={getImageUrl(user?.profile_image)} alt={user?.name || "User avatar"} />
                                         <AvatarFallback>{getInitials(user?.name)}</AvatarFallback>
                                     </Avatar>
                                     <span className="text-sm font-medium">{user?.name || "User"}</span>
