@@ -20,11 +20,11 @@ const recipeSchema = z.object({
   ingredients: z.array(z.object({ value: z.string().min(1, "Ingredient cannot be empty.") })).min(1, "At least one ingredient is required."),
   instructions: z.string().min(1, "Instructions are required."),
   nutritional: z.object({
-    calories: z.string().min(1, "Calories are required.").pipe(z.coerce.number().min(0, "Calories must be a positive number.")),
-    protein: z.string().min(1, "Protein is required.").pipe(z.coerce.number().min(0, "Protein must be a positive number.")),
-    carbs: z.string().min(1, "Carbs are required.").pipe(z.coerce.number().min(0, "Carbs must be a positive number.")),
-    fat: z.string().min(1, "Fat is required.").pipe(z.coerce.number().min(0, "Fat must be a positive number.")),
-    fiber: z.string().min(1, "Fiber is required.").pipe(z.coerce.number().min(0, "Fiber must be a positive number.")),
+    calories: z.coerce.number({ invalid_type_error: "Calories are required." }).min(1, "Calories must be at least 1."),
+    protein: z.coerce.number({ invalid_type_error: "Protein is required." }).min(1, "Protein must be at least 1."),
+    carbs: z.coerce.number({ invalid_type_error: "Carbs are required." }).min(1, "Carbs must be at least 1."),
+    fat: z.coerce.number({ invalid_type_error: "Fat is required." }).min(1, "Fat must be at least 1."),
+    fiber: z.coerce.number({ invalid_type_error: "Fiber is required." }).min(1, "Fiber must be at least 1."),
   }),
   category: z.string().min(1, "Category is required."),
   holiday_recipes: z.string().min(1, "Holiday recipe type is required."),
@@ -33,13 +33,13 @@ const recipeSchema = z.object({
   flavor: z.string().min(1, "Flavor is required."),
   weight_and_muscle: z.string().min(1, "Weight & muscle selection is required."),
   whole_food_type: z.string().min(1, "Whole food type is required."),
-  serving_size: z.string().min(1, "Serving size is required.").pipe(z.coerce.number().min(1, "Serving size must be at least 1.")),
-  prep_time: z.string().min(1, "Prep time is required.").pipe(z.coerce.number().min(1, "Prep time must be at least 1.")),
+  serving_size: z.coerce.number({ invalid_type_error: "Serving size is required." }).min(1, "Serving size must be at least 1."),
+  prep_time: z.coerce.number({ invalid_type_error: "Prep time is required." }).min(1, "Prep time must be at least 1."),
   recipe_tips: z.string().min(1, "Recipe tips are required."),
-  kid_approved: z.string().min(1, "Kid approved selection is required."),
-  no_weekend_prep: z.string().min(1, "No weekend prep selection is required."),
+  kid_approved: z.boolean(),
+  no_weekend_prep: z.boolean(),
   prep: z.string().min(1, "Prep details are required."),
-  image: z.any().refine((file) => file, "Image is required."),
+  image: z.any().optional(),
 });
 
 const AddRecipe = () => {
@@ -54,18 +54,18 @@ const AddRecipe = () => {
       ingredients: [{ value: "" }],
       instructions: "",
       nutritional: { calories: "", protein: "", carbs: "", fat: "", fiber: "" },
-      category: "breakfast",
-      holiday_recipes: "Chinese",
+      category: "",
+      holiday_recipes: "",
       oils: "oil_free",
       serving_temperature: "Cold",
-      flavor: "Savory",
-      weight_and_muscle: "maintain_weight",
+      flavor: "Sweet",
+      weight_and_muscle: "weight_loss",
       whole_food_type: "plant_based",
-      serving_size: "4",
-      prep_time: "45",
+      serving_size: "",
+      prep_time: "",
       recipe_tips: "",
-      kid_approved: "true",
-      no_weekend_prep: "false",
+      kid_approved: true,
+      no_weekend_prep: true,
       prep: "",
       image: null,
     },
@@ -93,14 +93,10 @@ const AddRecipe = () => {
       }
     });
 
-    for(const [key, value] of Object.entries(formData)) {
-      console.log(key, value);
-    }
-
     try {
       await createRecipe(formData).unwrap();
       SuccessToast("Recipe created successfully.");
-      // form.reset();
+      form.reset();
     } catch (error) {
       console.log(error)
       ErrorToast(error?.data?.message || "Failed to create new recipe.");
@@ -164,7 +160,7 @@ const AddRecipe = () => {
                               e.stopPropagation();
                               field.onChange(null);
                               setImagePreview(null);
-                              if(fileInputRef.current) fileInputRef.current.value = "";
+                              if (fileInputRef.current) fileInputRef.current.value = "";
                             }}
                           >
                             <Trash2 className="h-4 w-4" />
@@ -320,7 +316,7 @@ const AddRecipe = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Category</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select key={String(field.value ?? '')} onValueChange={field.onChange} value={field.value ?? undefined}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a category" />
@@ -349,7 +345,7 @@ const AddRecipe = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Ethnic/Holiday Recipes</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select key={String(field.value ?? '')} onValueChange={field.onChange} value={field.value ?? undefined}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select an option" />
@@ -384,7 +380,7 @@ const AddRecipe = () => {
                 <FormItem className="space-y-2">
                   <FormLabel>Oils</FormLabel>
                   <FormControl>
-                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-4">
+                    <RadioGroup onValueChange={field.onChange} value={field.value ?? ""} className="flex gap-4">
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
                           <RadioGroupItem value="oil_free" />
@@ -411,7 +407,7 @@ const AddRecipe = () => {
                 <FormItem className="space-y-2">
                   <FormLabel>Serving Temperature</FormLabel>
                   <FormControl>
-                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-4">
+                    <RadioGroup onValueChange={field.onChange} value={field.value ?? ""} className="flex gap-4">
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
                           <RadioGroupItem value="Cold" />
@@ -438,7 +434,7 @@ const AddRecipe = () => {
                 <FormItem className="space-y-2">
                   <FormLabel>Flavor</FormLabel>
                   <FormControl>
-                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-4">
+                    <RadioGroup onValueChange={field.onChange} value={field.value ?? ""} className="flex gap-4">
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
                           <RadioGroupItem value="Sweet" />
@@ -465,7 +461,7 @@ const AddRecipe = () => {
                 <FormItem className="space-y-2">
                   <FormLabel>Weight & Muscle</FormLabel>
                   <FormControl>
-                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-4">
+                    <RadioGroup onValueChange={field.onChange} value={field.value ?? ""} className="flex gap-4">
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
                           <RadioGroupItem value="weight_loss" />
@@ -498,7 +494,7 @@ const AddRecipe = () => {
                 <FormItem className="space-y-2">
                   <FormLabel>Whole Food Type</FormLabel>
                   <FormControl>
-                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-4">
+                    <RadioGroup onValueChange={field.onChange} value={field.value ?? ""} className="flex gap-4">
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
                           <RadioGroupItem value="plant_based" />
@@ -588,7 +584,11 @@ const AddRecipe = () => {
                 <FormItem className="space-y-2">
                   <FormLabel>Kid Approved</FormLabel>
                   <FormControl>
-                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-4">
+                    <RadioGroup
+                      value={field.value ? "true" : "false"}
+                      onValueChange={(v) => field.onChange(v === "true")}
+                      className="flex gap-4"
+                    >
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
                           <RadioGroupItem value="true" />
@@ -615,7 +615,11 @@ const AddRecipe = () => {
                 <FormItem className="space-y-2">
                   <FormLabel>No Weekend Prep</FormLabel>
                   <FormControl>
-                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-4">
+                    <RadioGroup
+                      value={field.value ? "true" : "false"}
+                      onValueChange={(v) => field.onChange(v === "true")}
+                      className="flex gap-4"
+                    >
                       <FormItem className="flex items-center space-x-2">
                         <FormControl>
                           <RadioGroupItem value="true" />

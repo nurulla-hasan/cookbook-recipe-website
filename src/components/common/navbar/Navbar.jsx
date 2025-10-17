@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Toggle } from "@/components/ui/toggle"
 import { NavLink, Link } from "react-router-dom"
 import Logo from '../../../assets/logo2.png';
-// import Logo from '../../../assets/logo1.png';
 import { useTheme } from "@/theme/theme-provider"
 import MobileMenu from "./MobileMenu"
 import MobileDropdown from "./MobileDropdown"
