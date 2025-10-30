@@ -35,7 +35,7 @@ const Recipes = () => {
             <p className="text-muted-foreground mt-8">Our nutrition system works hand in hand with exercise to accelerate results when you want them most.</p>
           </div>
           <div className='grid justify-center items-center'>
-            <img src="/public/images/Meal health_3.svg" alt="Eat balanced icon" className="w-72 h-auto" />
+            <img src="/images/Meal health_3.svg" alt="Eat balanced icon" className="w-72 h-auto" />
           </div>
         </div>
       </PageLayout>

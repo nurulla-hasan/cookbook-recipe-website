@@ -34,7 +34,7 @@ const PocketCoach = () => {
             <p className="text-muted-foreground mt-8">Your goals are within reach&mdash;with a coach that fits in your pocket.</p>
           </div>
           <div className='grid justify-center items-center'>
-            <img src="/public/images/phone-14.svg" alt="Phone icon" className="w-72 h-auto" />
+            <img src="/images/phone-14.svg" alt="Phone icon" className="w-72 h-auto" />
           </div>
         </div>
       </PageLayout>
