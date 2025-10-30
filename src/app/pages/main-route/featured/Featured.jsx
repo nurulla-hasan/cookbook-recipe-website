@@ -3,7 +3,6 @@ import FeatureSection from '@/components/featured/feature-section/FeatureSection
 import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-// import GetApp from '@/components/home/GetApp';
 import { featureData } from '@/lib/mockData';
 
 const Featured = () => {
@@ -16,7 +15,7 @@ const Featured = () => {
                             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">
                                 Transform Your Health with the <span className="text-green-600">Koumanis Diet</span> Meal Planner
                             </h1>
-                            
+
                             <p className="text-lg text-muted-foreground mb-8">
                                 Join thousands who have achieved their health goals with our science-backed meal plans and fitness guidance.
                             </p>
@@ -37,17 +36,17 @@ const Featured = () => {
 
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <Link to="/auth/register" className="w-full sm:w-auto">
-                                    <Button 
-                                        size="lg" 
+                                    <Button
+                                        size="lg"
                                         className="w-full px-8 py-6 text-base font-medium"
                                     >
                                         Get Started Today
                                     </Button>
                                 </Link>
                                 <Link to="#app-store" className="w-full sm:w-auto">
-                                    <Button 
-                                        size="lg" 
-                                        variant="outline" 
+                                    <Button
+                                        size="lg"
+                                        variant="outline"
                                         className="w-full px-8 py-6 text-base font-medium"
                                     >
                                         Get App
@@ -55,12 +54,12 @@ const Featured = () => {
                                 </Link>
                             </div>
                         </div>
-                        
+
                         <div className="relative">
                             <div className="relative z-10 rounded-2xl overflow-hidden border border-border/50 shadow-2xl">
-                                <img 
-                                    src="/images/diet-app-preview.svg" 
-                                    alt="Koumanis Diet App Preview" 
+                                <img
+                                    src="/images/diet-app-preview.svg"
+                                    alt="Koumanis Diet App Preview"
                                     className="w-full h-auto max-w-[280px] mx-auto"
                                     loading="lazy"
                                 />
@@ -70,7 +69,7 @@ const Featured = () => {
                     </div>
                 </PageLayout>
             </section>
-            
+
             <PageLayout>
                 <div>
                     {featureData.map(feature => (
@@ -78,7 +77,6 @@ const Featured = () => {
                     ))}
                 </div>
             </PageLayout>
-            {/* <GetApp /> */}
         </>
     );
 };
