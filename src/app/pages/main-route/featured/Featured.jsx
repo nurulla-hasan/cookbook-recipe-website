@@ -1,16 +1,14 @@
-// import PageLayout from '@/tools/PageLayout';
-// import FeatureSection from '@/components/featured/feature-section/FeatureSection';
-// import { Check } from 'lucide-react';
-// import { Button } from '@/components/ui/button';
-// import { Link } from 'react-router-dom';
-// import GetApp from '@/components/home/GetApp';
-// import { featureData } from '@/lib/mockData';
-import LandingPage from '../landing/LandingPage';
+import PageLayout from '@/tools/PageLayout';
+import FeatureSection from '@/components/featured/feature-section/FeatureSection';
+import { Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { featureData } from '@/lib/mockData';
 
 const Featured = () => {
     return (
         <>
-            {/* <section className="w-full bg-gradient-to-b from-secondary/5 via-secondary/50 to-secondary relative overflow-hidden">
+            <section className="w-full bg-gradient-to-b from-secondary/5 via-secondary/50 to-secondary relative overflow-hidden">
                 <PageLayout paddingSize='none'>
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div>
@@ -78,9 +76,7 @@ const Featured = () => {
                         <FeatureSection key={feature.id} {...feature} />
                     ))}
                 </div>
-            </PageLayout> */}
-            {/* <GetApp /> */}
-            <LandingPage />
+            </PageLayout>
         </>
     );
 };
