@@ -1,5 +1,5 @@
 import PageLayout from '@/tools/PageLayout';
-import { CircleCheckBig } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
 
 const MealPlanning = () => {
   return (
@@ -11,23 +11,23 @@ const MealPlanning = () => {
             <p className="text-muted-foreground mb-8">Your week of healthy eating is just a few taps away. After signing up, you all have access to a personalized dashboard where you can:</p>
             <ul className="space-y-4">
               <li className="flex items-center gap-4">
-               <CircleCheckBig />
+               <CircleCheck />
                 <span>Select daily meals &mdash; from breakfast to desserts</span>
               </li>
               <li className="flex items-center gap-4">
-               <CircleCheckBig />
+               <CircleCheck />
                 <span>Customize weekly meal schedules for convenience and variety</span>
               </li>
               <li className="flex items-center gap-4">
-               <CircleCheckBig />
+               <CircleCheck />
                 <span>Swap recipes instantly to match cravings or goals</span>
               </li>
               <li className="flex items-center gap-4">
-               <CircleCheckBig />
+               <CircleCheck />
                 <span>Rate meals by taste and satisfaction</span>
               </li>
               <li className="flex items-center gap-4">
-               <CircleCheckBig />
+               <CircleCheck />
                 <span>Save favorites for quick access anytime</span>
               </li>
             </ul>

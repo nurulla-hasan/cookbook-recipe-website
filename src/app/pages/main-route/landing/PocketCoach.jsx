@@ -1,5 +1,5 @@
 import PageLayout from '@/tools/PageLayout';
-import { CircleCheckBig } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
 
 const PocketCoach = () => {
   return (
@@ -11,23 +11,23 @@ const PocketCoach = () => {
             <p className="text-muted-foreground mb-8">The Koumanis Diet is more than a meal planner&mdash;it is your personal wellness companion, built on science and behavior.</p>
             <ul className="space-y-4">
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Personalized meal recommendations based on your goals</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Real-time feedback on nutrition and progress</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Behavior-focused habit tracking</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Evidence-based coaching for weight loss, strength, and gut health</span>
               </li>
               <li className="flex items-center gap-4">
-               <CircleCheckBig />
+               <CircleCheck />
                 <span>Supportive tools to stay motivated and consistent</span>
               </li>
             </ul>

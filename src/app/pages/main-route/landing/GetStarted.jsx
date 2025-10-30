@@ -1,5 +1,5 @@
 
-import { CircleCheckBig, PhoneCall, AtSign, MapPinHouse } from 'lucide-react';
+import { CircleCheck, PhoneCall, AtSign, MapPinHouse } from 'lucide-react';
 import PageLayout from '@/tools/PageLayout';
 import { Separator } from '@/components/ui/separator';
 
@@ -13,15 +13,15 @@ const GetStarted = () => {
           <div className="max-w-md">
             <ul className="space-y-4 text-left">
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>No more guesswork</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>No more boring diet food</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>No more skipped meals or grocery store confusion</span>
               </li>
             </ul>

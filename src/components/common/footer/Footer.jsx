@@ -49,14 +49,14 @@ const Footer = () => {
               <h3 className="text-xl md:text-2xl lg:text-4xl font-medium text-foreground font-caladea">Subscribe to our Newsletter</h3>
             </div>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-1 w-full max-w-md space-x-2">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="flex md:justify-end flex-1 w-full max-w-md space-x-2">
                 <FormField
                   control={form.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input className="bg-input" placeholder="Enter your email" {...field} />
+                        <Input className="bg-input w-full" placeholder="Enter your email" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

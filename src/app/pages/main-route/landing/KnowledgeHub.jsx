@@ -1,5 +1,5 @@
 import PageLayout from '@/tools/PageLayout';
-import { CircleCheckBig } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
 import React from 'react';
 
 const KnowledgeHub = () => {
@@ -12,19 +12,19 @@ const KnowledgeHub = () => {
             <p className="text-muted-foreground mb-8">Access a library of articles and guides from nutritionists and fitness coaches. Empower yourself with knowledge to make lasting changes.</p>
             <ul className="space-y-4">
               <li className="flex items-center gap-4">
-               <CircleCheckBig />
+               <CircleCheck />
                 <span>Evidence-based articles on nutrition and fitness</span>
               </li>
               <li className="flex items-center gap-4">
-               <CircleCheckBig />
+               <CircleCheck />
                 <span>Cooking tips and healthy kitchen hacks</span>
               </li>
               <li className="flex items-center gap-4">
-               <CircleCheckBig />
+               <CircleCheck />
                 <span>Guides to understanding food labels and ingredients</span>
               </li>
               <li className="flex items-center gap-4">
-               <CircleCheckBig />
+               <CircleCheck />
                 <span>Community support and expert Q&A sessions</span>
               </li>
             </ul>

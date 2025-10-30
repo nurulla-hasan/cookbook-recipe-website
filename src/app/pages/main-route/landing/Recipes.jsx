@@ -1,5 +1,5 @@
 import PageLayout from '@/tools/PageLayout';
-import { CircleCheckBig } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
 import React from 'react';
 
 const Recipes = () => {
@@ -12,23 +12,23 @@ const Recipes = () => {
             <p className="text-muted-foreground mb-8">Eating healthy should be enjoyable, not restrictive. Explore a variety of cuisines and dietary styles, including:</p>
             <ul className="space-y-4">
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Vegan and plant-based</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Paleo, Mediterranean, and low-carb</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>High-protein, meat-based meals</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Global flavors &mdash; Asian, Latin, Middle Eastern, and more</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Holiday-friendly recipes to celebrate without losing progress</span>
               </li>
             </ul>

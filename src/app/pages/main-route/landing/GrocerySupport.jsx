@@ -1,5 +1,5 @@
 import PageLayout from '@/tools/PageLayout';
-import { CircleCheckBig } from 'lucide-react';
+import { CircleCheck } from 'lucide-react';
 import React from 'react';
 
 const GrocerySupport = () => {
@@ -12,23 +12,23 @@ const GrocerySupport = () => {
             <p className="text-muted-foreground mb-8">Turn your weekly meal plan into a ready-to-use shopping list and streamline your grocery experience.</p>
             <ul className="space-y-4">
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Generate shopping lists based on your selected meals</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Organize ingredients by category for easy navigation</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Remove items you already have at home</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Send your list to Instacart or Amazon Fresh for delivery or pickup</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig />
+                <CircleCheck />
                 <span>Save time and reduce food waste</span>
               </li>
             </ul>
