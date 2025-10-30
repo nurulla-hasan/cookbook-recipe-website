@@ -5,28 +5,28 @@ import { Separator } from '@/components/ui/separator';
 
 const GetStarted = () => {
   return (
-    <div className="bg-white">
+    <div>
       <PageLayout>
         <div>
           <h2 className="text-4xl font-medium mb-4">Get Started Today</h2>
-          <p className="text-gray-600 mb-8">Download The Koumanis Diet Meal Planner on the App Store or Google Play and begin your journey.</p>
+          <p className="text-muted-foreground mb-8">Download The Koumanis Diet Meal Planner on the App Store or Google Play and begin your journey.</p>
           <div className="max-w-md">
             <ul className="space-y-4 text-left">
               <li className="flex items-center gap-4">
-                <CircleCheckBig className='text-[#498773]' />
+                <CircleCheckBig />
                 <span>No more guesswork</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig className='text-[#498773]' />
+                <CircleCheckBig />
                 <span>No more boring diet food</span>
               </li>
               <li className="flex items-center gap-4">
-                <CircleCheckBig className='text-[#498773]' />
+                <CircleCheckBig />
                 <span>No more skipped meals or grocery store confusion</span>
               </li>
             </ul>
           </div>
-          <p className="text-gray-800 mt-8">Just smart, flavorful, goal-aligned eating&mdash;designed by experts, enjoyed by you.</p>
+          <p className="text-muted-foreground mt-8">Just smart, flavorful, goal-aligned eating&mdash;designed by experts, enjoyed by you.</p>
         </div>
 
         <div className='mt-12'>
@@ -39,7 +39,7 @@ const GetStarted = () => {
               </div>
               <div>
                 <h3 className="font-bold text-left">Call</h3>
-                <p className="text-gray-600">518-203-2593</p>
+                <p className="text-muted-foreground">518-203-2593</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -48,7 +48,7 @@ const GetStarted = () => {
               </div>
               <div>
                 <h3 className="font-bold text-left">Email</h3>
-                <p className="text-gray-600">support@koumanisdiet.com</p>
+                <p className="text-muted-foreground">support@koumanisdiet.com</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -57,7 +57,7 @@ const GetStarted = () => {
               </div>
               <div>
                 <h3 className="font-bold text-left">Address</h3>
-                <p className="text-gray-600">13 Chester St. Glens Falls NY 12801</p>
+                <p className="text-muted-foreground">13 Chester St. Glens Falls NY 12801</p>
               </div>
             </div>
           </div>
