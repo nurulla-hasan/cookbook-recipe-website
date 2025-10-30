@@ -34,7 +34,7 @@ const MealPlanning = () => {
             <p className="text-muted-foreground mt-8">Whether you are new to meal prep or a seasoned pro, the app adapts to your lifestyle.</p>
           </div>
           <div className='grid justify-center items-center'>
-            <img src="/public/images/Eat%20balanced.svg" alt="Meal health icon" className="w-72 h-auto" />
+            <img src="/images/Eat balanced.svg" alt="Meal health icon" className="w-72 h-auto" />
           </div>
         </div>
       </PageLayout>

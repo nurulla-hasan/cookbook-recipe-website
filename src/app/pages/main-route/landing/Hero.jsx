@@ -43,7 +43,7 @@ const Hero = () => {
         {/* Left content */}
         <div className="text-left">
           <img
-            src="/public/images/transparent-logo.png"
+            src="/images/transparent-logo.png"
             alt="The Koumanis Diet"
             className='md:ml-20 mb-6'
           />
@@ -85,7 +85,7 @@ const Hero = () => {
         {/* Right visual */}
         <div className="relative flex justify-center md:justify-end">
           <img
-            src="/public/images/mockup phone.png"
+            src="/images/mockup phone.png"
             alt="Koumanis Diet App Preview"
             className="w-72 h-80 sm:w-80 sm:h-[360px] md:w-[500px] md:h-[550px] drop-shadow-xl"
           />

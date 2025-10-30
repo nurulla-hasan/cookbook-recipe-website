@@ -35,7 +35,7 @@ const GrocerySupport = () => {
             <p className="text-muted-foreground mt-8">Smart grocery planning means less stress and more success in the kitchen.</p>
           </div>
           <div className='grid justify-center items-center'>
-            <img src="/public/images/scanner.svg" alt="Scanner icon" className="w-72 h-auto" />
+            <img src="/images/scanner.svg" alt="Scanner icon" className="w-72 h-auto" />
           </div>
         </div>
       </PageLayout>
