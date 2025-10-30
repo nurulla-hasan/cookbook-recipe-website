@@ -31,7 +31,7 @@ const KnowledgeHub = () => {
             <p className="text-muted-foreground mt-8">Knowledge is power&mdash;especially when paired with smart nutrition and exercise.</p>
           </div>
           <div className='grid justify-center items-center'>
-            <img src="/public/images/Meal health.svg" alt="Knowledge hub icon" className="w-72 h-auto" />
+            <img src="/images/Meal health.svg" alt="Knowledge hub icon" className="w-72 h-auto" />
           </div>
         </div>
       </PageLayout>

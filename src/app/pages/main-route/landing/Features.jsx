@@ -39,7 +39,7 @@ const Features = () => {
           {/* Right visual */}
           <div className="hidden pointer-events-none absolute inset-y-0 right-0 md:flex items-end justify-center md:justify-end">
             <img
-              src="/public/images/girl-Photoroom.png"
+              src="/images/girl-Photoroom.png"
               alt="Woman exercising"
               className="h-full w-auto max-w-none object-contain"
             />
