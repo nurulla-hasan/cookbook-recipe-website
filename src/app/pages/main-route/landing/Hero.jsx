@@ -7,19 +7,35 @@ import { Link } from 'react-router-dom';
 
 const Hero = () => {
 
-  const [sendSubscribe, { isLoading }] = useSendSubscribeMutation()
+  const [sendSubscribe, { isLoading }] = useSendSubscribeMutation();
 
-  const handleGetApp = async (data) => {
-    const payload = {
-      email: data.email,
+  const handleGetApp = async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const email = (formData.get('email') || '').toString().trim();
+
+    if (!email) {
+      ErrorToast('Please enter your email address');
+      return;
     }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      ErrorToast('Please enter a valid email address');
+      return;
+    }
+
+    const payload = { email };
+
     try {
-      await sendSubscribe(payload).unwrap()
-      SuccessToast("Subscribe successfully")
+      await sendSubscribe(payload).unwrap();
+      SuccessToast('Subscribe successfully');
+      form.reset();
     } catch {
-      ErrorToast("Subscribe failed")
+      ErrorToast('Subscribe failed');
     }
-  }
+  };
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#3ea58e] to-[#1a7869] text-white">
