@@ -172,7 +172,7 @@ const Footer = () => {
       <Separator />
 
       {/* App Download Section */}
-      <div className="px-4 py-8 md:px-8 lg:px-16">
+      <div id="get-app" className="px-4 py-8 md:px-8 lg:px-16">
         <div className="mx-auto max-w-7xl">
           <div className="text-center">
             <h4 className="text-lg font-semibold text-foreground">Download our App from</h4>

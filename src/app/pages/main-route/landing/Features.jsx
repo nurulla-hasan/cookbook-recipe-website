@@ -23,16 +23,16 @@ const Features = () => {
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle className="h-5 w-5 shrink-0 text-rose-600" />
-                <span>Build lean muscle with protein-rich recepiesand excercise pairing</span>
+                <span>Build lean muscle with protein-rich recipes and exercise pairing</span>
               </li>
-              <li className="flex items-start gap-3">
+              {/* <li className="flex items-start gap-3">
                 <CheckCircle className="h-5 w-5 shrink-0 text-rose-600" />
                 <span>Asam Alfa Hidroksi</span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle className="h-5 w-5 shrink-0 text-rose-600" />
                 <span>Antioksidan</span>
-              </li>
+              </li> */}
             </ul>
           </div>
 
