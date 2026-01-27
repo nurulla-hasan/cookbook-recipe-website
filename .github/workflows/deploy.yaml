@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy to Zenex Cloud VPS
 
 on:
   push:
@@ -23,46 +23,46 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build  # Ensures deploy runs only after build is successful
+    needs: build
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
 
       - name: Configure SSH
         env: 
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-          EC2_HOST: ${{ secrets.EC2_HOST }}
+          SSH_PRIVATE_KEY: ${{ secrets.ZENEX_SSH_PRIVATE_KEY }}
+          ZENEX_VPS_HOST: ${{ secrets.ZENEX_VPS_HOST }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           touch ~/.ssh/known_hosts
-          ssh-keyscan -H $EC2_HOST >> ~/.ssh/known_hosts
+          ssh-keyscan -H $ZENEX_VPS_HOST >> ~/.ssh/known_hosts
 
-      - name: Deploy to EC2
+      - name: Deploy to Zenex Cloud VPS
         env: 
-          EC2_HOST: ${{ secrets.EC2_HOST }}
-          EC2_USER: ${{ secrets.EC2_USER }}
+          ZENEX_VPS_HOST: ${{ secrets.ZENEX_VPS_HOST }}
+          ZENEX_VPS_USER: ${{ secrets.ZENEX_VPS_USER }}
           ENV_FILE: ${{ secrets.ENV_FILE }}
         run: |
-          # Create Deployment Directory
-          ssh $EC2_USER@$EC2_HOST "mkdir -p ~/applications/jaykou_website"
+          # Create Deployment Directory if it doesn't exist
+          ssh $ZENEX_VPS_USER@$ZENEX_VPS_HOST "mkdir -p ~/applications/jaykou_website"
 
-          # Copy Files to EC2 instance (use rsync to skip unnecessary files)
+          # Copy Files to VPS using rsync (excluding unnecessary files)
           rsync -avz \
             --exclude='.git' \
             --exclude='node_modules' \
             --exclude='.github' \
-            . $EC2_USER@$EC2_HOST:~/applications/jaykou_website/
+            . $ZENEX_VPS_USER@$ZENEX_VPS_HOST:~/applications/jaykou_website/
 
-          # ✅ Create .env file on EC2 from the GitHub secret
-          ssh $EC2_USER@$EC2_HOST "echo \"$ENV_FILE\" > ~/applications/jaykou_website/.env"
+          # Create .env file on Zenex VPS from GitHub Secret
+          ssh $ZENEX_VPS_USER@$ZENEX_VPS_HOST "echo \"$ENV_FILE\" > ~/applications/jaykou_website/.env"
           
-          # Install production dependencies on EC2
-          ssh $EC2_USER@$EC2_HOST "export NVM_DIR=\$HOME/.nvm && [ -s \$NVM_DIR/nvm.sh ] && . \$NVM_DIR/nvm.sh && cd ~/applications/jaykou_website && npm install --frozen-lockfile"
+          # Install production dependencies on Zenex VPS
+          ssh $ZENEX_VPS_USER@$ZENEX_VPS_HOST "cd ~/applications/jaykou_website && npm install --frozen-lockfile"
 
-          # Stop any existing PM2 process if it exists
-          ssh $EC2_USER@$EC2_HOST "export NVM_DIR=\$HOME/.nvm && [ -s \$NVM_DIR/nvm.sh ] && . \$NVM_DIR/nvm.sh && cd ~/applications/jaykou_website && pm2 delete jaykou_website || true"
+          # Stop existing PM2 process if it exists
+          ssh $ZENEX_VPS_USER@$ZENEX_VPS_HOST "cd ~/applications/jaykou_website && pm2 delete jaykou_website || true"
 
           # Start the application with PM2
-          ssh $EC2_USER@$EC2_HOST "export NVM_DIR=\$HOME/.nvm && [ -s \$NVM_DIR/nvm.sh ] && . \$NVM_DIR/nvm.sh && cd ~/applications/jaykou_website && pm2 serve dist 5173 --name jaykou_website --spa"
+          ssh $ZENEX_VPS_USER@$ZENEX_VPS_HOST "cd ~/applications/jaykou_website && pm2 serve dist 5175 --name jaykou_website --spa"
