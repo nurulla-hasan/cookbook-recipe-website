@@ -6,8 +6,8 @@ export const IMAGE_BASE_URL = 'https://backend.koumanisdietapp.com';
 // export const IMAGE_BASE_URL = 'http://10.10.20.11:5005';
 
 const rawBaseQuery = fetchBaseQuery({
-    baseUrl: 'https://backend.koumanisdietapp.com',
-    // baseUrl: 'http://10.10.20.11:5005',
+    // baseUrl: 'https://backend.koumanisdietapp.com',
+    baseUrl: 'http://172.252.13.86:5005',
 
     prepareHeaders: (headers, { getState }) => {
         const token = getState()?.auth.accessToken;

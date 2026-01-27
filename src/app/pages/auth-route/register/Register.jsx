@@ -20,26 +20,47 @@ import { ArrowLeft, Eye, EyeOff, CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { useRegisterMutation } from "@/redux/feature/auth/authApi";
+import { getCountries, getCountryCallingCode } from "react-phone-number-input";
+import en from "react-phone-number-input/locale/en.json";
+
+const countries = getCountries().map((country) => ({
+    name: en[country],
+    code: country,
+    callingCode: `+${getCountryCallingCode(country)}`,
+}));
 
 const registerSchema = z.object({
     fullname: z.string().min(1, { message: "Full name is required." }),
     email: z.string().min(1, { message: "Email is required." }).email({ message: "Invalid email address." }),
+    phone_number: z.string().min(1, { message: "Phone number is required." }),
+    country_name: z.string().min(1, { message: "Country name is required." }),
+    country_code: z.string().min(1, { message: "Country code is required." }),
     dob: z.date({
         required_error: "A date of birth is required.",
     }),
     password: z.string().min(6, { message: "Password must be at least 6 characters." }),
+    confirmPassword: z.string().min(6, { message: "Confirm password must be at least 6 characters." }),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
 });
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
+    const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
     const form = useForm({
         resolver: zodResolver(registerSchema),
         defaultValues: {
             fullname: "",
             email: "",
+            phone_number: "",
+            country_name: "BD",
+            country_code: "+880",
             password: "",
+            confirmPassword: "",
         },
     });
 
@@ -59,9 +80,12 @@ const Register = () => {
             name: data.fullname,
             role: "USER",
             email: data.email,
+            phone_number: data.phone_number,
+            country_name: data.country_name,
+            country_code: data.country_code,
             date_of_birth: format(data.dob, "dd-MM-yyyy"),
             password: data.password,
-            confirmPassword: data.password,
+            confirmPassword: data.confirmPassword,
         }
         console.log(payload)
         register(payload);
@@ -106,6 +130,48 @@ const Register = () => {
                                             <FormControl>
                                                 <Input type="email" placeholder="example@email.com" {...field} />
                                             </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="phone_number"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Phone Number</FormLabel>
+                                            <div className="flex gap-2">
+                                                <Select
+                                                    onValueChange={(value) => {
+                                                        const country = countries.find(c => c.code === value);
+                                                        if (country) {
+                                                            form.setValue("country_name", country.code);
+                                                            form.setValue("country_code", country.callingCode);
+                                                        }
+                                                    }}
+                                                    value={form.watch("country_name")}
+                                                >
+                                                    <FormControl>
+                                                        <SelectTrigger className="w-30 shrink-0">
+                                                            <SelectValue placeholder="Code" />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent className="max-h-[300px]">
+                                                        {countries.map((country) => (
+                                                            <SelectItem key={country.code} value={country.code}>
+                                                                <span className="flex items-center gap-2">
+                                                                    <span>{country.code}</span>
+                                                                    <span className="text-muted-foreground">{country.callingCode}</span>
+                                                                </span>
+                                                            </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                                <FormControl>
+                                                    <Input className="flex-1" placeholder="01700000000" {...field} />
+                                                </FormControl>
+                                            </div>
                                             <FormMessage />
                                         </FormItem>
                                     )}
@@ -213,6 +279,33 @@ const Register = () => {
                                                         onClick={togglePasswordVisibility}
                                                     >
                                                         {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                                    </button>
+                                                </div>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="confirmPassword"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Confirm Password</FormLabel>
+                                            <FormControl>
+                                                <div className="relative">
+                                                    <Input
+                                                        type={showConfirmPassword ? "text" : "password"}
+                                                        placeholder="********"
+                                                        {...field}
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        className="absolute inset-y-0 right-0 flex items-center px-3 text-primary cursor-pointer"
+                                                        onClick={toggleConfirmPasswordVisibility}
+                                                    >
+                                                        {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                                     </button>
                                                 </div>
                                             </FormControl>

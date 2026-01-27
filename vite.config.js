@@ -12,10 +12,10 @@ const __dirname = path.dirname(__filename);
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  server: {
-    host: "10.10.20.70",
-    port: "3000",
-  },
+  // server: {
+  //   host: "10.10.20.70",
+  //   port: "3000",
+  // },
   preview: {
     host: '0.0.0.0',
     allowedHosts:["koumanisdietapp.com","www.koumanisdietapp.com"],

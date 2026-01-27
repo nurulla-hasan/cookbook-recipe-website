@@ -20,11 +20,28 @@ import { z } from "zod";
 import { cn, ErrorToast, SuccessToast } from "@/lib/utils";
 import { useEffect } from "react";
 import { useUpdateUserProfileMutation } from "@/redux/feature/profile/profileApi";
+import { getCountries, getCountryCallingCode } from "react-phone-number-input";
+import en from "react-phone-number-input/locale/en.json";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+
+const countries = getCountries().map((country) => ({
+    name: en[country],
+    code: country,
+    callingCode: `+${getCountryCallingCode(country)}`,
+}));
 
 const accountSchema = z.object({
     name: z.string().min(1, { message: "Name is required." }),
     email: z.string().email(),
-    phone: z.string().min(10, { message: "Phone number must be at least 10 digits." }),
+    phone: z.string().min(1, { message: "Phone number is required." }),
+    country_name: z.string().min(1, { message: "Country name is required." }),
+    country_code: z.string().min(1, { message: "Country code is required." }),
     dateOfBirth: z.date({
         required_error: "A date of birth is required.",
     }).nullable(),
@@ -41,6 +58,8 @@ const EditAccount = ({ user, newProfileImage }) => {
             name: "",
             email: "",
             phone: "",
+            country_name: "BD",
+            country_code: "+880",
             dateOfBirth: null,
             mail_types: [],
             relevant_dielary: [],
@@ -87,6 +106,8 @@ const EditAccount = ({ user, newProfileImage }) => {
                 name: user.name || "",
                 email: user.email || "",
                 phone: user.phone_number || "",
+                country_name: user.country_name || "BD",
+                country_code: user.country_code || "+880",
                 dateOfBirth: user.date_of_birth ? new Date(user.date_of_birth) : null,
                 mail_types: ensureArray(user.mail_types),
                 relevant_dielary: ensureArray(user.relevant_dielary),
@@ -104,6 +125,8 @@ const EditAccount = ({ user, newProfileImage }) => {
         formData.append("name", data.name);
         formData.append("email", data.email);
         formData.append("phone_number", data.phone);
+        formData.append("country_name", data.country_name);
+        formData.append("country_code", data.country_code);
 
         if (data.dateOfBirth) {
             formData.append("date_of_birth", format(new Date(data.dateOfBirth), "yyyy-MM-dd"));
@@ -178,9 +201,37 @@ const EditAccount = ({ user, newProfileImage }) => {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Phone Number</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="eg: +880123456789" {...field} />
-                                        </FormControl>
+                                        <div className="flex gap-2">
+                                            <Select
+                                                onValueChange={(value) => {
+                                                    const country = countries.find(c => c.code === value);
+                                                    if (country) {
+                                                        form.setValue("country_name", country.code);
+                                                        form.setValue("country_code", country.callingCode);
+                                                    }
+                                                }}
+                                                value={form.watch("country_name")}
+                                            >
+                                                <FormControl>
+                                                    <SelectTrigger className="w-[100px] shrink-0">
+                                                        <SelectValue placeholder="Code" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent className="max-h-[300px]">
+                                                    {countries.map((country) => (
+                                                        <SelectItem key={country.code} value={country.code}>
+                                                            <span className="flex items-center gap-2">
+                                                                <span>{country.code}</span>
+                                                                <span className="text-muted-foreground">{country.callingCode}</span>
+                                                            </span>
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                            <FormControl>
+                                                <Input className="flex-1" placeholder="eg: 0123456789" {...field} />
+                                            </FormControl>
+                                        </div>
                                         <FormMessage />
                                     </FormItem>
                                 )}
