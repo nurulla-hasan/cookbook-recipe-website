@@ -58,8 +58,8 @@ const EditAccount = ({ user, newProfileImage }) => {
             name: "",
             email: "",
             phone: "",
-            country_name: "BD",
-            country_code: "+880",
+            country_name: "US",
+            country_code: "+1",
             dateOfBirth: null,
             mail_types: [],
             relevant_dielary: [],
@@ -106,8 +106,8 @@ const EditAccount = ({ user, newProfileImage }) => {
                 name: user.name || "",
                 email: user.email || "",
                 phone: user.phone_number || "",
-                country_name: user.country_name || "BD",
-                country_code: user.country_code || "+880",
+                country_name: user.country_name || "US",
+                country_code: user.country_code || "+1",
                 dateOfBirth: user.date_of_birth ? new Date(user.date_of_birth) : null,
                 mail_types: ensureArray(user.mail_types),
                 relevant_dielary: ensureArray(user.relevant_dielary),
@@ -213,7 +213,7 @@ const EditAccount = ({ user, newProfileImage }) => {
                                                 value={form.watch("country_name")}
                                             >
                                                 <FormControl>
-                                                    <SelectTrigger className="w-[100px] shrink-0">
+                                                    <SelectTrigger className="w-30 shrink-0">
                                                         <SelectValue placeholder="Code" />
                                                     </SelectTrigger>
                                                 </FormControl>
@@ -229,7 +229,7 @@ const EditAccount = ({ user, newProfileImage }) => {
                                                 </SelectContent>
                                             </Select>
                                             <FormControl>
-                                                <Input className="flex-1" placeholder="eg: 0123456789" {...field} />
+                                                <Input className="flex-1" placeholder="Enter phone number" {...field} />
                                             </FormControl>
                                         </div>
                                         <FormMessage />

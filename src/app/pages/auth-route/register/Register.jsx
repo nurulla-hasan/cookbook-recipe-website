@@ -57,8 +57,8 @@ const Register = () => {
             fullname: "",
             email: "",
             phone_number: "",
-            country_name: "BD",
-            country_code: "+880",
+            country_name: "US",
+            country_code: "+1",
             password: "",
             confirmPassword: "",
         },
@@ -169,7 +169,7 @@ const Register = () => {
                                                     </SelectContent>
                                                 </Select>
                                                 <FormControl>
-                                                    <Input className="flex-1" placeholder="01700000000" {...field} />
+                                                    <Input className="flex-1" placeholder="Enter phone number" {...field} />
                                                 </FormControl>
                                             </div>
                                             <FormMessage />
