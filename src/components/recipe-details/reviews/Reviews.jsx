@@ -6,7 +6,7 @@ import { StarRating } from "@/tools/StarRating";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetRecipeReviewsQuery } from "@/redux/feature/recipe/recipeApi";
-import { getImageUrl, timeAgo } from "@/lib/utils";
+import { timeAgo } from "@/lib/utils";
 import useSmartFetchHook from "@/hooks/useSmartFetchHook";
 import CustomPagination from "@/components/common/custom-pagination/CustomPagination";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -51,7 +51,7 @@ const Reviews = ({ recipe }) => {
                         <div key={review._id} className="border rounded-lg p-6">
                             <div className="flex items-start gap-4">
                                 <Avatar className="w-10 h-10">
-                                    <AvatarImage src={getImageUrl(review.userId?.profile_image)} />
+                                    <AvatarImage src={review.userId?.profile_image} />
                                     <AvatarFallback>{review.userId?.name?.charAt(0) || 'U'}</AvatarFallback>
                                 </Avatar>
                                 <div className="flex-1">

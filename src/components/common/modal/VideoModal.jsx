@@ -4,16 +4,26 @@ import {
   DialogContent,
   DialogHeader,
   DialogClose,
+  DialogTitle,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { X } from 'lucide-react';
 
 const VideoModal = ({ isOpen, onClose, videoSrc }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogHeader className="text-2xl font-bold">
+       <DialogTitle className="sr-only">
+        Video Player
+       </DialogTitle>
+       <DialogDescription className="sr-only">
+        Watch the video to learn more about our services.
+       </DialogDescription>
+      </DialogHeader>
       <DialogContent className="max-w-3xl w-full h-auto">
         <DialogHeader>
           <DialogClose asChild>
-            <button className="absolute top-2 right-2 p-1 rounded-full bg-gray-100 hover:bg-gray-200">
+            <button className="absolute top-2 right-2 p-1 rounded-full">
               <X className="h-6 w-6" />
             </button>
           </DialogClose>

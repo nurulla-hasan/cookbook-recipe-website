@@ -7,8 +7,8 @@ import EditAccount from "@/components/account/edit-account/EditAccount";
 import ChangePassword from "@/components/account/chagePassword/ChangePassword";
 import { useGetUserProfileQuery } from "@/redux/feature/profile/profileApi";
 import { useSelector } from "react-redux";
-import { getImageUrl, getInitials } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getInitials } from "@/lib/utils";
 
 const MyAccount = () => {
     const [activeTab, setActiveTab] = useState("account");
@@ -29,7 +29,7 @@ const MyAccount = () => {
         fileInputRef.current?.click();
     };
 
-    const avatarSource = selectedImage ? URL.createObjectURL(selectedImage) : getImageUrl(user?.profile_image);
+    const avatarSource = selectedImage ? URL.createObjectURL(selectedImage) : user?.profile_image;
 
     return (
         <div>

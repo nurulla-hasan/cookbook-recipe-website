@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Label } from "@/components/ui/label";
 import { useUpdateRecipeMutation } from "@/redux/feature/recipe/recipeApi";
-import { ErrorToast, SuccessToast, getImageUrl } from "@/lib/utils";
+import { ErrorToast, SuccessToast } from "@/lib/utils";
 import { useLocation } from "react-router-dom";
 
 const recipeSchema = z.object({
@@ -45,7 +45,7 @@ const recipeSchema = z.object({
 const EditRecipe = () => {
   const location = useLocation();
   const recipe = location.state?.recipe;
-  const [imagePreview, setImagePreview] = useState(recipe?.image ? getImageUrl(recipe.image) : null);
+  const [imagePreview, setImagePreview] = useState(recipe?.image || null);
   const fileInputRef = useRef(null);
   const [updateRecipe, { isLoading }] = useUpdateRecipeMutation();
 
@@ -91,7 +91,7 @@ const EditRecipe = () => {
         no_weekend_prep: recipe?.no_weekend_prep ?? false,
         image: recipe.image || null,
       });
-      setImagePreview(recipe.image ? getImageUrl(recipe.image) : null);
+      setImagePreview(recipe.image || null);
     }
   }, [recipe, form]);
 
@@ -154,7 +154,7 @@ const EditRecipe = () => {
                   <FormLabel>Photos</FormLabel>
                   <FormControl>
                     <div
-                      className="w-full md:w-96 aspect-[16/9] border-2 border-dashed rounded-lg flex items-center justify-center text-center cursor-pointer hover:border-gray-400 transition-colors relative"
+                      className="w-full md:w-96 aspect-video border-2 border-dashed rounded-lg flex items-center justify-center text-center cursor-pointer hover:border-gray-400 transition-colors relative"
                       onClick={() => fileInputRef.current?.click()}
                       onDragOver={(e) => e.preventDefault()}
                       onDrop={(e) => handleFileDrop(e, field)}

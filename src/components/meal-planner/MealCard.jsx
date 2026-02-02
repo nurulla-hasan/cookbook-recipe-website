@@ -1,4 +1,4 @@
-import { ErrorToast, getImageUrl, SuccessToast } from "@/lib/utils";
+import { ErrorToast, SuccessToast } from "@/lib/utils";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { ArrowLeftRight, Trash2 } from "lucide-react";
@@ -57,7 +57,7 @@ const MealCard = ({ meal, day }) => {
                 {/* Image Block */}
                 <div className="relative mb-4">
                     <img
-                        src={getImageUrl(meal.image)}
+                        src={meal.image}
                         alt={meal.name}
                         className="w-full h-32 object-cover rounded-md"
                         onError={(e) =>

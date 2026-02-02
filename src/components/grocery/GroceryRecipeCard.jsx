@@ -1,5 +1,4 @@
 
-import { getImageUrl } from "@/lib/utils";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import { useToggleIngredientMutation } from "@/redux/feature/grocery/groceryApi";
@@ -20,7 +19,7 @@ const GroceryRecipeCard = ({ image, title, subtitle, ingredients }) => {
         <div className="flex flex-col md:flex-row items-start gap-4 mb-8">
             <div className="flex-shrink-0">
                 <img
-                    src={getImageUrl(image)}
+                    src={image}
                     alt={title}
                     className="w-full md:w-40 h-40 object-cover rounded-r-4xl border"
                     onError={(e) => (e.target.src = `https://placehold.co/400?text=${title}&font=roboto`)}

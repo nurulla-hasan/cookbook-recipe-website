@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Heart, Clock, Star, ShoppingCart, ChefHat, Trash2, SquarePen } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ErrorToast, getImageUrl, SuccessToast } from '@/lib/utils';
+import { ErrorToast, SuccessToast } from '@/lib/utils';
 import useFavorite from '@/hooks/useFavorite';
 import { useDispatch, useSelector } from "react-redux";
 import { SetCardModalOpen, SetMealPlannerModalOpen, SetMealPlannerSwapModalOpen, SetRecipeId, SetSelectedDay } from "@/redux/feature/meal-plan/addMealPlanSlice";
@@ -75,7 +75,7 @@ const RecipeCard = (
                 {/* Image with Overlay - Left Side */}
                 <div className="w-full md:w-40 h-40 relative flex-shrink-0 overflow-hidden group">
                     <img
-                        src={getImageUrl(recipe.image)}
+                        src={recipe.image}
                         alt={recipe.title}
                         className="w-full h-full object-cover transition-transform duration-500"
                         onError={(e) => e.target.src = `https://placehold.co/400?text=${recipe.name}&font=roboto`}

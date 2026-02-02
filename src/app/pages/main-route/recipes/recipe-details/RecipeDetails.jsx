@@ -8,7 +8,6 @@ import { Separator } from '@/components/ui/separator';
 import CustomBreadcrumb from '@/components/common/custom-breadcrumb/CustomBreadcrumb';
 import { useGetRecipeByIdQuery } from '@/redux/feature/recipe/recipeApi';
 import useFavorite from '@/hooks/useFavorite';
-import { getImageUrl } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import RecipeDetailsSkeleton from '@/components/skeleton/recipe-details/RecipeDetailsSkeleton';
 import Error from '@/components/common/error/Error';
@@ -75,9 +74,9 @@ const RecipeDetails = () => {
                 <CustomBreadcrumb links={breadcrumbs} />
 
                 {/* Top Image */}
-                <div className="w-full h-64 md:h-[500px] bg-cover bg-center rounded-lg">
+                <div className="w-full h-64 md:h-125 bg-cover bg-center rounded-lg">
                     <img
-                        src={getImageUrl(recipe?.image) || `https://placehold.co/600x400?text=${recipe?.name}&font=poppins`}
+                        src={recipe?.image || `https://placehold.co/600x400?text=${recipe?.name}&font=poppins`}
                         alt={recipe?.name}
                         className="w-full h-full object-cover rounded-lg"
                         onError={(e) => e.target.src = `https://placehold.co/600x400?text=${recipe?.name}&font=poppins`}

@@ -4,7 +4,7 @@ import { StarRating } from "@/tools/StarRating";
 import { ArrowDown, Plus } from "lucide-react";
 import ScoreModal from "../modal/ScoreModal";
 import { useState } from "react";
-import { getImageUrl, getInitials, timeAgo } from "@/lib/utils";
+import { getInitials, timeAgo } from "@/lib/utils";
 import NoData from "@/components/common/no-data/NoData";
 
 const Score = ({ recipe }) => {
@@ -34,7 +34,7 @@ const Score = ({ recipe }) => {
                         <div key={review?._id} className="border rounded-lg p-6">
                             <div className="flex items-center gap-4">
                                 <Avatar className="h-10 w-10">
-                                    <AvatarImage src={getImageUrl(review?.userId?.profile_image)} />
+                                    <AvatarImage src={review?.userId?.profile_image} />
                                     <AvatarFallback>{getInitials(review?.userId?.name) || 'U'}</AvatarFallback>
                                 </Avatar>
                                 <div className="flex-1">

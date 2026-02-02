@@ -203,6 +203,7 @@ const EditAccount = ({ user, newProfileImage }) => {
                                         <FormLabel>Phone Number</FormLabel>
                                         <div className="flex gap-2">
                                             <Select
+                                                className="w-fit"
                                                 onValueChange={(value) => {
                                                     const country = countries.find(c => c.code === value);
                                                     if (country) {
@@ -213,11 +214,11 @@ const EditAccount = ({ user, newProfileImage }) => {
                                                 value={form.watch("country_name")}
                                             >
                                                 <FormControl>
-                                                    <SelectTrigger className="w-30 shrink-0">
+                                                    <SelectTrigger className="shrink-0">
                                                         <SelectValue placeholder="Code" />
                                                     </SelectTrigger>
                                                 </FormControl>
-                                                <SelectContent className="max-h-[300px]">
+                                                <SelectContent className="max-h-75">
                                                     {countries.map((country) => (
                                                         <SelectItem key={country.code} value={country.code}>
                                                             <span className="flex items-center gap-2">

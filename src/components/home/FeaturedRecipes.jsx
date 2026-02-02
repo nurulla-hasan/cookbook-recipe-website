@@ -7,7 +7,6 @@ import { Heart, Clock, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import Title from '../ui/Title';
 import { Link } from 'react-router-dom';
 import { useGetFeaturedRecipesQuery } from '@/redux/feature/home/homeApi';
-import { getImageUrl } from '@/lib/utils';
 import useFavorite from '@/hooks/useFavorite';
 import { Badge } from '../ui/badge';
 import { useGetUserFavoriteRecipesQuery } from '@/redux/feature/profile/profileApi';
@@ -27,7 +26,7 @@ const FeaturedRecipeCard = ({ recipe }) => {
                 <Card className="overflow-hidden group rounded-2xl gap-2">
                     <CardHeader className="p-0 relative">
                         <img
-                            src={getImageUrl(recipe.image)}
+                            src={recipe.image}
                             alt={recipe.name}
                             className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                             onError={(e) => {

@@ -1,5 +1,4 @@
 
-import { IMAGE_BASE_URL } from "@/redux/feature/baseApi";
 import { clsx } from "clsx";
 import { format } from "date-fns";
 import { toast } from "sonner";
@@ -81,12 +80,6 @@ export const getInitials = (name) => {
 export const formatDate = (dateString) => {
   if (!dateString) return 'N/A';
   return format(new Date(dateString), 'dd MMM yyyy');
-};
-
-// Get Image URL
-export const getImageUrl = (imagePath) => {
-  if (!imagePath) return '';
-  return imagePath.startsWith('/') ? `${IMAGE_BASE_URL}${imagePath}` : `${IMAGE_BASE_URL}/${imagePath}`;
 };
 
 // Time Ago
