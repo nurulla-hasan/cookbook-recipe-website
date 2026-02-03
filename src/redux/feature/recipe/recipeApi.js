@@ -1,4 +1,4 @@
-import { baseApi } from "../baseApi";
+import { baseApi, tagTypes } from "../baseApi";
 
 
 const recipeApi = baseApi.injectEndpoints({
@@ -21,7 +21,7 @@ const recipeApi = baseApi.injectEndpoints({
                     params,
                 };
             },
-            providesTags: ["RECIPE"],
+            providesTags: [tagTypes.RECIPE],
         }),
 
         // GET MY RECIPES
@@ -41,7 +41,7 @@ const recipeApi = baseApi.injectEndpoints({
                     params,
                 };
             },
-            providesTags: ["RECIPE"],
+            providesTags: [tagTypes.RECIPE],
         }),
 
         // GET RECIPE REVIEWS
@@ -61,7 +61,7 @@ const recipeApi = baseApi.injectEndpoints({
                     params,
                 };
             },
-            providesTags: ["REVIEW"],
+            providesTags: [tagTypes.REVIEW],
         }),
 
 
@@ -71,7 +71,7 @@ const recipeApi = baseApi.injectEndpoints({
                 url: `/dashboard/get_recipe_details/${id}`,
                 method: "GET",
             }),
-            providesTags: ["RECIPE", "FAVORITE"],
+            providesTags: [tagTypes.RECIPE, tagTypes.FAVORITE],
         }),
 
         // ===================================END GET QUERY============================================
@@ -85,7 +85,7 @@ const recipeApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["RECIPE"],
+            invalidatesTags: [tagTypes.RECIPE],
         }),
 
         // UPDATE RECIPE
@@ -95,7 +95,7 @@ const recipeApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 body: data
             }),
-            invalidatesTags: ["RECIPE"],
+            invalidatesTags: [tagTypes.RECIPE],
         }),
 
         // DELETE RECIPE
@@ -104,7 +104,7 @@ const recipeApi = baseApi.injectEndpoints({
                 url: `/dashboard/delete_recipe/${id}`,
                 method: "DELETE",
             }),
-            invalidatesTags: ["RECIPE"],
+            invalidatesTags: [tagTypes.RECIPE],
         }),
 
         // TOGGLE FAVORITE RECIPE
@@ -113,7 +113,7 @@ const recipeApi = baseApi.injectEndpoints({
                 url: `/dashboard/toggle_favorite/${id}`,
                 method: "PATCH",
             }),
-            invalidatesTags: ["RECIPE", "FAVORITE"],
+            invalidatesTags: [tagTypes.RECIPE, tagTypes.FAVORITE],
         }),
 
         // SEND REVIEW
@@ -123,7 +123,7 @@ const recipeApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["RECIPE", "REVIEW"],
+            invalidatesTags: [tagTypes.RECIPE, tagTypes.REVIEW],
         }),
 
         // SEND SATIETY REVIEW
@@ -143,7 +143,7 @@ const recipeApi = baseApi.injectEndpoints({
                     params,
                 }
             },
-            invalidatesTags: ["RECIPE", "REVIEW"],
+            invalidatesTags: [tagTypes.RECIPE, tagTypes.REVIEW],
         }),
 
     })

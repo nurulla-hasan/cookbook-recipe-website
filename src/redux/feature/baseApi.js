@@ -31,10 +31,24 @@ const baseQuery = async (args, api, extraOptions) => {
     return result;
 }
 
+export const tagTypes = {
+    USER: "USER",
+    RECIPE: "RECIPE",
+    REVIEW: "REVIEW",
+    FAVORITE: "FAVORITE",
+    PROFILE: "PROFILE",
+    GROCERY: "GROCERY",
+    MEAL_PLAN: "MEAL_PLAN",
+    LEGAL: "LEGAL",
+    FEATURED: "FEATURED",
+    SUBSCRIPTION: "SUBSCRIPTION",
+    CATEGORY: "CATEGORY",
+};
+
 export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery,
 
-    tagTypes: ["USER", "RECIPE", "REVIEW", "FAVORITE", "PROFILE", "GROCERY", "MEAL_PLAN", "LEGAL", "FEATURED", "SUBSCRIPTION", "CATEGORY"],
+    tagTypes: Object.values(tagTypes),
     endpoints: () => ({})
 })

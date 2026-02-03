@@ -1,4 +1,4 @@
-import { baseApi } from "../baseApi";
+import { baseApi, tagTypes } from "../baseApi";
 
 const paymentApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -9,7 +9,7 @@ const paymentApi = baseApi.injectEndpoints({
                 url: "/dashboard/get_all_subscriptions",
                 method: "GET",
             }),
-            providesTags: ["SUBSCRIPTION"],
+            providesTags: [tagTypes.SUBSCRIPTION],
         }),
 
         // CREATE CHECKOUT SESSION
@@ -19,7 +19,7 @@ const paymentApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["SUBSCRIPTION"],
+            invalidatesTags: [tagTypes.SUBSCRIPTION],
         }),
     })
 })

@@ -1,4 +1,4 @@
-import { baseApi } from "../baseApi";
+import { baseApi, tagTypes } from "../baseApi";
 
 const groceryApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -9,7 +9,7 @@ const groceryApi = baseApi.injectEndpoints({
                 url: `/meal_plan/get_grocery_list/${id}`,
                 method: "GET",
             }),
-            providesTags: ["GROCERY"],
+            providesTags: [tagTypes.GROCERY],
         }),
 
         // TOGGLE INGREDIENT BY STATUS
@@ -18,7 +18,7 @@ const groceryApi = baseApi.injectEndpoints({
                 url: `/meal_plan/toggle_ingredient_buy_status/${id}`,
                 method: "PATCH",
             }),
-            invalidatesTags: ["GROCERY"],
+            invalidatesTags: [tagTypes.GROCERY],
         }),
     })
 })

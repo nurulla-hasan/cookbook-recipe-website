@@ -1,4 +1,4 @@
-import { baseApi } from "../baseApi";
+import { baseApi, tagTypes } from "../baseApi";
 import { SetFavoriteRecipes, SetUserProfile } from "./profileSlice";
 
 const profileApi = baseApi.injectEndpoints({
@@ -10,7 +10,7 @@ const profileApi = baseApi.injectEndpoints({
                 url: "/auth/profile",
                 method: "GET",
             }),
-            providesTags: ["PROFILE"],
+            providesTags: [tagTypes.PROFILE],
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
@@ -30,7 +30,7 @@ const profileApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 body: data,
             }),
-            invalidatesTags: ["PROFILE"],
+            invalidatesTags: [tagTypes.PROFILE],
         }),
 
         // UPDATE USER PROFILE PICTURE
@@ -40,7 +40,7 @@ const profileApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 body: data,
             }),
-            invalidatesTags: ["PROFILE"],
+            invalidatesTags: [tagTypes.PROFILE],
         }),
 
         // GET FAVORITE RECIPES
@@ -70,7 +70,7 @@ const profileApi = baseApi.injectEndpoints({
                     // silently ignore; UI can read error from hook if needed
                 }
             },
-            providesTags: ["FAVORITE"],
+            providesTags: [tagTypes.FAVORITE],
         }),
 
         // GET MY RECIPES
@@ -90,7 +90,7 @@ const profileApi = baseApi.injectEndpoints({
                     params,
                 };
             },
-            providesTags: ["RECIPE"],
+            providesTags: [tagTypes.RECIPE],
         }),
     })
 })

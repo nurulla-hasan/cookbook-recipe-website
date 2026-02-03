@@ -1,4 +1,4 @@
-import { baseApi } from "../baseApi"
+import { baseApi, tagTypes } from "../baseApi"
 import { SetCustomDropDown, SetFeaturedDropDown, SetWeeklyDropDown } from "./mealPlanSlice"
 
 const mealPlanApi = baseApi.injectEndpoints({
@@ -35,7 +35,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                     console.log(error);
                 }
             },
-            providesTags: ["MEAL_PLAN", "GROCERY"],
+            providesTags: [tagTypes.MEAL_PLAN, tagTypes.GROCERY],
         }),
 
         // GET FEATURED MEAL PLAN
@@ -69,7 +69,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                     console.log(error);
                 }
             },
-            providesTags: ["MEAL_PLAN", "GROCERY"],
+            providesTags: [tagTypes.MEAL_PLAN, tagTypes.GROCERY],
         }),
 
         // GET CUSTOM MEAL PLAN
@@ -103,7 +103,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                     console.log(error);
                 }
             },
-            providesTags: ["MEAL_PLAN", "GROCERY"],
+            providesTags: [tagTypes.MEAL_PLAN, tagTypes.GROCERY],
         }),
 
         // GET MEAL PLAN DETAILS

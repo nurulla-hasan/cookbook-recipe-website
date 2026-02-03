@@ -1,5 +1,5 @@
 
-import { baseApi } from "../baseApi";
+import { baseApi, tagTypes } from "../baseApi";
 
 const legalApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -10,7 +10,7 @@ const legalApi = baseApi.injectEndpoints({
                 url: "/dashboard/get-about",
                 method: "GET",
             }),
-            providesTags: ["LEGAL"],
+            providesTags: [tagTypes.LEGAL],
         }),
 
         // GET TERMS
@@ -19,7 +19,7 @@ const legalApi = baseApi.injectEndpoints({
                 url: "/dashboard/get-rules",
                 method: "GET",
             }),
-            providesTags: ["LEGAL"],
+            providesTags: [tagTypes.LEGAL],
         }),
 
         // GET PRIVACY POLICY
@@ -28,7 +28,7 @@ const legalApi = baseApi.injectEndpoints({
                 url: "/dashboard/get-privacy-policy",
                 method: "GET",
             }),
-            providesTags: ["LEGAL"],
+            providesTags: [tagTypes.LEGAL],
         }),
 
         // GET CONTACT
@@ -37,7 +37,7 @@ const legalApi = baseApi.injectEndpoints({
         //         url: "/dashboard/get-contact",
         //         method: "GET",
         //     }),
-        //     providesTags: ["LEGAL"],
+        //     providesTags: [tagTypes.LEGAL],
         // }),
 
         // GET FAQ
@@ -46,7 +46,7 @@ const legalApi = baseApi.injectEndpoints({
                 url: "/dashboard/get-faqs",
                 method: "GET",
             }),
-            providesTags: ["LEGAL"],
+            providesTags: [tagTypes.LEGAL],
         }),
 
         // GET HELP
@@ -55,7 +55,7 @@ const legalApi = baseApi.injectEndpoints({
                 url: "/dashboard/get-help",
                 method: "GET",
             }),
-            providesTags: ["LEGAL"],
+            providesTags: [tagTypes.LEGAL],
         }),
 
         //======================================================================================================
@@ -69,7 +69,7 @@ const legalApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data,
             }),
-            invalidatesTags: ["LEGAL"],
+            invalidatesTags: [tagTypes.LEGAL],
         }),
 
         // SEND SUBSCRIBE
@@ -79,7 +79,7 @@ const legalApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: data,
             }),
-            invalidatesTags: ["LEGAL"],
+            invalidatesTags: [tagTypes.LEGAL],
         }),
 
 

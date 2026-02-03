@@ -1,4 +1,4 @@
-import { baseApi } from "../baseApi"
+import { baseApi, tagTypes } from "../baseApi"
 
 const homeApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -9,7 +9,7 @@ const homeApi = baseApi.injectEndpoints({
                 url: "/dashboard/recipe_for_you",
                 method: "GET",
             }),
-            providesTags: ["FEATURED"],
+            providesTags: [tagTypes.FEATURED],
         }),
 
         // GET RECIPE BY CATEGORY
@@ -29,7 +29,7 @@ const homeApi = baseApi.injectEndpoints({
                     params,
                 }
             },
-            providesTags: ["RECIPE"],
+            providesTags: [tagTypes.RECIPE],
         }),
 
         // GET RECIPE BY FITNESS GOAL
@@ -49,7 +49,7 @@ const homeApi = baseApi.injectEndpoints({
                     params,
                 }
             },
-            providesTags: ["RECIPE"],
+            providesTags: [tagTypes.RECIPE],
         }),
     })
 })
