@@ -92,7 +92,7 @@ const RecipeCard = (
                 <div className="p-5 flex-grow flex flex-col md:w-2/3">
                     <div className="flex justify-between items-start mb-3">
                         <Badge className="capitalize rounded-full bg-black/40">
-                            {recipe.category}
+                            {typeof recipe.category === 'object' ? recipe.category.name : recipe.category}
                         </Badge>
 
                         {/* Favorite Button */}

@@ -68,7 +68,7 @@ const recipeApi = baseApi.injectEndpoints({
         // GET RECIPE BY ID
         getRecipeById: builder.query({
             query: (id) => ({
-                url: `/dashboard/get_recipe_detail/${id}`,
+                url: `/dashboard/get_recipe_details/${id}`,
                 method: "GET",
             }),
             providesTags: ["RECIPE", "FAVORITE"],

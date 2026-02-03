@@ -47,7 +47,9 @@ const FeaturedRecipeCard = ({ recipe }) => {
                         </Button>
                     </CardHeader>
                     <CardContent className="px-4">
-                        <Badge variant="secondary" className="capitalize">{recipe.category}</Badge>
+                        <Badge variant="secondary" className="capitalize">
+                            {typeof recipe.category === 'object' ? recipe.category.name : recipe.category}
+                        </Badge>
                         <h3
                             title={recipe.name}
                             className="text-lg font-medium mt-1 line-clamp-1"

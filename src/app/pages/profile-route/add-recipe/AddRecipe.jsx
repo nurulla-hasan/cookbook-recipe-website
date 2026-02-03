@@ -14,6 +14,7 @@ import { z } from "zod";
 import { Label } from "@/components/ui/label";
 import { useCreateRecipeMutation } from "@/redux/feature/recipe/recipeApi";
 import { ErrorToast, SuccessToast } from "@/lib/utils";
+import { useGetCategoryDropDownQuery } from "@/redux/feature/category/category";
 
 const recipeSchema = z.object({
   name: z.string().min(1, "Recipe name is required."),
@@ -46,6 +47,8 @@ const AddRecipe = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
   const [createRecipe, { isLoading }] = useCreateRecipeMutation();
+  const { data: categoryData } = useGetCategoryDropDownQuery();
+  const categories = categoryData?.data || [];
 
   const form = useForm({
     resolver: zodResolver(recipeSchema),
@@ -130,7 +133,7 @@ const AddRecipe = () => {
                   <FormLabel>Photos</FormLabel>
                   <FormControl>
                     <div
-                      className="w-full md:w-96 aspect-[16/9] border-2 border-dashed rounded-lg flex items-center justify-center text-center cursor-pointer hover:border-gray-400 transition-colors relative"
+                      className="w-full md:w-96 aspect-video border-2 border-dashed rounded-lg flex items-center justify-center text-center cursor-pointer hover:border-gray-400 transition-colors relative"
                       onClick={() => fileInputRef.current?.click()}
                       onDragOver={(e) => e.preventDefault()}
                       onDrop={(e) => handleFileDrop(e, field)}
@@ -323,16 +326,11 @@ const AddRecipe = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="breakfast">Breakfast</SelectItem>
-                        <SelectItem value="lunches-and-dinners">Lunch & Dinner</SelectItem>
-                        <SelectItem value="appetizers">Appetizers</SelectItem>
-                        <SelectItem value="salads">Salads</SelectItem>
-                        <SelectItem value="soups">Soups</SelectItem>
-                        <SelectItem value="desserts">Desserts</SelectItem>
-                        <SelectItem value="smoothies/shakes">Smoothies/Shakes</SelectItem>
-                        <SelectItem value="salad-dressings">Salad Dressings</SelectItem>
-                        <SelectItem value="jams/marmalades">Jams/Marmalades</SelectItem>
-                        <SelectItem value="sides">Sides</SelectItem>
+                        {categories.map((cat) => (
+                          <SelectItem key={cat._id} value={cat._id}>
+                            {cat.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />

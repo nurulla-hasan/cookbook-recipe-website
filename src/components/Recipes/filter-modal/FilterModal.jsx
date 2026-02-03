@@ -11,6 +11,7 @@ import { Slider } from '@/components/ui/slider';
 import FilterDropdown from '../filter-dropdown/FilterDropdown';
 import { StarRating } from '@/tools/StarRating';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useGetCategoryDropDownQuery } from '@/redux/feature/category/category';
 
 const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
   // State for filters
@@ -52,18 +53,11 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
     setFiltersModified(prev => ({ ...prev, rating: newValue > 0 }));
   };
 
-  const categoryOptions = [
-    { value: 'breakfast', label: 'Breakfast' },
-    { value: 'lunches-and-dinners', label: 'Lunches & Dinners' },
-    { value: 'appetizers', label: 'Appetizers' },
-    { value: 'salads', label: 'Salads' },
-    { value: 'soups', label: 'Soups' },
-    { value: 'desserts', label: 'Desserts' },
-    { value: 'smoothies/shakes', label: 'Smoothies/Shakes' },
-    { value: 'salad-dressings', label: 'Salad Dressings' },
-    { value: 'jams/marmalades', label: 'Jams/Marmalades' },
-    { value: 'sides', label: 'Sides' }
-  ];
+  const { data: categoriesData } = useGetCategoryDropDownQuery();
+  const categoryOptions = (categoriesData?.data || []).map((c) => ({
+    value: c._id,
+    label: c.name,
+  }));
 
   const intermittentFastingOptions = [
     { value: 'cold', label: 'Cold' },
@@ -150,7 +144,7 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] lg:max-w-[600px] bg-secondary p-6 rounded-lg shadow-lg">
+      <DialogContent className="sm:max-w-106.25 lg:max-w-150 bg-secondary p-6 rounded-lg shadow-lg">
         <DialogHeader className="relative">
           <DialogTitle className="text-2xl font-bold text-center">Filter By Ingredients & More</DialogTitle>
           <DialogDescription className="sr-only">

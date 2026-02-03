@@ -1,6 +1,6 @@
 import PageLayout from '@/tools/PageLayout';
 import PageHeader from '@/components/common/page-header/PageHeader';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import RecipeCard from '@/components/Recipes/recipe-card/RecipeCard';
 import useSmartFetchHook from '@/hooks/useSmartFetchHook';
 import { useGetRecipeByCategoryQuery } from '@/redux/feature/home/homeApi';
@@ -15,11 +15,12 @@ import { SetCardModalClose, SetRecipeId } from '@/redux/feature/meal-plan/addMea
 const Category = () => {
     const dispatch = useDispatch();
     const { cardModalOpen } = useSelector((state) => state.addMealPlan);
-    const { slug: category } = useParams();
-    const formattedSlug = category
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+    const { slug: categoryId } = useParams();
+    const location = useLocation();
+    
+    // Get category name from query params
+    const queryParams = new URLSearchParams(location.search);
+    const categoryName = queryParams.get('name') || "Category";
 
     const {
         currentPage,
@@ -28,11 +29,11 @@ const Category = () => {
         items: recipes,
         isLoading,
         isError,
-    } = useSmartFetchHook(useGetRecipeByCategoryQuery, { resultsKey: "result" }, { category });
+    } = useSmartFetchHook(useGetRecipeByCategoryQuery, { resultsKey: "result" }, { category: categoryId });
 
     const breadcrumbs = [
         { name: 'Home', href: '/' },
-        { name: formattedSlug },
+        { name: categoryName },
     ];
 
     if (isLoading) {
@@ -43,7 +44,7 @@ const Category = () => {
         <>
             <PageHeader
                 breadcrumbs={breadcrumbs}
-                title={formattedSlug}
+                title={categoryName}
             />
             <PageLayout
                 pagination={
@@ -69,8 +70,8 @@ const Category = () => {
                                 <RecipeCard
                                     key={recipe._id}
                                     recipe={recipe}
-                                    from={formattedSlug}
-                                    fromPath={`/category/${category}`}
+                                    from={categoryName}
+                                    fromPath={`/category/${categoryId}?name=${encodeURIComponent(categoryName)}`}
                                     showCartButton={true}
                                 />
                             ))

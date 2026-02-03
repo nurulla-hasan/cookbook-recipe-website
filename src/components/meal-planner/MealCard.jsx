@@ -96,7 +96,9 @@ const MealCard = ({ meal, day }) => {
                 {/* Title + Category */}
                 <div className="flex justify-between items-center gap-2">
                     <h3 className="font-semibold">{meal.name}</h3>
-                    <Badge variant="outline">{meal.category}</Badge>
+                    <Badge variant="outline">
+                        {typeof meal.category === 'object' ? meal.category.name : meal.category}
+                    </Badge>
                 </div>
             </div>
 
