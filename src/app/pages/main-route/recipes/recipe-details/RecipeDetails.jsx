@@ -81,7 +81,7 @@ const RecipeDetails = () => {
                     <img
                         src={recipe?.image || `https://placehold.co/600x400?text=${recipe?.name}&font=poppins`}
                         alt={recipe?.name}
-                        className="w-full h-full object-cover rounded-lg"
+                        className="w-full h-full object-contain border rounded-lg"
                         onError={(e) => e.target.src = `https://placehold.co/600x400?text=${recipe?.name}&font=poppins`}
                     />
                 </div>

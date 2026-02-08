@@ -327,7 +327,7 @@ const AddRecipe = () => {
                       </FormControl>
                       <SelectContent>
                         {categories.map((cat) => (
-                          <SelectItem key={cat._id} value={cat._id}>
+                          <SelectItem key={cat.slug} value={cat.slug}>
                             {cat.name}
                           </SelectItem>
                         ))}

@@ -55,7 +55,7 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
 
   const { data: categoriesData } = useGetCategoryDropDownQuery();
   const categoryOptions = (categoriesData?.data || []).map((c) => ({
-    value: c._id,
+    value: c.slug,
     label: c.name,
   }));
 
