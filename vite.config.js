@@ -46,14 +46,14 @@ export default defineConfig({
   // DEV SERVER (npm run dev)
   server: {
     host: '0.0.0.0',
-    port: 5174,
+    port: 5173,
     strictPort: true,
   },
 
   // PREVIEW SERVER (npm run preview)
   preview: {
     host: '0.0.0.0',
-    port: 5174,
+    port: 5173,
     allowedHosts: [
       'koumanisdietapp.com',
       'www.koumanisdietapp.com',
