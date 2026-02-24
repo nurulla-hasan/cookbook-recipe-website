@@ -10,8 +10,12 @@ const DetailsTabs = ({ recipe }) => {
         recipe_tips = '',
     } = recipe || {};
 
-    // Instructions might be a single string. Let's try to split it into steps.
-    const instructionSteps = instructions.split('.').filter(s => s.trim() !== '');
+    // Instructions might be a string or an array. Let's handle both.
+    const instructionSteps = Array.isArray(instructions) 
+        ? instructions 
+        : typeof instructions === 'string' 
+            ? instructions.split('.').filter(s => s.trim() !== '') 
+            : [];
 
     return (
         <>
@@ -39,7 +43,7 @@ const DetailsTabs = ({ recipe }) => {
                             {
                                 instructionSteps.map((step, index) => (
                                     <li key={index} className="flex items-start gap-3">
-                                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold">
+                                        <div className="shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold">
                                             {index + 1}
                                         </div>
                                         <p className="pt-1">{step.trim()}</p>

@@ -14,14 +14,14 @@ import MealPlannerSkeleton from "@/components/skeleton/meal-planner/MealPlannerS
 import PrivateRoute from "@/tools/PrivateRoute";
 import NotFound from "../pages/not-found/NotFound";
 
-const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
+// const AddRecipe = lazy(() => import("../pages/profile-route/add-recipe/AddRecipe"));
 const EditRecipe = lazy(() => import("../pages/profile-route/my-recipe/edit-recipe/EditRecipe"));
 const Faq = lazy(() => import("../pages/main-route/legal-pages/faq/Faq"));
 const Help = lazy(() => import("../pages/main-route/legal-pages/help/Help"));
 const Privacy = lazy(() => import("../pages/main-route/legal-pages/privacy/Privacy"));
 const Terms = lazy(() => import("../pages/main-route/legal-pages/terms/Terms"));
 const Favorite = lazy(() => import("../pages/profile-route/my-favorite/MyFavorite"));
-const MyRecipe = lazy(() => import("../pages/profile-route/my-recipe/MyRecipe"));
+// const MyRecipe = lazy(() => import("../pages/profile-route/my-recipe/MyRecipe"));
 const MyAccount = lazy(() => import("../pages/profile-route/my-account/MyAccount"));
 const Home = lazy(() => import("../pages/main-route/home/Home"));
 const Recipes = lazy(() => import("../pages/main-route/recipes/Recipes"));
@@ -137,14 +137,14 @@ const router = createBrowserRouter([
                         path: "my-favourite",
                         element: ErrorAndSuspense(Favorite, <div className="grid gap-6 grid-cols-1"><RecipeCardSkeleton count={3} /></div>),
                     },
-                    {
-                        path: "my-recipes",
-                        element: ErrorAndSuspense(MyRecipe, <div className="grid gap-6 grid-cols-1"><RecipeCardSkeleton count={3} /></div>),
-                    },
-                    {
-                        path: "add-recipe",
-                        element: ErrorAndSuspense(AddRecipe, <AddRecipe />),
-                    },
+                    // {
+                    //     path: "my-recipes",
+                    //     element: ErrorAndSuspense(MyRecipe, <div className="grid gap-6 grid-cols-1"><RecipeCardSkeleton count={3} /></div>),
+                    // },
+                    // {
+                    //     path: "add-recipe",
+                    //     element: ErrorAndSuspense(AddRecipe, <AddRecipe />),
+                    // },
                     {
                         path: "edit-recipe/:id",
                         element: ErrorAndSuspense(EditRecipe, <EditRecipe />),

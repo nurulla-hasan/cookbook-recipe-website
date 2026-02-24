@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
-import { User, Heart, Book, ChevronRight, Plus } from 'lucide-react';
+import { User, Heart, ChevronRight } from 'lucide-react';
 
 const sidebarNavLinks = [
     { to: '/profile', icon: <User size={16} />, label: 'My Account', end: true },
     { to: '/profile/my-favourite', icon: <Heart size={16} />, label: 'My Favourite' },
-    { to: '/profile/my-recipes', icon: <Book size={16} />, label: 'My Recipe' },
-    { to: '/profile/add-recipe', icon: <Plus size={16} />, label: 'Add Recipe' },
+    // { to: '/profile/my-recipes', icon: <Book size={16} />, label: 'My Recipe' },
+    // { to: '/profile/add-recipe', icon: <Plus size={16} />, label: 'Add Recipe' },
 ];
 
 
