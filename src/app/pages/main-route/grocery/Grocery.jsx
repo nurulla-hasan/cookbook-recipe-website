@@ -17,55 +17,16 @@ import { InfoToast } from "@/lib/utils";
 import GroceryCardListSkeleton from "@/components/skeleton/grocery/GroceryCardListSkeleton";
 import Error from "@/components/common/error/Error";
 import NoData from "@/components/common/no-data/NoData";
-// import { SetPlanId } from "@/redux/feature/meal-plan/addMealPlanSlice";
-// import { useDispatch } from "react-redux";
-// import { useEffect, useState } from "react";
-// import { SetPlanId } from "@/redux/feature/meal-plan/addMealPlanSlice";
 
 const Grocery = () => {
     // const dispatch = useDispatch();
     useGetWeeklyMealPlanQuery()
     useGetFeaturedMealPlanQuery()
     useGetCustomMealPlanQuery()
-    // const weekDropDown = useSelector((state) => state.mealPlan.weeklyDropDown);
-    // const featuredDropDown = useSelector((state) => state.mealPlan.featuredDropDown);
-    // const customDropDown = useSelector((state) => state.mealPlan.customDropDown);
     const { planId } = useSelector((state) => state.addMealPlan);
 
-    // const [activeTab, setActiveTab] = useState("my-weeks");
-    // const [selectedWeek, setSelectedWeek] = useState();
-    // const [selectedPlan, setSelectedPlan] = useState();
-    // const [selectedCustomPlan, setSelectedCustomPlan] = useState();
 
     const { data: groceryData, isLoading: isGroceryLoading, isError: isGroceryError } = useGetGroceryListQuery(planId, { skip: !planId });
-
-    // useEffect(() => {
-    //     if (activeTab === 'my-weeks') {
-    //         dispatch(SetPlanId(selectedWeek?._id));
-    //     } else if (activeTab === 'featured-plans') {
-    //         dispatch(SetPlanId(selectedPlan?._id));
-    //     } else if (activeTab === 'custom-plans') {
-    //         dispatch(SetPlanId(selectedCustomPlan?._id));
-    //     }
-    // }, [activeTab, selectedWeek, selectedPlan, selectedCustomPlan, dispatch]);
-
-    // useEffect(() => {
-    //     if (weekDropDown && weekDropDown.length > 0 && !selectedWeek) {
-    //         setSelectedWeek(weekDropDown[0]);
-    //     }
-    // }, [weekDropDown, selectedWeek]);
-
-    // useEffect(() => {
-    //     if (featuredDropDown && featuredDropDown.length > 0 && !selectedPlan) {
-    //         setSelectedPlan(featuredDropDown[0]);
-    //     }
-    // }, [featuredDropDown, selectedPlan]);
-
-    // useEffect(() => {
-    //     if (customDropDown && customDropDown.length > 0 && !selectedCustomPlan) {
-    //         setSelectedCustomPlan(customDropDown[0]);
-    //     }
-    // }, [customDropDown, selectedCustomPlan]);
 
     const recipesWithAllIngredients = groceryData?.data?.data.flatMap(day =>
         day.recipes
@@ -107,46 +68,6 @@ const Grocery = () => {
         <>
             <PageHeader breadcrumbs={breadcrumbs} title="Grocery" />
             <PageLayout paddingSize="none">
-                {/* <Tabs value={activeTab} onValueChange={setActiveTab}>
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <TabsList className="grid grid-cols-3">
-                            <TabsTrigger value="my-weeks">My Weeks</TabsTrigger>
-                            <TabsTrigger value="featured-plans">Featured Plans</TabsTrigger>
-                            <TabsTrigger value="custom-plans">Custom Plans</TabsTrigger>
-                        </TabsList>
-                    </div>
-
-                    <TabsContent value="my-weeks">
-                        <div className="mt-4">
-                            <PlanTypeFilter
-                                title="Select Week"
-                                items={weekDropDown || []}
-                                value={selectedWeek}
-                                onValueChange={setSelectedWeek}
-                            />
-                        </div>
-                    </TabsContent>
-                    <TabsContent value="featured-plans">
-                        <div className="mt-4">
-                            <PlanTypeFilter
-                                title="Select Featured Plan"
-                                items={featuredDropDown || []}
-                                value={selectedPlan}
-                                onValueChange={setSelectedPlan}
-                            />
-                        </div>
-                    </TabsContent>
-                    <TabsContent value="custom-plans">
-                        <div className="flex items-center gap-4 mt-4">
-                            <PlanTypeFilter
-                                title="Select Custom Plan"
-                                items={customDropDown || []}
-                                value={selectedCustomPlan}
-                                onValueChange={setSelectedCustomPlan}
-                            />
-                        </div>
-                    </TabsContent>
-                </Tabs> */}
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Left Section */}

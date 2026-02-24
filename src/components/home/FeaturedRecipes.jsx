@@ -10,6 +10,7 @@ import { useGetFeaturedRecipesQuery } from '@/redux/feature/home/homeApi';
 import useFavorite from '@/hooks/useFavorite';
 import { Badge } from '../ui/badge';
 import { useGetUserFavoriteRecipesQuery } from '@/redux/feature/profile/profileApi';
+import FeaturedRecipeSkeleton from '@/components/skeleton/home/FeaturedRecipeSkeleton';
 
 const FeaturedRecipeCard = ({ recipe }) => {
     const {onFavoriteToggle} = useFavorite();
@@ -99,13 +100,11 @@ const FeaturedRecipes = () => {
                 <Carousel setApi={setApi} opts={{ align: "start", loop: true }} className="w-full">
                     <CarouselContent>
                         {isLoading ? (
-                            <p>Loading...</p>
+                            <FeaturedRecipeSkeleton count={4} />
                         ) : isError ? (
-                            <p>Error fetching recipes</p>
-                        ) : recipes?.data?.length === 0 ? (
-                            <p>No recipes found</p>
+                            <p className="text-red-500">Failed to load recipes. Please try again later.</p>
                         ) : (
-                            recipes?.data?.slice(0, 10).map((recipe) => (
+                            recipes?.data?.map((recipe) => (
                                 <FeaturedRecipeCard key={recipe._id} recipe={recipe} />
                             ))
                         )}
