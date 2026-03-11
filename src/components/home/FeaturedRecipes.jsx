@@ -24,7 +24,7 @@ const FeaturedRecipeCard = ({ recipe }) => {
                 state={{ from: 'Featured', fromPath: '/#featured-recipes' }}
                 className="h-full group transition-all duration-300 hover:-translate-y-1 block"
             >
-                <Card className="overflow-hidden group rounded-2xl gap-2">
+                <Card className="overflow-hidden group rounded-2xl gap-2 py-0">
                     <CardHeader className="p-0 relative">
                         <img
                             src={recipe.image}

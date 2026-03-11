@@ -7,7 +7,7 @@ const FeaturedRecipeSkeleton = ({ count = 4 }) => {
         <>
             {[...Array(count)].map((_, i) => (
                 <CarouselItem key={i} className="sm:basis-1/2 lg:basis-1/4">
-                    <Card className="overflow-hidden group rounded-2xl gap-2 h-full">
+                    <Card className="overflow-hidden group rounded-2xl gap-2 py-0">
                         <CardHeader className="p-0 relative">
                             <Skeleton className="w-full h-56 rounded-none" />
                             {/* Heart Button Skeleton */}

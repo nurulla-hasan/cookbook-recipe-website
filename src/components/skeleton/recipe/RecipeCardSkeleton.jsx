@@ -11,12 +11,12 @@ export default function RecipeCardSkeleton({ count = 3 }) {
                     <div className="h-full flex flex-col md:flex-row overflow-hidden border-0 shadow-sm bg-secondary rounded-xl">
 
                         {/* Image skeleton */}
-                        <div className="w-full md:w-40 h-auto relative flex-shrink-0 overflow-hidden">
+                        <div className="w-full md:w-40 h-auto relative shrink-0 overflow-hidden">
                             <Skeleton className="absolute inset-0 rounded-none" />
                         </div>
 
                         {/* Content skeleton */}
-                        <div className="p-2 flex-grow flex flex-col md:w-2/3">
+                        <div className="p-2 grow flex flex-col md:w-2/3">
                             <div className="flex justify-between items-start mb-3">
                                 <Skeleton className="h-6 w-20 rounded-full" />
                                 <Skeleton className="h-8 w-8 rounded-full" />

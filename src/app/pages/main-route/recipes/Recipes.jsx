@@ -31,7 +31,7 @@ const Recipes = () => {
         isLoading,
         isError,
         setFilterParams,
-    } = useSmartFetchHook(useGetRecipesQuery, { resultsKey: "result"});
+    } = useSmartFetchHook(useGetRecipesQuery, { resultsKey: "result", limit: 20 });
 
 
     const handleApplyFilters = (filters) => {
@@ -74,7 +74,7 @@ const Recipes = () => {
                         <p className="text-muted-foreground">Discover and explore delicious recipes</p>
                     </div>
                     <div className="w-full md:w-auto flex items-center gap-3">
-                        <div className="relative flex-grow md:flex-grow-0 md:w-64">
+                        <div className="relative grow md:grow-0 md:w-64">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                             <Input
                                 type="text"
@@ -95,9 +95,9 @@ const Recipes = () => {
                 </div>
 
                 {/* Recipe List */}
-                <div className="grid gap-6 grid-cols-1">
+                <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
                     {isLoading ? (
-                        <RecipeCardSkeleton count={3} />
+                        <RecipeCardSkeleton count={10} />
                     ) : isError ? (
                         <Error msg="Something went wrong" />
                     ) : recipes.length === 0 ? (

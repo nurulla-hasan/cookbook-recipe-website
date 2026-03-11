@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, CheckCircle2, Circle, Info } from "lucide-react";
+import { Clock, CheckCircle2, Circle, Info, Loader2 } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useGetWeekendPrepQuery, useToggleSpeedPrepMutation } from "@/redux/feature/meal-plan/mealPlanApi";
-// import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import NoData from "@/components/common/no-data/NoData";
 import Error from "@/components/common/error/Error";
@@ -10,16 +10,23 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const WeakPrep = () => {
     const { planId } = useSelector((state) => state.addMealPlan);
-    const { data: prepResponse, isLoading, isError } = useGetWeekendPrepQuery(planId, { skip: !planId });
-    const [toggleSpeedPrep] = useToggleSpeedPrepMutation();
+    const { data: prepResponse, isLoading, isError, error } = useGetWeekendPrepQuery(planId, { skip: !planId });
+    const [toggleSpeedPrep, { isLoading: isToggling }] = useToggleSpeedPrepMutation();
+    const [loadingStepId, setLoadingStepId] = useState(null);
 
     const prepData = prepResponse?.data;
+    const errorMessage = error?.data?.message || error?.message || "";
+    const noRecipeError = isError && (errorMessage === "No recipes found in this plan!" || errorMessage.includes("No recipes found"));
 
     const handleToggleStep = async (stepId) => {
+        if (isToggling) return;
+        setLoadingStepId(stepId);
         try {
             await toggleSpeedPrep({ planId, stepId }).unwrap();
         } catch (error) {
             console.error("Failed to toggle step:", error);
+        } finally {
+            setLoadingStepId(null);
         }
     };
 
@@ -35,19 +42,23 @@ const WeakPrep = () => {
         );
     }
 
-    if (isError) {
-        return <Error msg="Failed to load weekend prep data" />;
+    if (noRecipeError || (!isLoading && !isError && (!prepData || (!prepData.sections?.length && !prepData.speed_prep?.length)))) {
+        return <NoData msg="No weekend preparation steps found for this plan." />;
     }
 
-    if (!prepData || (!prepData.sections?.length && !prepData.speed_prep?.length)) {
-        return <NoData message="No weekend preparation steps found for this plan." />;
+    if (isError) {
+        return <Error msg={errorMessage || "Failed to load weekend prep data"} />;
+    }
+
+    if (!planId) {
+        return <NoData msg="Please select a meal plan to see weekend preparation steps." />;
     }
 
     return (
         <div className="space-y-8 pb-10">
             {/* Prep Notes */}
             {prepData.prep_notes?.length > 0 && (
-                <Card className="bg-primary/5 border-primary/20 shadow-none py-6">
+                <Card className="bg-primary/5 border-primary/20 shadow-none">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-lg flex items-center gap-2">
                             <Info className="w-5 h-5 text-primary" />
@@ -67,7 +78,7 @@ const WeakPrep = () => {
             <div className="grid gap-6 lg:grid-cols-2">
                 {/* Speed Prep Checklist */}
                 {prepData.speed_prep?.length > 0 && (
-                    <Card className="shadow-none border py-6">
+                    <Card className="shadow-none border">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <Clock className="w-5 h-5 text-primary" />
@@ -83,11 +94,16 @@ const WeakPrep = () => {
                                             {item.steps.map((step) => (
                                                 <div 
                                                     key={step._id} 
-                                                    className="flex items-start gap-3 p-2 rounded-md hover:bg-muted/50 transition-colors group cursor-pointer"
+                                                    className={cn(
+                                                        "flex items-start gap-3 p-2 rounded-md transition-colors group",
+                                                        (loadingStepId === step._id || isToggling) ? "cursor-not-allowed opacity-70" : "hover:bg-muted/50 cursor-pointer"
+                                                    )}
                                                     onClick={() => handleToggleStep(step._id)}
                                                 >
                                                     <div className="mt-0.5">
-                                                        {step.isDone ? (
+                                                        {loadingStepId === step._id ? (
+                                                            <Loader2 className="w-5 h-5 text-primary animate-spin" />
+                                                        ) : step.isDone ? (
                                                             <CheckCircle2 className="w-5 h-5 text-primary" />
                                                         ) : (
                                                             <Circle className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
@@ -112,7 +128,7 @@ const WeakPrep = () => {
                 {/* Sections (Bake, Prep, etc.) */}
                 <div className="space-y-6">
                     {prepData.sections?.map((section, secIdx) => (
-                        <Card key={secIdx} className="shadow-none border py-6">
+                        <Card key={secIdx} className="shadow-none border">
                             <CardHeader className="bg-muted/30">
                                 <CardTitle className="text-lg uppercase tracking-wider">{section.title}</CardTitle>
                             </CardHeader>

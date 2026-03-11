@@ -53,7 +53,7 @@ const SwapRecipePlanModal = ({ isOpen, onOpenChange }) => {
                     <DialogTitle>Swap Recipe</DialogTitle>
                     <DialogDescription>Choose a recipe to swap with the current recipe.</DialogDescription>
                 </DialogHeader>
-                <div className="flex-grow overflow-y-auto px-6">
+                <div className="grow overflow-y-auto px-6">
                     <PageLayout
                         paddingSize="compact"
                         pagination={
@@ -71,7 +71,7 @@ const SwapRecipePlanModal = ({ isOpen, onOpenChange }) => {
                         {/* Title and Search/Filter */}
                         <div className="flex flex-col md:flex-row justify-end items-start md:items-center gap-4 mb-8">
                             <div className="w-full md:w-auto flex items-center gap-3">
-                                <div className="relative flex-grow md:flex-grow-0 md:w-64">
+                                <div className="relative grow md:grow-0 md:w-64">
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                     <Input
                                         type="text"

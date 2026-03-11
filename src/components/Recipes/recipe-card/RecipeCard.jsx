@@ -71,16 +71,16 @@ const RecipeCard = (
             state={{ from, fromPath }}
             className="h-full group transition-all duration-300 hover:-translate-y-1 block"
         >
-            <Card className="h-full flex flex-col md:flex-row overflow-hidden border-0 shadow-sm transition-all duration-300 bg-secondary hover:shadow-md">
+            <Card className="h-full flex flex-col md:flex-row overflow-hidden border-0 shadow-sm transition-all duration-300 bg-secondary hover:shadow-md py-0">
                 {/* Image with Overlay - Left Side */}
-                <div className="w-full md:w-40 h-40 relative flex-shrink-0 overflow-hidden group">
+                <div className="w-full md:w-40 h-40 relative shrink-0 overflow-hidden group">
                     <img
                         src={recipe.image}
                         alt={recipe.title}
                         className="w-full h-full object-cover transition-transform duration-500"
                         onError={(e) => e.target.src = `https://placehold.co/400?text=${recipe.name}&font=roboto`}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <div className="absolute inset-0 bg-linear-to-t from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                         <div className="flex items-center gap-2 text-white text-sm">
                             <ChefHat className="w-4 h-4" />
                             <span>{recipe.author || 'Chef Special'}</span>
@@ -89,7 +89,7 @@ const RecipeCard = (
                 </div>
 
                 {/* Content - Right Side */}
-                <div className="p-5 flex-grow flex flex-col md:w-2/3">
+                <div className="p-5 grow flex flex-col md:w-2/3">
                     <div className="flex justify-between items-start mb-3">
                         <Badge className="capitalize rounded-full bg-black/40">
                             {typeof recipe.category === 'object' ? recipe.category.name : recipe.category}
@@ -138,7 +138,7 @@ const RecipeCard = (
                         )}
                     </div>
 
-                    <h3 className="font-semibold  dark:text-white mb-2 line-clamp-2">
+                    <h3 className="font-medium dark:text-white mb-2 truncate">
                         {recipe.name}
                     </h3>
 
@@ -156,7 +156,7 @@ const RecipeCard = (
 
                         {/* Add to Plan Button */}
                         {showCartButton && <Button
-                            className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
+                            className="bg-linear-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
                             size="sm"
                             onClick={(e) => {
                                 e.preventDefault();
@@ -170,7 +170,7 @@ const RecipeCard = (
                         {/* Choose Button */}
                         {showChooseButton && <Button
                             loading={isLoading}
-                            className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
+                            className="bg-linear-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
                             size="sm"
                             onClick={(e) => {
                                 e.preventDefault();
@@ -183,7 +183,7 @@ const RecipeCard = (
                         {/* Swap Button */}
                         {showSwapButton && <Button
                             loading={swapLoading}
-                            className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
+                            className="bg-linear-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
                             size="sm"
                             onClick={(e) => {
                                 e.preventDefault();
