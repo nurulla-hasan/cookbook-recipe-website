@@ -21,6 +21,7 @@ import { SetMealPlannerModalOpen, SetMealPlannerSwapModalOpen, SetPlanId, SetRec
 import AddRecipePlanModal from "@/components/meal-planner/AddRecipePlanModal";
 import SwapRecipePlanModal from "@/components/meal-planner/SwapRecipePlanModal";
 import Preparation from "@/components/meal-planner/Preparation";
+import WeakPrep from "@/components/meal-planner/WeakPrep";
 import MealPlannerSkeleton from "@/components/skeleton/meal-planner/MealPlannerSkeleton";
 import Error from "@/components/common/error/Error";
 
@@ -43,7 +44,7 @@ const MealPlanner = () => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     // const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
-    const { data: mealPlanDetailsResponse, isLoading: isDetailsLoading, isError: isDetailsError} = useGetMealPlanDetailsQuery(activeMealPlanId, { skip: !activeMealPlanId });
+    const { data: mealPlanDetailsResponse, isLoading: isDetailsLoading, isError: isDetailsError } = useGetMealPlanDetailsQuery(activeMealPlanId, { skip: !activeMealPlanId });
     const mealPlanDetails = mealPlanDetailsResponse?.data;
     const [deleteCustomMealPlan, { isLoading: isDeleting }] = useDeleteCustomMealPlanMutation();
     // const [removeRecipe, { isLoading }] = useRemoveRecipeMutation();
@@ -121,90 +122,95 @@ const MealPlanner = () => {
         <>
             <PageHeader breadcrumbs={breadcrumbs} title="Meal Planner" />
             <PageLayout paddingSize="compact">
-                    <div className="space-y-8">
-                        <Tabs value={activeTab} onValueChange={setActiveTab}>
-                            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                                <TabsList className="flex gap-3">
-                                    <TabsTrigger value="my-weeks" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">My Weeks</TabsTrigger>
-                                    <TabsTrigger value="featured-plans" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Featured Plans</TabsTrigger>
-                                    <TabsTrigger value="custom-plans" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Custom Plans</TabsTrigger>
-                                </TabsList>
+                <div className="space-y-8">
+                    <Tabs value={activeTab} onValueChange={setActiveTab}>
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                            <TabsList className="flex gap-3">
+                                <TabsTrigger value="my-weeks" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">My Weeks</TabsTrigger>
+                                <TabsTrigger value="featured-plans" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Featured Plans</TabsTrigger>
+                                <TabsTrigger value="custom-plans" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Custom Plans</TabsTrigger>
+                            </TabsList>
 
-                                <TabsList>
-                                    <TabsTrigger value="preparation">Preparation</TabsTrigger>
-                                </TabsList>
+                            <TabsList className="flex gap-3">
+                                <TabsTrigger value="preparation" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Preparation</TabsTrigger>
+                                <TabsTrigger value="weak-prep" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Weak Prep</TabsTrigger>
+                            </TabsList>
+                        </div>
+
+                        <TabsContent value="my-weeks">
+                            <div className="mt-4">
+                                <PlanTypeFilter
+                                    title="Select Week"
+                                    items={weekDropDown || []}
+                                    value={selectedWeek}
+                                    onValueChange={setSelectedWeek}
+                                />
                             </div>
-
-                            <TabsContent value="my-weeks">
-                                <div className="mt-4">
-                                    <PlanTypeFilter
-                                        title="Select Week"
-                                        items={weekDropDown || []}
-                                        value={selectedWeek}
-                                        onValueChange={setSelectedWeek}
-                                    />
-                                </div>
-                                <div className="mt-8">
-                                        <WeeklyMealPlan
-                                            mealPlan={mealPlanDetails || {}}
-                                            onAddRecipeClick={handleAddRecipeClick}
-                                        />
-                                </div>
-                            </TabsContent>
-                            <TabsContent value="featured-plans">
-                                <div className="mt-4">
-                                    <PlanTypeFilter
-                                        title="Select Featured Plan"
-                                        items={featuredDropDown || []}
-                                        value={selectedPlan}
-                                        onValueChange={setSelectedPlan}
-                                    />
-                                </div>
-                                <div className="mt-8">
-                                        <WeeklyMealPlan
-                                            mealPlan={mealPlanDetails || {}}
-                                            onAddRecipeClick={handleAddRecipeClick}
-                                        />
-                                </div>
-                            </TabsContent>
-                            <TabsContent value="custom-plans">
-                                <div className="flex items-center gap-4 mt-4">
-                                    <PlanTypeFilter
-                                        title="Select Custom Plan"
-                                        items={customDropDownWithOptions}
-                                        value={selectedCustomPlan}
-                                        onValueChange={(plan) => {
-                                            if (plan?._id === 'add_new') {
-                                                setIsCreateModalOpen(true);
-                                            } else {
-                                                setSelectedCustomPlan(plan);
-                                            }
-                                        }}
-                                    />
-                                    <Button
-                                        variant="outline"
-                                        size="icon"
-                                        onClick={() => setIsDeleteModalOpen(true)}
-                                        disabled={!selectedCustomPlan || selectedCustomPlan?._id === 'add_new'}
-                                    >
-                                        <Trash2 />
-                                    </Button>
-                                </div>
-                                <div className="mt-8">
-                                    <WeeklyMealPlan
-                                        mealPlan={mealPlanDetails || {}}
-                                        onAddRecipeClick={handleAddRecipeClick}
-                                    />
-                                </div>
-                            </TabsContent>
-                            <TabsContent value="preparation">
-                                {/* <Preparation /> */}
-                                <div className="mt-8">
-                                    <Preparation mealPlan={mealPlanDetails || {}} />
-                                </div>
-                            </TabsContent>
-                        </Tabs>
-                    </div>
+                            <div className="mt-8">
+                                <WeeklyMealPlan
+                                    mealPlan={mealPlanDetails || {}}
+                                    onAddRecipeClick={handleAddRecipeClick}
+                                />
+                            </div>
+                        </TabsContent>
+                        <TabsContent value="featured-plans">
+                            <div className="mt-4">
+                                <PlanTypeFilter
+                                    title="Select Featured Plan"
+                                    items={featuredDropDown || []}
+                                    value={selectedPlan}
+                                    onValueChange={setSelectedPlan}
+                                />
+                            </div>
+                            <div className="mt-8">
+                                <WeeklyMealPlan
+                                    mealPlan={mealPlanDetails || {}}
+                                    onAddRecipeClick={handleAddRecipeClick}
+                                />
+                            </div>
+                        </TabsContent>
+                        <TabsContent value="custom-plans">
+                            <div className="flex items-center gap-4 mt-4">
+                                <PlanTypeFilter
+                                    title="Select Custom Plan"
+                                    items={customDropDownWithOptions}
+                                    value={selectedCustomPlan}
+                                    onValueChange={(plan) => {
+                                        if (plan?._id === 'add_new') {
+                                            setIsCreateModalOpen(true);
+                                        } else {
+                                            setSelectedCustomPlan(plan);
+                                        }
+                                    }}
+                                />
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => setIsDeleteModalOpen(true)}
+                                    disabled={!selectedCustomPlan || selectedCustomPlan?._id === 'add_new'}
+                                >
+                                    <Trash2 />
+                                </Button>
+                            </div>
+                            <div className="mt-8">
+                                <WeeklyMealPlan
+                                    mealPlan={mealPlanDetails || {}}
+                                    onAddRecipeClick={handleAddRecipeClick}
+                                />
+                            </div>
+                        </TabsContent>
+                        <TabsContent value="preparation">
+                            <div className="mt-8">
+                                <Preparation mealPlan={mealPlanDetails || {}} />
+                            </div>
+                        </TabsContent>
+                        <TabsContent value="weak-prep">
+                            <div className="mt-8">
+                                <WeakPrep />
+                            </div>
+                        </TabsContent>
+                    </Tabs>
+                </div>
             </PageLayout>
 
 

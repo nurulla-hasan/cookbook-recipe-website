@@ -115,6 +115,15 @@ const mealPlanApi = baseApi.injectEndpoints({
             providesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 
+        // GET WEEKEND PREP
+        getWeekendPrep: builder.query({
+            query: (id) => ({
+                url: `/meal_plan/weekend-prep/${id}`,
+                method: "GET",
+            }),
+            providesTags: ["MEAL_PLAN"],
+        }),
+
         //===========================END GET QUERY============================================
 
         //===========================START MUTATION============================================
@@ -198,8 +207,17 @@ const mealPlanApi = baseApi.injectEndpoints({
             invalidatesTags: ["MEAL_PLAN", "GROCERY"],
         }),
 
-    })
-})
+        // TOGGLE SPEED PREP
+        toggleSpeedPrep: builder.mutation({
+            query: (data) => ({
+                url: "/meal_plan/toggle-speed-prep",
+                method: "PATCH",
+                body: data
+            }),
+            invalidatesTags: ["MEAL_PLAN"],
+        }),
+    }),
+});
 
 export const {
     useGetWeeklyMealPlanQuery,
@@ -210,5 +228,7 @@ export const {
     useCreateCustomMealPlanMutation,
     useSwapRecipeMutation,
     useRemoveRecipeMutation,
-    useDeleteCustomMealPlanMutation
+    useDeleteCustomMealPlanMutation,
+    useGetWeekendPrepQuery,
+    useToggleSpeedPrepMutation,
 } = mealPlanApi
