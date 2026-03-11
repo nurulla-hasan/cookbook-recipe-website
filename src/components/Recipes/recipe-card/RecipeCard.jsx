@@ -138,7 +138,7 @@ const RecipeCard = (
                         )}
                     </div>
 
-                    <h3 className="font-medium dark:text-white mb-2 truncate">
+                    <h3 className="font-medium dark:text-white mb-2 line-clamp-1">
                         {recipe.name}
                     </h3>
 

@@ -92,7 +92,7 @@ const AddRecipePlanModal = ({ isOpen, onOpenChange }) => {
                         </div>
 
                         {/* Recipe List */}
-                        <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
+                        <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
                             {isLoading ? (
                                 <RecipeCardSkeleton count={6} />
                             ) : isError ? (
