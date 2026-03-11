@@ -33,7 +33,6 @@ const Recipes = () => {
         setFilterParams,
     } = useSmartFetchHook(useGetRecipesQuery, { resultsKey: "result", limit: 20 });
 
-
     const handleApplyFilters = (filters) => {
         setFilterParams(filters);
     };
@@ -65,7 +64,6 @@ const Recipes = () => {
                         </div>
                     )
                 }
-
             >
                 {/* Title and Search/Filter */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">

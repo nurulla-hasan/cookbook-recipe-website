@@ -51,7 +51,7 @@ const MealPlanner = () => {
 
     const customDropDownWithOptions = [
         ...(customDropDown || []),
-        { _id: 'add_new', label: '+ Add New Plan', value: 'add_new' }
+        { _id: 'add_new', label: '+  Add New Plan', value: 'add_new' }
     ];
 
     const handleAddRecipeClick = (day) => {
@@ -212,8 +212,6 @@ const MealPlanner = () => {
                     </Tabs>
                 </div>
             </PageLayout>
-
-
             {/* Modal */}
             <CreatePlanModal
                 isOpen={isCreateModalOpen}

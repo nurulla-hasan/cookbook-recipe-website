@@ -51,7 +51,7 @@ const router = createBrowserRouter([
                 path: "recipes",
                 element: (
                     <PrivateRoute>
-                        {ErrorAndSuspense(Recipes, <CategoryPageSkeleton />)},
+                        {ErrorAndSuspense(Recipes, <CategoryPageSkeleton />)}
                     </PrivateRoute>
                 ),
             },
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
                 path: "category/:slug",
                 element: (
                     <PrivateRoute>
-                        {ErrorAndSuspense(Category, <CategoryPageSkeleton />)},
+                        {ErrorAndSuspense(Category, <CategoryPageSkeleton />)}
                     </PrivateRoute>
                 ),
             },
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
                 path: "diet-goals/:slug",
                 element: (
                     <PrivateRoute>
-                        {ErrorAndSuspense(DiatGoals, <CategoryPageSkeleton />)},
+                        {ErrorAndSuspense(DiatGoals, <CategoryPageSkeleton />)}
                     </PrivateRoute>
                 ),
             },
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
                 path: "recipes/recipe-details/:id",
                 element: (
                     <PrivateRoute>
-                        {ErrorAndSuspense(RecipeDetails, <RecipeDetailsSkeleton />)},
+                        {ErrorAndSuspense(RecipeDetails, <RecipeDetailsSkeleton />)}
                     </PrivateRoute>
                 ),
             },
@@ -83,7 +83,7 @@ const router = createBrowserRouter([
                 path: "meal-planner",
                 element: (
                     <PrivateRoute>
-                        {ErrorAndSuspense(MealPlanner, <MealPlannerSkeleton />)},
+                        {ErrorAndSuspense(MealPlanner, <MealPlannerSkeleton />)}
                     </PrivateRoute>
                 ),
             },
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
                 path: "grocery",
                 element: (
                     <PrivateRoute>
-                        {ErrorAndSuspense(Grocery, <Grocery />)},
+                        {ErrorAndSuspense(Grocery, <Grocery />)}
                     </PrivateRoute>
                 ),
             },
