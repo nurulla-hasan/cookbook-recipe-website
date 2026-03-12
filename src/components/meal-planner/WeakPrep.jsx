@@ -1,8 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, CheckCircle2, Circle, Info, Loader2 } from "lucide-react";
+import { Clock, CheckCircle2, Circle, Info } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useGetWeekendPrepQuery, useToggleSpeedPrepMutation } from "@/redux/feature/meal-plan/mealPlanApi";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 import NoData from "@/components/common/no-data/NoData";
 import Error from "@/components/common/error/Error";
@@ -11,22 +10,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 const WeakPrep = () => {
     const { planId } = useSelector((state) => state.addMealPlan);
     const { data: prepResponse, isLoading, isError, error } = useGetWeekendPrepQuery(planId, { skip: !planId });
-    const [toggleSpeedPrep, { isLoading: isToggling }] = useToggleSpeedPrepMutation();
-    const [loadingStepId, setLoadingStepId] = useState(null);
+    const [toggleSpeedPrep] = useToggleSpeedPrepMutation();
 
     const prepData = prepResponse?.data;
     const errorMessage = error?.data?.message || error?.message || "";
     const noRecipeError = isError && (errorMessage === "No recipes found in this plan!" || errorMessage.includes("No recipes found"));
 
     const handleToggleStep = async (stepId) => {
-        if (isToggling) return;
-        setLoadingStepId(stepId);
         try {
             await toggleSpeedPrep({ planId, stepId }).unwrap();
-        } catch (error) {
-            console.error("Failed to toggle step:", error);
-        } finally {
-            setLoadingStepId(null);
+        } catch {
+            // console.error("Failed to toggle step:", error);
         }
     };
 
@@ -94,16 +88,11 @@ const WeakPrep = () => {
                                             {item.steps.map((step) => (
                                                 <div 
                                                     key={step._id} 
-                                                    className={cn(
-                                                        "flex items-start gap-3 p-2 rounded-md transition-colors group",
-                                                        (loadingStepId === step._id || isToggling) ? "cursor-not-allowed opacity-70" : "hover:bg-muted/50 cursor-pointer"
-                                                    )}
+                                                    className="flex items-start gap-3 p-2 rounded-md transition-colors group hover:bg-muted/50 cursor-pointer"
                                                     onClick={() => handleToggleStep(step._id)}
                                                 >
                                                     <div className="mt-0.5">
-                                                        {loadingStepId === step._id ? (
-                                                            <Loader2 className="w-5 h-5 text-primary animate-spin" />
-                                                        ) : step.isDone ? (
+                                                        {step.isDone ? (
                                                             <CheckCircle2 className="w-5 h-5 text-primary" />
                                                         ) : (
                                                             <Circle className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />

@@ -214,6 +214,26 @@ const mealPlanApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 body: data
             }),
+            async onQueryStarted({ planId, stepId }, { dispatch, queryFulfilled }) {
+                // Optimistic Update start
+                const patchResult = dispatch(
+                    mealPlanApi.util.updateQueryData('getWeekendPrep', planId, (draft) => {
+                        if (draft?.data?.speed_prep) {
+                            draft.data.speed_prep.forEach(item => {
+                                const step = item.steps.find(s => s._id === stepId);
+                                if (step) {
+                                    step.isDone = !step.isDone;
+                                }
+                            });
+                        }
+                    })
+                );
+                try {
+                    await queryFulfilled;
+                } catch {
+                    patchResult.undo();
+                }
+            },
             invalidatesTags: ["MEAL_PLAN"],
         }),
     }),

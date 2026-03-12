@@ -28,7 +28,7 @@ const MobileDropdown = ({isLoading, isLoggedIn, user, handleLogout}) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="max-w-64 mr-4">
                     {isLoading ? (
-                        <div className="p-2 min-w-[200px]">
+                        <div className="p-2 min-w-50">
                             <Skeleton className="h-4 w-28 rounded mb-2" />
                             <Skeleton className="h-3 w-40 rounded" />
                         </div>
@@ -56,7 +56,7 @@ const MobileDropdown = ({isLoading, isLoggedIn, user, handleLogout}) => {
                                         <span>Favourite</span>
                                     </Link>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem asChild>
+                                {/* <DropdownMenuItem asChild>
                                     <Link to="/profile/my-recipes" className="w-full flex items-center">
                                         <Heart size={16} className="opacity-60 mr-2" aria-hidden="true" />
                                         <span>My Recipe</span>
@@ -67,7 +67,7 @@ const MobileDropdown = ({isLoading, isLoggedIn, user, handleLogout}) => {
                                         <Heart size={16} className="opacity-60 mr-2" aria-hidden="true" />
                                         <span>Add Recipe</span>
                                     </Link>
-                                </DropdownMenuItem>
+                                </DropdownMenuItem> */}
                                 <DropdownMenuItem onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
                                     {theme === 'dark' ? <Sun size={16} className="opacity-60 mr-2" /> : <Moon size={16} className="opacity-60 mr-2" />}
                                     <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
