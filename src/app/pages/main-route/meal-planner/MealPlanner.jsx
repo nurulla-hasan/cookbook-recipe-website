@@ -44,7 +44,7 @@ const MealPlanner = () => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     // const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
-    const { data: mealPlanDetailsResponse, isLoading: isDetailsLoading, isError: isDetailsError } = useGetMealPlanDetailsQuery(activeMealPlanId, { skip: !activeMealPlanId });
+    const { data: mealPlanDetailsResponse, isLoading: isDetailsLoading, error: detailsError } = useGetMealPlanDetailsQuery(activeMealPlanId, { skip: !activeMealPlanId });
     const mealPlanDetails = mealPlanDetailsResponse?.data;
     const [deleteCustomMealPlan, { isLoading: isDeleting }] = useDeleteCustomMealPlanMutation();
     // const [removeRecipe, { isLoading }] = useRemoveRecipeMutation();
@@ -63,6 +63,7 @@ const MealPlanner = () => {
         try {
             await deleteCustomMealPlan(selectedCustomPlan._id).unwrap();
             setSelectedCustomPlan(undefined); // Reset selection
+            setActiveMealPlanId(undefined); // Reset active ID to stop the details query
             setIsDeleteModalOpen(false);
         } catch (error) {
             console.error("Failed to delete custom meal plan", error);
@@ -77,8 +78,13 @@ const MealPlanner = () => {
             setActiveMealPlanId(selectedPlan?._id);
             dispatch(SetPlanId(selectedPlan?._id));
         } else if (activeTab === 'custom-plans') {
-            setActiveMealPlanId(selectedCustomPlan?._id);
-            dispatch(SetPlanId(selectedCustomPlan?._id));
+            if (selectedCustomPlan?._id) {
+                setActiveMealPlanId(selectedCustomPlan._id);
+                dispatch(SetPlanId(selectedCustomPlan._id));
+            } else {
+                setActiveMealPlanId(undefined);
+                dispatch(SetPlanId(undefined));
+            }
         }
     }, [activeTab, selectedWeek, selectedPlan, selectedCustomPlan, dispatch]);
 
@@ -98,6 +104,9 @@ const MealPlanner = () => {
     useEffect(() => {
         if (customDropDown && customDropDown.length > 0 && !selectedCustomPlan) {
             setSelectedCustomPlan(customDropDown[0]);
+        } else if (customDropDown && customDropDown.length === 0) {
+            setSelectedCustomPlan(undefined);
+            setActiveMealPlanId(undefined);
         }
     }, [customDropDown, selectedCustomPlan]);
 
@@ -106,8 +115,9 @@ const MealPlanner = () => {
         { name: "Meal Planner" },
     ];
 
+    const isMealPlanNotFoundError = detailsError?.data?.message === "Meal Plan not found!";
     const isLoading = isWeeklyLoading || isFeaturedLoading || isCustomLoading || isDetailsLoading;
-    const isError = isWeeklyError || isFeaturedError || isCustomError || isDetailsError;
+    const isError = isWeeklyError || isFeaturedError || isCustomError || (!!detailsError && !isMealPlanNotFoundError);
 
     if (isLoading) {
         return <MealPlannerSkeleton />

@@ -5,7 +5,6 @@ import { SetUserProfile } from './profile/profileSlice';
 const rawBaseQuery = fetchBaseQuery({
     baseUrl: 'https://backend.koumanisdietapp.com',
     // baseUrl: 'http://10.10.20.34:5005',
-    // baseUrl: 'http://10.10.20.50:5005',
 
     prepareHeaders: (headers, { getState }) => {
         const token = getState()?.auth.accessToken;
