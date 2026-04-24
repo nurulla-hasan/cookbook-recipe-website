@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SetCardModalOpen, SetMealPlannerModalOpen, SetMealPlannerSwapModalOpen, SetRecipeId, SetSelectedDay } from "@/redux/feature/meal-plan/addMealPlanSlice";
 import { useAddMealPlanRecipesMutation, useSwapRecipeMutation } from "@/redux/feature/meal-plan/mealPlanApi";
 import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const RecipeCard = (
     {
@@ -91,9 +92,50 @@ const RecipeCard = (
                 {/* Content - Right Side */}
                 <div className="p-5 grow flex flex-col md:w-2/3">
                     <div className="flex justify-between items-start mb-3">
-                        <Badge className="capitalize rounded-full bg-black/40">
-                            {typeof recipe.category === 'object' ? recipe.category.name : recipe.category}
-                        </Badge>
+                        <div className="flex flex-wrap gap-1 max-w-[70%]">
+                            {Array.isArray(recipe.category) ? (
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <div className="flex flex-wrap gap-1 cursor-help">
+                                                {recipe.category.slice(0, 2).map((cat, index) => (
+                                                    <Badge key={index} className="capitalize rounded-full bg-black/40 text-[10px] px-2 py-0">
+                                                        {typeof cat === 'object' ? cat.name : cat}
+                                                    </Badge>
+                                                ))}
+                                                {recipe.category.length > 2 && (
+                                                    <span className="text-[10px] text-muted-foreground self-center">
+                                                        +{recipe.category.length - 2}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </TooltipTrigger>
+                                        <TooltipContent className="flex flex-col gap-1 p-2 max-h-48 overflow-y-auto">
+                                            {recipe.category.map((cat, index) => (
+                                                <span key={index} className="capitalize">
+                                                    {typeof cat === 'object' ? cat.name : cat}
+                                                </span>
+                                            ))}
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            ) : (
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <Badge className="capitalize rounded-full bg-black/40 text-[10px] px-2 py-0 cursor-help">
+                                                {typeof recipe.category === 'object' ? recipe.category.name : recipe.category}
+                                            </Badge>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <span className="capitalize">
+                                                {typeof recipe.category === 'object' ? recipe.category.name : recipe.category}
+                                            </span>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            )}
+                        </div>
 
                         {/* Favorite Button */}
                         {favorite && (

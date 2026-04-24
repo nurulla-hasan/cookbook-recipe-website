@@ -41,7 +41,37 @@ const GroceryRecipeCard = ({ image, title, subtitle, ingredients }) => {
                         </TooltipContent>
                     </Tooltip>
                 </TooltipProvider>
-                <Badge className="rounded uppercase text-[10px] tracking-widest" variant="outline">{subtitle}</Badge>
+                <div className="flex flex-wrap gap-1 mt-2">
+                    {Array.isArray(subtitle) ? (
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <div className="flex flex-wrap gap-1 cursor-help max-w-full overflow-hidden">
+                                        {subtitle.slice(0, 1).map((sub, index) => (
+                                            <Badge key={index} className="rounded uppercase text-[10px] tracking-widest truncate" variant="outline">
+                                                {sub}
+                                            </Badge>
+                                        ))}
+                                        {subtitle.length > 1 && (
+                                            <span className="text-[10px] text-muted-foreground self-center">
+                                                +{subtitle.length - 1}
+                                            </span>
+                                        )}
+                                    </div>
+                                </TooltipTrigger>
+                                <TooltipContent className="flex flex-col gap-1 p-2 max-h-48 overflow-y-auto">
+                                    {subtitle.map((sub, index) => (
+                                        <span key={index} className="capitalize text-xs">
+                                            {sub}
+                                        </span>
+                                    ))}
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    ) : (
+                        <Badge className="rounded uppercase text-[10px] tracking-widest" variant="outline">{subtitle}</Badge>
+                    )}
+                </div>
             </div>
             <div className="grow md:grow-0">
                 <div className="space-y-2">

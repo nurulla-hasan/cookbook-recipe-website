@@ -33,7 +33,7 @@ const DayCard = ({ day, meals, nutritionalTotals, onAddRecipeClick}) => {
                 ))}
                 <div 
                     onClick={onAddRecipeClick}
-                    className="flex flex-col gap-2 items-center justify-center border-2 border-dashed rounded-lg min-h-[200px] cursor-pointer">
+                    className="flex flex-col gap-2 items-center justify-center border-2 border-dashed rounded-lg min-h-50 cursor-pointer">
                     <button className="border-2 border-dashed rounded-md p-4 cursor-pointer">
                         <Plus />
                     </button>

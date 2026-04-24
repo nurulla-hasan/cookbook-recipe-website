@@ -23,18 +23,16 @@ const MealCard = ({ meal, day }) => {
     }
     const handleRemoveConfirm = async () => {
         try {
-            const { data } = await removeRecipe({
+            await removeRecipe({
                 removeId: recipeId,
                 day: selectedDay,
                 planId: planId
             }).unwrap();
 
-            if (data) {
-                SuccessToast("Recipe removed successfully");
-                setConfirmationModalOpen(false);
-                dispatch(SetRecipeId(null));
-                dispatch(SetSelectedDay(null));
-            }
+            SuccessToast("Recipe removed successfully");
+            setConfirmationModalOpen(false);
+            dispatch(SetRecipeId(null));
+            dispatch(SetSelectedDay(null));
         } catch (error) {
             console.error("Failed to remove recipe:", error);
             ErrorToast(error.data?.message || "Failed to remove recipe");

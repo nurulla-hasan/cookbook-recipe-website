@@ -40,8 +40,15 @@ const RecipeDetails = () => {
     const renderBadges = () => {
         const badges = [];
         if (recipe.category) {
-            const categoryName = typeof recipe.category === 'object' ? recipe.category.name : recipe.category;
-            badges.push(<Badge key="category" variant="outline">{categoryName}</Badge>);
+            if (Array.isArray(recipe.category)) {
+                recipe.category.forEach((cat, index) => {
+                    const categoryName = typeof cat === 'object' ? cat.name : cat;
+                    badges.push(<Badge key={`category-${index}`} variant="outline">{categoryName}</Badge>);
+                });
+            } else {
+                const categoryName = typeof recipe.category === 'object' ? recipe.category.name : recipe.category;
+                badges.push(<Badge key="category" variant="outline">{categoryName}</Badge>);
+            }
         }
         if (recipe.holiday_recipes) badges.push(<Badge key="holiday" variant="outline">{recipe.holiday_recipes}</Badge>);
         if (recipe.oils) badges.push(<Badge key="oils" variant="outline">{recipe.oils.replace(/_/g, ' ')}</Badge>);

@@ -56,8 +56,16 @@ const DetailsTabs = ({ recipe }) => {
                     {/* Recipe Tips */}
                     {recipe_tips && (
                         <div>
-                            <h3 className="text-xl font-semibold  mb-4">Recipe Tips</h3>
-                            <p>{recipe_tips}</p>
+                            <h3 className="text-xl font-semibold mb-4">Recipe Tips</h3>
+                            {Array.isArray(recipe_tips) ? (
+                                <ul className="space-y-2 list-disc list-inside">
+                                    {recipe_tips.map((tip, index) => (
+                                        <li key={index} className="text-muted-foreground">{tip}</li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className="text-muted-foreground">{recipe_tips}</p>
+                            )}
                         </div>
                     )}
                 </TabsContent>

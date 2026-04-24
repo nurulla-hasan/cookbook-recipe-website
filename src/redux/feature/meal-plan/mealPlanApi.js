@@ -112,7 +112,7 @@ const mealPlanApi = baseApi.injectEndpoints({
                 url: `/meal_plan/get_mealPlan_details/${id}`,
                 method: "GET",
             }),
-            providesTags: ["MEAL_PLAN", "GROCERY"],
+            providesTags: [tagTypes.MEAL_PLAN, tagTypes.GROCERY],
         }),
 
         // GET WEEKEND PREP
