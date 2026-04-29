@@ -8,18 +8,19 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
-import FilterDropdown from '../filter-dropdown/FilterDropdown';
+import FilterDropdown, { MultiSelectDropdown } from '../filter-dropdown/FilterDropdown';
 import { StarRating } from '@/tools/StarRating';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useGetCategoryDropDownQuery } from '@/redux/feature/category/category';
 
 const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
   // State for filters
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState([]);
+  const [ethnic, setEthnic] = useState([]);
   const [intermittentFasting, setIntermittentFasting] = useState('');
   const [oils, setOils] = useState('');
   const [weightLossMuscleGain, setWeightLossMuscleGain] = useState('');
-  const [wholeFoodType, setWholeFoodType] = useState('');
+  const [wholeFoodType, setWholeFoodType] = useState([]);
   const [flavorType, setFlavorType] = useState('');
   const [cuisineProfiles, setCuisineProfiles] = useState('');
 
@@ -86,6 +87,18 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
     { value: 'savory', label: 'Savory' }
   ];
 
+  const ethnicOptions = [
+    { value: 'arabic', label: 'Arabic' },
+    { value: 'chinese', label: 'Chinese' },
+    { value: 'french', label: 'French' },
+    { value: 'greek', label: 'Greek' },
+    { value: 'indian', label: 'Indian' },
+    { value: 'italian', label: 'Italian' },
+    { value: 'japanese', label: 'Japanese' },
+    { value: 'mexican', label: 'Mexican' },
+    { value: 'thai', label: 'Thai' }
+  ];
+
   const cuisineProfilesOptions = [
     { value: 'african', label: 'African' },
     { value: 'american', label: 'American' },
@@ -97,12 +110,15 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
 
 
   const handleApply = () => {
+    // Combine category and ethnic (Region) selections into a single category key
+    const combinedCategories = [...category, ...ethnic];
+    
     const filters = {
-      category: category || undefined,
+      category: combinedCategories.length > 0 ? combinedCategories.join(',') : undefined,
       intermittent_fasting: intermittentFasting || undefined,
       oils: oils || undefined,
       weight_loss_muscle_gain: weightLossMuscleGain || undefined,
-      whole_food_type: wholeFoodType || undefined,
+      whole_food_type: wholeFoodType.length > 0 ? wholeFoodType.join(',') : undefined,
       flavor_type: flavorType || undefined,
       cuisine_profiles: cuisineProfiles || undefined,
       ...(filtersModified.serving && {
@@ -128,11 +144,12 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
   };
 
   const handleClear = () => {
-    setCategory('');
+    setCategory([]);
+    setEthnic([]);
     setIntermittentFasting('');
     setOils('');
     setWeightLossMuscleGain('');
-    setWholeFoodType('');
+    setWholeFoodType([]);
     setFlavorType('');
     setCuisineProfiles('');
     setServing([2, 4]);
@@ -146,7 +163,7 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-106.25 lg:max-w-150 bg-secondary p-6 rounded-lg shadow-lg">
         <DialogHeader className="relative">
-          <DialogTitle className="text-2xl font-bold text-center">Filter By Ingredients & More</DialogTitle>
+          <DialogTitle className="text-2xl font-medium text-center">Filter By Ingredients & More</DialogTitle>
           <DialogDescription className="sr-only">
             Select your preferred filters to narrow down your search.
           </DialogDescription>
@@ -156,11 +173,17 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
           <div className="grid gap-4 py-4 mr-4 md:mr-0">
             {/* Filter Categories */}
             <div className="space-y-3">
-              <FilterDropdown 
+              <MultiSelectDropdown 
                 label="Category" 
                 options={categoryOptions} 
                 selected={category} 
                 onSelect={setCategory} 
+              />
+              <MultiSelectDropdown 
+                label="Region" 
+                options={ethnicOptions} 
+                selected={ethnic} 
+                onSelect={setEthnic} 
               />
               <FilterDropdown 
                 label="Hot or Cold" 
@@ -180,7 +203,7 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
                 selected={weightLossMuscleGain} 
                 onSelect={setWeightLossMuscleGain} 
               />
-              <FilterDropdown 
+              <MultiSelectDropdown 
                 label="Whole Food Type" 
                 options={wholeFoodTypeOptions} 
                 selected={wholeFoodType} 
