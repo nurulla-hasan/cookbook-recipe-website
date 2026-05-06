@@ -79,7 +79,10 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
   const wholeFoodTypeOptions = [
     { value: 'plant_based', label: 'Plant Based' },
     { value: 'whole_food', label: 'Whole Food' },
-    { value: 'paleo', label: 'Paleo' }
+    { value: 'paleo', label: 'Paleo' },
+    { value: 'animal_protein', label: 'Animal Protein' },
+    { value: 'vegan', label: 'Vegan' },
+    { value: 'vegetarian', label: 'Vegetarian' }
   ];
 
   const flavorTypeOptions = [
@@ -161,7 +164,7 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-106.25 lg:max-w-150 bg-secondary p-6 rounded-lg shadow-lg">
+      <DialogContent className="sm:max-w-3xl bg-secondary p-6 rounded-lg shadow-lg">
         <DialogHeader className="relative">
           <DialogTitle className="text-2xl font-medium text-center">Filter By Ingredients & More</DialogTitle>
           <DialogDescription className="sr-only">
