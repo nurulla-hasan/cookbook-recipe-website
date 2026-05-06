@@ -31,7 +31,7 @@ const DesktopDropdown = ({ isLoading, isLoggedIn, user, handleLogout }) => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="max-w-64 mr-4">
                         {isLoading ? (
-                            <div className="p-2 min-w-[200px]">
+                            <div className="p-2 min-w-50">
                                 <Skeleton className="h-4 w-28 rounded mb-2" />
                                 <Skeleton className="h-3 w-40 rounded" />
                             </div>

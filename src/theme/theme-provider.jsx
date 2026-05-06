@@ -14,7 +14,7 @@ export function ThemeProvider({
   ...props
 }) {
   const [theme, setTheme] = useState(
-    () => (localStorage.getItem(storageKey)) || defaultTheme
+    () => (localStorage.getItem(storageKey)) ?? defaultTheme
   )
 
   useEffect(() => {
@@ -50,6 +50,7 @@ export function ThemeProvider({
   )
 }
 
+// eslint-disable-next-line refresh/only-export-components
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
 

@@ -11,8 +11,8 @@ import { Toaster } from 'sonner'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <div className="max-w-[1920px] mx-auto">
-        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <div className="max-w-480 mx-auto">
+        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
           <RouterProvider router={router} />
         </ThemeProvider>
         <Toaster richColors/>
