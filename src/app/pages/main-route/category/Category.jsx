@@ -1,6 +1,6 @@
 import PageLayout from '@/tools/PageLayout';
 import PageHeader from '@/components/common/page-header/PageHeader';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import RecipeCard from '@/components/Recipes/recipe-card/RecipeCard';
 import useSmartFetchHook from '@/hooks/useSmartFetchHook';
 import { useGetRecipeByCategoryQuery } from '@/redux/feature/home/homeApi';
@@ -15,12 +15,11 @@ import { SetCardModalClose, SetRecipeId } from '@/redux/feature/meal-plan/addMea
 const Category = () => {
     const dispatch = useDispatch();
     const { cardModalOpen } = useSelector((state) => state.addMealPlan);
-    const { slug: categoryId } = useParams();
-    const location = useLocation();
-    
-    // Get category name from query params
-    const queryParams = new URLSearchParams(location.search);
-    const categoryName = queryParams.get('name') || "Category";
+    const { slug: categorySlug } = useParams();
+    const categoryName = decodeURIComponent(categorySlug)
+        .split(/[-/]+/)
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
 
     const {
         currentPage,
@@ -29,7 +28,7 @@ const Category = () => {
         items: recipes,
         isLoading,
         isError,
-    } = useSmartFetchHook(useGetRecipeByCategoryQuery, { resultsKey: "result" }, { category: categoryId });
+    } = useSmartFetchHook(useGetRecipeByCategoryQuery, { resultsKey: "result", limit: 20 }, { category: categorySlug });
 
     const breadcrumbs = [
         { name: 'Home', href: '/' },
@@ -71,7 +70,7 @@ const Category = () => {
                                     key={recipe._id}
                                     recipe={recipe}
                                     from={categoryName}
-                                    fromPath={`/category/${categoryId}?name=${encodeURIComponent(categoryName)}`}
+                                    fromPath={`/category/${encodeURIComponent(categorySlug)}`}
                                     showCartButton={true}
                                 />
                             ))
