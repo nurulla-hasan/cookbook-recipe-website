@@ -25,7 +25,7 @@ const TopCategories = () => {
                     ) : (
                         categories.map((category) => (
                             <Link
-                                to={`/category/${category._id}?name=${encodeURIComponent(category.name)}`}
+                                to={`/category/${encodeURIComponent(category.slug)}`}
                                 key={category._id}
                                 className="bg-secondary rounded-2xl p-6 flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
                             >
