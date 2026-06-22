@@ -445,6 +445,12 @@ const AddRecipe = () => {
                         </FormControl>
                         <FormLabel className="font-normal">Savory</FormLabel>
                       </FormItem>
+                      <FormItem className="flex items-center space-x-2">
+                        <FormControl>
+                          <RadioGroupItem value="Spicy" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Spicy</FormLabel>
+                      </FormItem>
                     </RadioGroup>
                   </FormControl>
                   <FormMessage />

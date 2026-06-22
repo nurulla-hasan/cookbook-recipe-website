@@ -87,7 +87,8 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, onClearFilters }) => {
 
   const flavorTypeOptions = [
     { value: 'sweet', label: 'Sweet' },
-    { value: 'savory', label: 'Savory' }
+    { value: 'savory', label: 'Savory' },
+    { value: 'spicy', label: 'Spicy' }
   ];
 
   const ethnicOptions = [

@@ -11,3 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+
+# pnpm
+pnpm-workspace.yaml
+pnpm-lock.yaml
+config.bat
